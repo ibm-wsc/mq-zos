@@ -3,14 +3,14 @@
 ### Audience level: knowledge of MQ or z/OS 
 ### Skillset: z/OS Systems Programming, MQ Administration
 
-
-
 Background:
 Shared message data sets (SMDS) are the preferred method for offloading large messages in queue-sharing groups. SMDS’s are designed to handle large messages efficiently, so in this exercise, we will test two CF structures, one with SMDS and the other with BLOBs to examine the differences between the two offloading mechanisms.
+
 Overview of exercise:
 I.	Run OEMPUT program against SMDS-enabled CF structure (TEST1)
 II.	Run OEMPUT program against BLOB-enabled CF structure (TEST2)
 III.	Compare the output from both
+
 Steps of exercise:
 I. Run OEMPUT program against SMDS-enabled CF structure (TEST1)
 1.	Using MQ Explorer, verify that the below configuration is in place. You should see connections to ZQS1, ZQS2, and you should see a QSGA queue-sharing group visible.

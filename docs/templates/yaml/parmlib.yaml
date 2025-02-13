@@ -1,0 +1,109 @@
+bpxprm
+  component_trace_member: "CTIBPX00"
+  auto_convert: ON
+  maximum_shared_member_segment_pages: 262144
+  maximum_interprocess_message_number_ids: 680
+  maximum_interprocess_semaphore_ids: 680
+  maximum_simultaneous_open_files: 64000
+  maximum_simultaneous_sytem_processes: 4096
+  maximum_simultaneous_user_processes: 500
+  maximum_number_of_pseudo_terminals: 256
+  maximum_number_of_threads: 10000
+  maximum_number_of_thread_support_tasks: 5000
+  maximum_address_space_size: 2147483647
+  maximum_CPU_time: 2147483647
+  priority_goal_list:
+    - "'-EBUZ_LO'"
+  priority_pg_number_list:
+    - 5
+  step_library_list: "'/system/steplib'"
+  file_system_type_info:
+    file_system_definitions:
+      - fstype: "HFS"
+        entry_point: "GFUAINIT"
+      - fstype: "ZFS"
+        entry_point: "IOEFSCM"
+        address_space_name: "ZFS"
+        address_space_parameter: "'SUB=MSTR'"
+      - fstype: "AUTOMNT"
+        entry_point: "BPXTAMD"
+    sysplex: "YES"
+    version: "'&SYSR1'"
+    super_user: "OMVSKERN"
+  file_systems:
+    - dataset_name: "USSZFS.&SYSPLEX..ROOT.ZFS"
+      mount_point: "ROOT"
+      fstype: "ZFS"
+      mode: "Read-Write"
+    - dataset_name: "USSZFS.&SYSNAME..SYSTEM.ZFS"
+      mount_point: "/&SYSNAME."
+      fstype: "ZFS"
+      mode: "Read-Write"
+      automove: false
+    - dataset_name: "USSZFS.&SYSNAME..DEV.ZFS"
+      mount_point: "/&SYSNAME./dev"
+      fstype: "ZFS"
+      mode: "Read-Write"
+    - dataset_name: "USSPRE.&SYSR1.BASE.ZFS"
+      mount_point: "/$VERSION"
+      fstype: "ZFS"
+      mode: "Read"
+    - dataset_name: "USSPRE.&SYSNAME..&VVRR..ETC.ZFS"
+      mount_point: "/&SYSNAME./etc"
+      fstype: "ZFS"
+      mode: "Read-Write"
+    - dataset_name: "USSPRE.&SYSNAME..&VVRR..VAR.ZFS"
+      mount_point: "/&SYSNAME./var"
+      fstype: "ZFS"
+      mode: "Read-Write"
+    - dataset_name: "USSPRE.&SYSR2..JAVA8A.ZFS"
+      mount_point: "/usr/lpp/java/J8.0"
+      fatype: "ZFS"
+      mode: "Read"
+    - dataset_name: "USSPRE.&SYSR2..JAVA8B.ZFS"
+      mount_point: "/usr/lpp/java/J8.0.64"
+      fatype: "ZFS"
+      mode: "Read"
+    - dataset_name: "USSPRE.&SYSR2..LIBERTY.ZFS"
+      mount_point: "/usr/lpp/liberty_zos"
+      fstype: "ZFS"
+      mode: "Read"
+    - dataset_name: "IZU.SIZUUSRD.ZFS"
+      mount_point: "/global/zosmf"
+      fstype: "ZFS"
+      mode: "Read-Write"
+    - dataset_name: "CIM.VARWBEM.ZFS"
+      mount_point: "/shared/webm"
+      fstype: "ZFS"
+      mode: "Read-Write"
+    - dataset_name: "CTS530.CICSTS.CICSTS53"
+      mount_point: "/shared/cicsts/cicsts53"
+      fstype: "ZFS"
+      mode: "Read"
+    - dataset_name: "IDZ.EXPLORER.ZFS"
+      mount_point: "/shared/IBM/zexpl"
+      fstype: "ZFS"
+      mode: "Read-Write"
+  network_definitions:
+    - network_type: "INET"
+      entry_point: "EZBPFINI"
+      networks:
+        - domain_name: "AF_INET"
+          domain_number: 2
+          fstype: "INET"
+          maximum_number_of_sockets: 640000
+        - domain_name: "AF_INET6"
+          domain_number: 19
+          maximum_number_of_sockets: 300000
+          fstype: "INET"
+        - sub_filesystem:
+          Name: "TCPIP"
+          fstype: "INET"
+          Entry Point: "EZBFINI"
+    - type: "UDS"
+      entry_point: "BPXTUINT"
+      networks:
+        - domain_name: "AF_UNIX"
+          domain_number: 1
+          maximum_number_of_sockets: 2000
+          fstype: "UDS"

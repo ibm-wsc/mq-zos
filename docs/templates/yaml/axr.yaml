@@ -1,0 +1,10 @@
+CPF : "'REXX&SYSCLONE.',SYSPLEX"
+AXUSER: "AXRUSER"
+REXXLIB:
+  - dataset_name: "SYSS.SYSSUPT.SAXREXEC"
+    volume: 
+  - dataset_name: "SYS1.SAXREXEC"
+    volume:
+MAXWORKERTASKS: "32"
+MAXTSOSERVERS: ""
+TIMEINT: ""

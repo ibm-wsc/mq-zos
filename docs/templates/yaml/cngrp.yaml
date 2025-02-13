@@ -1,0 +1,5 @@
+GROUP 
+  - NAME: "SYNCHDST"                   
+    MEMBERS: "*SYSCON*,&SYSNAME.@E47"  
+  - NAME: "NOCNSGRP"                 
+    MEMBERS: "&SYSNAME.@E47"

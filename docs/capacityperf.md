@@ -1,8 +1,0 @@
-# Capacity Planning and Performance Tools for Customers
-
-| Offering    | Link | About | Format |
-| -------- | ------- | ------- | ------- |
-| IBM Z Batch Network Analyzer | [Link](https://www.ibm.com/support/pages/node/6354321) | IBM Z Batch Network Analyzer (IBM zBNA) is a no charge, "as is", PC-based productivity tool designed to understand the batch window and estimate the CPU upgrade effect by performing "what if" analyses. Use IBM zBNA to evaluate the impact of new technology exploitation such as zEDC, DFSMS Encryption, zHyperLink, and DFSORT IBM Z Sort. IBM zBNA provides powerful, graphic demonstration of the z/OS batch window, which can be automatically captured in a report file using the Named Favorites feature. | Tooling |
-| IBM z Processor Capacity Reference | [Link](https://www.ibm.com/support/pages/node/6354029) | IBM zPCR is a PC-based productivity tool for Windows and macOS. It is designed to provide capacity planning insight for IBM Z and LinuxONE processors running LPAR configurations with various workload environments under z/OS, z/VM, z/VSE, KVM, Linux, SSC, and CFCC. Capacity results are based on IBM's LSPR data supporting all IBM Z and LinuxONE processors including the new IBM z16 A02/AGZ and LinuxONE Rockhopper 4 processor families.
-| Tooling |
-| IBM Z Software Migration Capacity Planning Aid | [Link](https://www.ibm.com/support/pages/node/6354117) | IBM Z Software Migration Capacity Planning Aid (IBM zSoftCap) is PC-based tool that evaluates the effect on IBM Z processor capacity when migrating to newer levels of software, including z/OS, z/VSE, CICS, and IMS. IBM zSoftCap assumes that the hardware configuration remains constant while the software version or release changes. | Tooling |

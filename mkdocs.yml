@@ -1,21 +1,23 @@
-site_name: "IBM Washington Systems Center"
+site_name: "IBM MQ for z/OS"
 nav:
   - Overview: index.md
+  - Comparing Offloading Lab: comparingoffloading.md
+  - Streaming Queues Lab: streamingqueues.md
 
 # Project Information
-site_url: 'https://github.com/ibm-wsc/'
-site_description: IBM Washington Systems Center
+site_url: 'https://github.com/ibm-wsc/mq-zos/'
+site_description: IBM MQ for z/OS
 site_author: IBM Z WSC
 
 # Repository Information
-repo_url: 'https://github.com/ibm-wsc/'
+repo_url: 'https://github.com/ibm-wsc/mq-zos'
 docs_dir: 'docs'
 site_dir: 'site'
 remote_branch: 'gh-pages'
 remote_name: 'origin'
 theme:
-  logo: assets/ibm_logo.png
-  favicon: assets/ibm_logo.png
+  logo: assets/wsc-logo.png
+  favicon: assets/wsc-logo.png
   name: material
   font:
     text: IBM Plex Sans

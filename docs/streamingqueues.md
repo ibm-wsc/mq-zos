@@ -2,12 +2,12 @@
 Audience level: Some knowledge of MQ or z/OS 
 Skillset:  MQ Administration
 
-#### Background: 
+#### Background
 This lab introduces using streaming queues to IBM MQ for z/OS. Streaming queues was released in the IBM MQ product in release version 9.2.3. The function enables you to send near-duplicate messages to a secondary queue, called the streaming queue. 
 
-#### Overview of the exercise:
+#### Overview of the exercise
 
-#### Lab Begin:
+#### Lab Begin
 
 1)	If not already started, start the MQ Explorer by double clicking on the icon on the image.
 

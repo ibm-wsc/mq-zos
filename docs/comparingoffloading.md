@@ -2,10 +2,10 @@
 ### Audience level: knowledge of MQ or z/OS 
 ### Skillset: z/OS Systems Programming, MQ Administration
 
-### Background: 
+### Background 
 Shared message data sets (SMDS) are the preferred method for offloading large messages in queue-sharing groups. SMDS’s are designed to handle large messages efficiently, so in this exercise, we will test two CF structures, one with SMDS and the other with BLOBs to examine the differences between the two offloading mechanisms.
 
-### Overview of exercise:  
+### Overview of exercise
 
 I.	Run OEMPUT program against SMDS-enabled CF structure (TEST1)
 
@@ -13,7 +13,7 @@ II.	Run OEMPUT program against BLOB-enabled CF structure (TEST2)
 
 III.	Compare the output from both
 
-### Steps of exercise: 
+### Steps of exercise
 
 #### I. Run OEMPUT program against SMDS-enabled CF structure (TEST1)
 
@@ -22,17 +22,17 @@ III.	Compare the output from both
 2.	In MQ Explorer, navigate to the queue-sharing group QSGA’s Coupling Facility Structures by clicking  ‘>’ next to the QSGA label then pressing Coupling Facility Structures to display more information.
 
 3.	Your structures should look like the following:
-    ![Picture of CF structures list from MQ Explorer](Picture1.png "Picture of structure list from MQ Explorer")
+    ![Picture of CF structures list from MQ Explorer](assets/Picture1.png "Picture of structure list from MQ Explorer")
 
 4.	Scroll to the right, making sure that all offload rules are the same for TEST1 and TEST2 except for the ‘Offload’ and ‘Group data set name’ fields.
 
-    ![Picture of CF structures list from MQ Explorer](Picture2.png "Picture of structure list from MQ Explorer")
+    ![Picture of CF structures list from MQ Explorer](assets/Picture2.png "Picture of structure list from MQ Explorer")
 
 5.	Now, navigate to the MQS1 z/OS image.
 
 6.	Use option 3.4 to navigate to the ZQS1.MQ.JCL data set. Navigate to PUTSMDS and type an ‘e’ to edit the member.
 
-    ![Picture of ZQS1.MQ.JCL members](Picture3.png "Picture of ZQS1.MQ.JCL members")
+    ![Picture of ZQS1.MQ.JCL members](assets/Picture3.png "Picture of ZQS1.MQ.JCL members")
 
 7.	 In PUTSMDS, you will see an execution of OEMPUT. This JCL puts a large amount of large messages on our SMDS.QUEUE, defined to TEST1.
 Which parameters are we using with OEMPUT here?
@@ -93,10 +93,10 @@ Which parameters are we using with OEMPUT here?
  
 *Figure 1. SMDS performance*
 
-![Picture of SMDS performance report](Picture4.png "Picture of SMDS performance")
+![Picture of SMDS performance report](assets/Picture4.png "Picture of SMDS performance")
 
  
 *Figure 2 BLOB performance*
 
-![Picture of BLOB performance report](Picture4.png "Picture of SMDS performance")
+![Picture of BLOB performance report](assets/Picture4.png "Picture of SMDS performance")
 

@@ -12,26 +12,28 @@
         <meta name="author" content="IBM Z WSC">
       
       
-        <link rel="canonical" href="https://github.com/ibm-wsc/mq-zos/">
+        <link rel="canonical" href="https://github.com/ibm-wsc/mq-zos/mp1bhowto/">
       
       
+        <link rel="prev" href="../comparingoffloading/">
       
-        <link rel="next" href="comparingoffloading/">
+      
+        <link rel="next" href="../streamingqueues/">
       
       
-      <link rel="icon" href="assets/wsc-logo.png">
+      <link rel="icon" href="../assets/wsc-logo.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.46">
     
     
       
-        <title>IBM MQ for z/OS</title>
+        <title>MP1B Lab - IBM MQ for z/OS</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.6f8fc17f.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.6f8fc17f.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -50,9 +52,9 @@
       
     
     
-      <link rel="stylesheet" href="stylesheets/extra.css">
+      <link rel="stylesheet" href="../stylesheets/extra.css">
     
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -78,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#ibm-mq-for-zos-enablement-for-the-ibm-washington-systems-center" class="md-skip">
+        <a href="#looking-at-smf-data-for-problem-determination" class="md-skip">
           Skip to content
         </a>
       
@@ -94,9 +96,9 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="IBM MQ for z/OS" class="md-header__button md-logo" aria-label="IBM MQ for z/OS" data-md-component="logo">
+    <a href=".." title="IBM MQ for z/OS" class="md-header__button md-logo" aria-label="IBM MQ for z/OS" data-md-component="logo">
       
-  <img src="assets/wsc-logo.png" alt="logo">
+  <img src="../assets/wsc-logo.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -113,7 +115,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Home
+              MP1B Lab
             
           </span>
         </div>
@@ -226,9 +228,9 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="IBM MQ for z/OS" class="md-nav__button md-logo" aria-label="IBM MQ for z/OS" data-md-component="logo">
+    <a href=".." title="IBM MQ for z/OS" class="md-nav__button md-logo" aria-label="IBM MQ for z/OS" data-md-component="logo">
       
-  <img src="assets/wsc-logo.png" alt="logo">
+  <img src="../assets/wsc-logo.png" alt="logo">
 
     </a>
     IBM MQ for z/OS
@@ -252,6 +254,46 @@
       
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../comparingoffloading/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Comparing Offloading Lab
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
     
   
   
@@ -268,18 +310,18 @@
           
   
   <span class="md-ellipsis">
-    Home
+    MP1B Lab
   </span>
   
 
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <a href="." class="md-nav__link md-nav__link--active">
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
-    Home
+    MP1B Lab
   </span>
   
 
@@ -301,27 +343,54 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#at-a-glance" class="md-nav__link">
+  <a href="#audience-level" class="md-nav__link">
     <span class="md-ellipsis">
-      At a glance
+      Audience level
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#other-ibm-mq-resources-not-specific-to-zos" class="md-nav__link">
+  <a href="#skillset" class="md-nav__link">
     <span class="md-ellipsis">
-      Other IBM MQ resources - not specific to z/OS
+      Skillset
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#acknowledgements" class="md-nav__link">
+  <a href="#background" class="md-nav__link">
     <span class="md-ellipsis">
-      Acknowledgements
+      Background
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview-of-exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview of exercise
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercise
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
     </span>
   </a>
   
@@ -342,47 +411,7 @@
   
   
     <li class="md-nav__item">
-      <a href="comparingoffloading/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Comparing Offloading Lab
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="mp1bhowto/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    MP1B Lab
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="streamingqueues/" class="md-nav__link">
+      <a href="../streamingqueues/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -402,7 +431,7 @@
   
   
     <li class="md-nav__item">
-      <a href="archive/" class="md-nav__link">
+      <a href="../archive/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -457,7 +486,7 @@
   
   
     <li class="md-nav__item">
-      <a href="Blog/CF%20calls%20Generated%20by%20an%20MQGET%20Query/" class="md-nav__link">
+      <a href="../Blog/CF%20calls%20Generated%20by%20an%20MQGET%20Query/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -478,7 +507,7 @@
   
   
     <li class="md-nav__item">
-      <a href="Blog/MultipleQSGAndViews/" class="md-nav__link">
+      <a href="../Blog/MultipleQSGAndViews/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -499,7 +528,7 @@
   
   
     <li class="md-nav__item">
-      <a href="Blog/Symptoms%20that%20led%20to%20PD/" class="md-nav__link">
+      <a href="../Blog/Symptoms%20that%20led%20to%20PD/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -520,7 +549,7 @@
   
   
     <li class="md-nav__item">
-      <a href="Blog/Task%20record%20information/" class="md-nav__link">
+      <a href="../Blog/Task%20record%20information/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -568,27 +597,54 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#at-a-glance" class="md-nav__link">
+  <a href="#audience-level" class="md-nav__link">
     <span class="md-ellipsis">
-      At a glance
+      Audience level
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#other-ibm-mq-resources-not-specific-to-zos" class="md-nav__link">
+  <a href="#skillset" class="md-nav__link">
     <span class="md-ellipsis">
-      Other IBM MQ resources - not specific to z/OS
+      Skillset
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#acknowledgements" class="md-nav__link">
+  <a href="#background" class="md-nav__link">
     <span class="md-ellipsis">
-      Acknowledgements
+      Background
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview-of-exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview of exercise
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercise
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
     </span>
   </a>
   
@@ -612,16 +668,147 @@
   
 
 
-<h1 id="ibm-mq-for-zos-enablement-for-the-ibm-washington-systems-center">IBM MQ for z/OS Enablement for the IBM Washington Systems Center</h1>
-<h3 id="at-a-glance">At a glance</h3>
-<p>This site is a repository for IBM WSC intellectual capital related to IBM MQ for z/OS. It includes labs, presentations, and document materials.</p>
-<h3 id="other-ibm-mq-resources-not-specific-to-zos">Other IBM MQ resources - not specific to z/OS</h3>
-<p><a href="https://github.com/ibm-messaging">IBM Messaging GitHub</a></p>
-<p><a href="https://www.ibm.com/docs/en/ibm-mq">IBM MQ Documentation</a></p>
-<p><a href="https://developer.ibm.com/components/ibm-mq/">IBM Developer - MQ Materials</a></p>
-<p><a href="https://community.ibm.com/community/user/integration/communities/community-home/recent-community-blogs?communitykey=183ec850-4947-49c8-9a2e-8e7c7fc46c64">IBM Integration Community Blog</a></p>
-<h3 id="acknowledgements">Acknowledgements</h3>
-<p>Contributors to the site include Lyn Elkins, Mitch Johnson, and Dorothy Quincy</p>
+<h1 id="looking-at-smf-data-for-problem-determination">Looking at SMF data for problem determination</h1>
+<h4 id="audience-level"><strong>Audience level</strong></h4>
+<p>Some knowledge of MQ or z/OS </p>
+<h4 id="skillset"><strong>Skillset</strong></h4>
+<p>MQ Administration, z/OS systems programming</p>
+<h4 id="background"><strong>Background</strong></h4>
+<p>MP1B is a utility provided by IBM to analyze your IBM MQ environment’s performance. MP1B shows you your SMF performance data and allows you to roll it off platform to CSV files for further analysis.</p>
+<p>MP1B is installable at <a href="https://www.ibm.com/support/fixcentral/swg/selectFixes?parent=ibm~WebSphere&amp;product=ibm/WebSphere/WebSphere+MQ&amp;release=9.3.2.0&amp;platform=z/OS&amp;function=fixId&amp;fixids=mp1b*">Link</a></p>
+<p>Out of the box, it contains:</p>
+<p><em>MQCMD</em> – a program to display queue statistics and channel status over time</p>
+<p><em>MQSMF</em> – a program for interpreting your own accounting and statistics data</p>
+<p><em>OEMPUT</em> - a program to put/get messages in high quantities, useful for testing throughput</p>
+<h3 id="overview-of-exercise"><strong>Overview of exercise</strong></h3>
+<p>I.  Use OEMPUT to populate a queue with a bunch of messages</p>
+<p>II. Make sure settings are in place to record SMF data for our </p>
+<p>III.    Run JCL to record our SMF data </p>
+<p>IV. Navigate the SMF data output to find performance problems in our queue</p>
+<p>V.  Interpret the performance problem</p>
+<h3 id="exercise"><strong>Exercise</strong></h3>
+<ol>
+<li>
+<p>MP1B has been installed on this environment, and you can find it by searching for the directory ZQS1.MP1B.JCL in the =3.4 data set search bar.</p>
+<p><img alt="Picture of z/OS data set search" src="../assets/mp1b-1.png" title="Picture of z/OS data set search" /></p>
+</li>
+<li>
+<p>Now, outside of z/OS, open up MQ Explorer on your Windows Desktop. The icon should look like this:</p>
+<p><img alt="Picture of MQ Explorer icon" src="../assets/mp1b-2.png" title="MQ Explorer icon" /></p>
+</li>
+<li>
+<p>Once you’ve opened MQ Explorer, you should see a left-hand menu bar like below. Right click on the ZQS1 queue manager and hit ‘Connect’.</p>
+<p><img alt="Picture of MQ Explorer active queue managers" src="../assets/mp1b-3.png" title="Picture of MQ Explorer active queue managers" /></p>
+</li>
+<li>
+<p>By clicking on the arrow to the left of ZQS1, a dropdown list of MQ objects will appear. Right click on the ‘Queues’ folder and construct a new local queue called MP1B.TESTER.</p>
+<p><img alt="Picture of creating new queue on MQ Explorer" src="../assets/mp1b-4.png" title="Picture of creating new queue on MQ Explorer" /></p>
+</li>
+<li>
+<p>Create a queue on your queue manager using MQ Explorer. The queue should have the following properties: </p>
+<p><img alt="Display of queue properties" src="../assets/mp1b-5.png" title="Display of queue properties" /></p>
+</li>
+</ol>
+<blockquote>
+<p>Why make the queue shareable? Great question! Shareable queues tend to come in handy in a test environment, so that developers can browse the queues.</p>
+</blockquote>
+<ol>
+<li>
+<p>Now that we have our queue defined, head back to z/OS. </p>
+</li>
+<li>
+<p>Now, we will enter a series of MVS commands to adjust the settings of the queue manager to prepare it for the collection of SMF data. To do this, navigate to the ISPF main menu</p>
+</li>
+<li>
+<p>Once in the ISPF main menu, enter ‘d’ in the command line and hit enter</p>
+</li>
+<li>
+<p>Once in SDSF, place a / in the command input line and hit enter</p>
+</li>
+<li>
+<p>A MVS command prompt like this should pop up:</p>
+<p><img alt="Display of MVS command prompt" src="../assets/mp1b-6.png" title="Display of MVS command prompt" /></p>
+</li>
+<li>
+<p>Enter the following commands here, one at a time. Each command will take you out of the System Command Extension window, so you will have to use the / command to return to the correct window for executing commands.</p>
+</li>
+</ol>
+<p>o   ZQS1 SET SYSTEM STATIME(1.00) to change the statistics time interval to 1 minute</p>
+<p>o   ZQS1 SET SYSTEM ACCTIME(-1) to change the accounting time interval to match the statistics time interval</p>
+<p>o   ZQS1 SET SYSTEM LOGLOAD(200) to change the log load attribute to the minimum.</p>
+<p>We want to modify our queue manager’s log load attribute to be super low in order to manufacture a lot of checkpointing so we see something interesting in the SMF records for the purpose of the lab</p>
+<p>o   DISPLAY SMF to see where SMF data is </p>
+<p>This tells us where our SMF data will be stored</p>
+<p>o   ZQS1 ALTER QMGR STATCHL(MEDIUM)</p>
+<p>This tells z/OS we want to enable channel statistics to be collected at a moderate ratio of data collection</p>
+<p>o   ZQS1 ALTER QMGR MONQ(MEDIUM)</p>
+<p>This tells z/OS to turn on monitoring for the queue manager’s queues at a moderate ratio of data collection</p>
+<p>o   ZQS1 ALTER QMGR MONCHL(MEDIUM)</p>
+<p>This tells z/OS to turn on monitoring for the queue manager’s channels at a moderate ratio of data collection</p>
+<p>o   ZQS1 START TRACE(STAT) CLASS(1,2,4,5)</p>
+<p>o   ZQS1 START TRACE(ACCTG) CLASS(3,4)</p>
+<ol>
+<li>
+<p>Now all the settings should be in place for our queue manager. Head back to ZQS1.MQ.JCL using 3.4 from the main ISPF menu. </p>
+</li>
+<li>
+<p>We will use OEMPUT to load messages into MP1B.TESTER. In the directory ZQS1.MP1B.JCL, place an ‘e’ to the left of the OEMPUT member. 
+     <img alt="Screenshot of OEMPUT JCL" src="../assets/mp1b-7.png" title="Screenshot of OEMPUT JCL" /></p>
+</li>
+<li>
+<p>Make sure that your queue manager and queue names are correct in lines 46 and 47.</p>
+</li>
+<li>
+<p>Once in OEMPUT, type ‘submit’ on the command line and hit enter to load persistent messages into the queue manager.</p>
+</li>
+</ol>
+<p>a.  I won’t summarize the whole JCL, but pay attention to this particular line:  PARM=('-M&amp;QM -tm3 -Q&amp;Q -crlf -fileDD:MSGIN -P') 
+b.  Lets break it down:
+c.  '-M&amp;QM: queue manager name
+d.  -tm3: send messages for 3 minutes
+e.  -Q&amp;Q the queue name 
+f.  -crlf: each line in the input message file is used in sequence as message data
+g.  -fileDD:MSGIN: Use the MSGIN file as input 
+h.  -P: Use persistent messages</p>
+<ol>
+<li>
+<p>If you look at your MQ Explorer, you should now see that your queue is populated with lots of messages! </p>
+<p><img alt="MQ Explorer display of message depth on queue" src="../assets/mp1b-8.png" title="MQ Explorer display of message depth on queue" /></p>
+</li>
+<li>
+<p>Navigate to the SMFDUMP member. Once inside, enter ‘submit’ on the command line to execute SMFDUMP JCL. The SMFDUMP JCL starts with deleting old tasks, then outputs it in a specified location, in our case, ZQS1.QUEUE.MQSMF.SHRSTRM2.</p>
+<p><img alt="SMFDUMP JCL" src="../assets/mp1b-9.png" title="SMFDUMP JCL" /></p>
+</li>
+<li>
+<p>You can check that the SMFDUMP is processing by navigating to your job using SDSF. Access SDSF using =D from the ISPF menu.</p>
+</li>
+<li>Once in SDSF, select ST from the menu and hit ‘enter’</li>
+<li>Type in ‘prefix ZQS1*’. This will show you a list of all jobs submitted that start with ZQS1. Remember, we define our job names at the top left of each JCL file.  </li>
+<li>Here, you put a ‘?’ mark besides the jobname. Hit enter, then a screen with a SYSPRINT menu option should pop up. Next to SYSPRINT, put a ‘s’ and hit enter.</li>
+<li>
+<p>Enter ‘bottom’ on the command line and you should see a screen like below, indicating that records are being written. You can also confirm this by looking in the output for the SUMMARY ACTIVITY REPORT.</p>
+<p><img alt="Picture of SMFDUMP Output: SUMMARY ACTIVITY REPORT" src="../assets/mp1b-10.png" title="SUMMARY ACTIVITY REPORT" /></p>
+</li>
+<li>
+<p>After submitting, you will have to submit another job MQSMFP in ZQS1.MQ.JCL. This job will give us some formatted information about the SMF data. Type ‘submit’ and hit enter.</p>
+<p><img alt="Picture of MQSMFP JCL" src="../assets/mp1b-11.png" /></p>
+</li>
+<li>
+<p>Now, navigate to the SDSF output for the submitted job. We will be able to see the SMF output in useful categories that can also be exported as CSV files.</p>
+<p><img alt="Picture of MQSMFP Output" src="../assets/mp1b-12.png" /></p>
+</li>
+<li>
+<p>Navigate to the LOG statistics by putting a ‘s’ next to it and hitting enter. Scroll down until you see a screen similar to the one below. </p>
+</li>
+<li>
+<p>Here you can see LLCheckpoints has a value of 1564. Within our interval, we would expect this value to be 0’s or single-digits. 1564 is way too high. This indicates we should adjust our LOGLOAD attribute to have it write more log records between checkpoints.</p>
+<p><img alt="Picture of Checkpoint count" src="../assets/mp1b-13.png" /></p>
+</li>
+</ol>
+<h3 id="summary">Summary</h3>
+<p><img alt="Picture of logging schematic" src="../assets/mp1b-14.png" /></p>
+<p>The LOGLOAD parameter specifies the number of log records that are written between checkpoints. In the figure above, you can see the LOGLOAD indicated by the blue brackets. For the above image’s example, the LOGLOAD looks to be 6 here (6 would be impossibly small in a real environment).
+We set our queue manager’s LOGLOAD attribute to the lowest possible value of 200 then flood our environment with messages. We saw see this cause high checkpointing in our recorded SMF window, resulting in unnecessary consumption of processor time and additional I/O.</p>
 
 
 
@@ -672,10 +859,10 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": ".", "features": [], "search": "assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="assets/javascripts/bundle.83f73b43.min.js"></script>
+      <script src="../assets/javascripts/bundle.83f73b43.min.js"></script>
       
     
   </body>

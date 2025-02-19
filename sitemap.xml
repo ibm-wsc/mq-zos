@@ -2,14 +2,38 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://github.com/ibm-wsc/mq-zos/</loc>
-         <lastmod>2025-02-18</lastmod>
+         <lastmod>2025-02-19</lastmod>
+    </url>
+    <url>
+         <loc>https://github.com/ibm-wsc/mq-zos/archive/</loc>
+         <lastmod>2025-02-19</lastmod>
     </url>
     <url>
          <loc>https://github.com/ibm-wsc/mq-zos/comparingoffloading/</loc>
-         <lastmod>2025-02-18</lastmod>
+         <lastmod>2025-02-19</lastmod>
+    </url>
+    <url>
+         <loc>https://github.com/ibm-wsc/mq-zos/mp1bhowto/</loc>
+         <lastmod>2025-02-19</lastmod>
     </url>
     <url>
          <loc>https://github.com/ibm-wsc/mq-zos/streamingqueues/</loc>
-         <lastmod>2025-02-18</lastmod>
+         <lastmod>2025-02-19</lastmod>
+    </url>
+    <url>
+         <loc>https://github.com/ibm-wsc/mq-zos/Blog/CF%20calls%20Generated%20by%20an%20MQGET%20Query/</loc>
+         <lastmod>2025-02-19</lastmod>
+    </url>
+    <url>
+         <loc>https://github.com/ibm-wsc/mq-zos/Blog/MultipleQSGAndViews/</loc>
+         <lastmod>2025-02-19</lastmod>
+    </url>
+    <url>
+         <loc>https://github.com/ibm-wsc/mq-zos/Blog/Symptoms%20that%20led%20to%20PD/</loc>
+         <lastmod>2025-02-19</lastmod>
+    </url>
+    <url>
+         <loc>https://github.com/ibm-wsc/mq-zos/Blog/Task%20record%20information/</loc>
+         <lastmod>2025-02-19</lastmod>
     </url>
 </urlset>

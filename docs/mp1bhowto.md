@@ -68,51 +68,59 @@ V.	Interpret the performance problem
 
 11.	Enter the following commands here, one at a time. Each command will take you out of the System Command Extension window, so you will have to use the / command to return to the correct window for executing commands.
 
-o	ZQS1 SET SYSTEM STATIME(1.00) to change the statistics time interval to 1 minute
+	ZQS1 SET SYSTEM STATIME(1.00) to change the statistics time interval to 1 minute
 
-o	ZQS1 SET SYSTEM ACCTIME(-1) to change the accounting time interval to match the statistics time interval
+	ZQS1 SET SYSTEM ACCTIME(-1) to change the accounting time interval to match the statistics time interval
 
-o	ZQS1 SET SYSTEM LOGLOAD(200) to change the log load attribute to the minimum.
+	ZQS1 SET SYSTEM LOGLOAD(200) to change the log load attribute to the minimum.
 
 We want to modify our queue manager’s log load attribute to be super low in order to manufacture a lot of checkpointing so we see something interesting in the SMF records for the purpose of the lab
 
-o	DISPLAY SMF to see where SMF data is 
+	DISPLAY SMF
 
 This tells us where our SMF data will be stored
 
-o	ZQS1 ALTER QMGR STATCHL(MEDIUM)
+	ZQS1 ALTER QMGR STATCHL(MEDIUM)
 
 This tells z/OS we want to enable channel statistics to be collected at a moderate ratio of data collection
 
-o	ZQS1 ALTER QMGR MONQ(MEDIUM)
+	ZQS1 ALTER QMGR MONQ(MEDIUM)
 
 This tells z/OS to turn on monitoring for the queue manager’s queues at a moderate ratio of data collection
 
-o	ZQS1 ALTER QMGR MONCHL(MEDIUM)
+	ZQS1 ALTER QMGR MONCHL(MEDIUM)
 
 This tells z/OS to turn on monitoring for the queue manager’s channels at a moderate ratio of data collection
 
-o	ZQS1 START TRACE(STAT) CLASS(1,2,4,5)
+	ZQS1 START TRACE(STAT) CLASS(1,2,4,5)
 
-o	ZQS1 START TRACE(ACCTG) CLASS(3,4)
+	ZQS1 START TRACE(ACCTG) CLASS(3,4)
 
 12.	Now all the settings should be in place for our queue manager. Head back to ZQS1.MQ.JCL using 3.4 from the main ISPF menu. 
 
 13.	We will use OEMPUT to load messages into MP1B.TESTER. In the directory ZQS1.MP1B.JCL, place an ‘e’ to the left of the OEMPUT member. 
+
      ![Screenshot of OEMPUT JCL](assets/mp1b-7.png "Screenshot of OEMPUT JCL")
 
 14.	Make sure that your queue manager and queue names are correct in lines 46 and 47.
 
 15.	Once in OEMPUT, type ‘submit’ on the command line and hit enter to load persistent messages into the queue manager.
 
-a.	I won’t summarize the whole JCL, but pay attention to this particular line:  PARM=('-M&QM -tm3 -Q&Q -crlf -fileDD:MSGIN -P') 
-b.	Lets break it down:
-c.	'-M&QM: queue manager name
-d.	-tm3: send messages for 3 minutes
-e.	-Q&Q the queue name 
-f.	-crlf: each line in the input message file is used in sequence as message data
-g.	-fileDD:MSGIN: Use the MSGIN file as input 
-h.	-P: Use persistent messages
+a.	I won’t summarize the whole JCL, but pay attention to this particular line:  
+
+    PARM=('-M&QM -tm3 -Q&Q -crlf -fileDD:MSGIN -P') 
+
+Lets break it down:
+
+
+| Parameter    | Meaning |
+| -------- | ------- |
+| '-M&QM | Queue manager name |
+|	-tm3 | Send messages for 3 minutes |
+|	-Q&Q | The queue name |
+|	-crlf | Each line in the input message file is used in sequence as message data |
+|	-fileDD:MSGIN | Use the MSGIN file as input |
+|	-P | Use persistent messages |
 
 16.	If you look at your MQ Explorer, you should now see that your queue is populated with lots of messages! 
 

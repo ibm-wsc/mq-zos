@@ -1,4 +1,4 @@
-# Looking at SMF data for problem determination
+# Evaluating queue performance with queue statistics
 
 #### **Audience level**
 Some knowledge of MQ or z/OS 
@@ -6,6 +6,8 @@ Some knowledge of MQ or z/OS
 MQ Administration, z/OS systems programming
 
 #### **Background**
+Queue statistics was introduced into the IBM MQ for z/OS product in continuous delivery version 9.3.3. This lab is a modification of the MP1B performance lab to demonstrate how to access per-queue statistics data. Queue statistics fields are well-documented at the following link: [Link]/(https://www.ibm.com/docs/en/ibm-mq/9.3?topic=statistics-queue-data-records-version-933-release)
+
 MP1B is a utility provided by IBM to analyze your IBM MQ environment’s performance. MP1B shows you your SMF performance data and allows you to roll it off platform to CSV files for further analysis.
 
 MP1B is installable at [Link](https://www.ibm.com/support/fixcentral/swg/selectFixes?parent=ibm~WebSphere&product=ibm/WebSphere/WebSphere+MQ&release=9.3.2.0&platform=z/OS&function=fixId&fixids=mp1b*)

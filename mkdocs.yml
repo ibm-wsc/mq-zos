@@ -1,6 +1,7 @@
 site_name: "IBM MQ for z/OS"
 nav:
   - Home: index.md
+  - Connectivity to Lab Environment: connectivity.md
   - Comparing Offloading Lab: comparingoffloading.md
   - MP1B Lab: mp1bhowto.md
   - Streaming Queues Lab: streamingqueues.md

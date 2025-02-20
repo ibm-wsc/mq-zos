@@ -12,13 +12,9 @@
         <meta name="author" content="IBM Z WSC">
       
       
-        <link rel="canonical" href="https://github.com/ibm-wsc/mq-zos/mp1bhowto/">
+        <link rel="canonical" href="https://github.com/ibm-wsc/mq-zos/qstats/">
       
       
-        <link rel="prev" href="../comparingoffloading/">
-      
-      
-        <link rel="next" href="../streamingqueues/">
       
       
       <link rel="icon" href="../assets/wsc-logo.png">
@@ -26,7 +22,7 @@
     
     
       
-        <title>MP1B Lab - IBM MQ for z/OS</title>
+        <title>Evaluating queue performance with queue statistics - IBM MQ for z/OS</title>
       
     
     
@@ -80,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#looking-at-smf-data-for-problem-determination" class="md-skip">
+        <a href="#evaluating-queue-performance-with-queue-statistics" class="md-skip">
           Skip to content
         </a>
       
@@ -115,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              MP1B Lab
+              Evaluating queue performance with queue statistics
             
           </span>
         </div>
@@ -314,30 +310,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    MP1B Lab
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../mp1bhowto/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -346,80 +322,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#audience-level" class="md-nav__link">
-    <span class="md-ellipsis">
-      Audience level
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#skillset" class="md-nav__link">
-    <span class="md-ellipsis">
-      Skillset
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#background" class="md-nav__link">
-    <span class="md-ellipsis">
-      Background
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#overview-of-exercise" class="md-nav__link">
-    <span class="md-ellipsis">
-      Overview of exercise
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#exercise" class="md-nav__link">
-    <span class="md-ellipsis">
-      Exercise
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      Summary
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -688,12 +590,13 @@
   
 
 
-<h1 id="looking-at-smf-data-for-problem-determination">Looking at SMF data for problem determination</h1>
+<h1 id="evaluating-queue-performance-with-queue-statistics">Evaluating queue performance with queue statistics</h1>
 <h4 id="audience-level"><strong>Audience level</strong></h4>
 <p>Some knowledge of MQ or z/OS </p>
 <h4 id="skillset"><strong>Skillset</strong></h4>
 <p>MQ Administration, z/OS systems programming</p>
 <h4 id="background"><strong>Background</strong></h4>
+<p>Queue statistics was introduced into the IBM MQ for z/OS product in continuous delivery version 9.3.3. This lab is a modification of the MP1B performance lab to demonstrate how to access per-queue statistics data. Queue statistics fields are well-documented at the following link: [Link]/(https://www.ibm.com/docs/en/ibm-mq/9.3?topic=statistics-queue-data-records-version-933-release)</p>
 <p>MP1B is a utility provided by IBM to analyze your IBM MQ environment’s performance. MP1B shows you your SMF performance data and allows you to roll it off platform to CSV files for further analysis.</p>
 <p>MP1B is installable at <a href="https://www.ibm.com/support/fixcentral/swg/selectFixes?parent=ibm~WebSphere&amp;product=ibm/WebSphere/WebSphere+MQ&amp;release=9.3.2.0&amp;platform=z/OS&amp;function=fixId&amp;fixids=mp1b*">Link</a></p>
 <p>Out of the box, it contains:</p>

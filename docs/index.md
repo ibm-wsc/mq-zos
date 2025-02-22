@@ -1,7 +1,7 @@
 # IBM MQ for z/OS Enablement for the IBM Washington Systems Center 
 
 ### At a glance
-This site is a repository for IBM WSC intellectual capital related to IBM MQ for z/OS. It includes labs, presentations, and document materials.
+This site is a repository for IBM WSC intellectual capital related to IBM MQ for z/OS. It includes labs, presentations, and document materials. To request specific enablement, demonstrations or labs, make a request to your IBM representative to engage the Washington Systems Center.
 
 ### Other IBM MQ resources - not specific to z/OS
 
@@ -16,3 +16,4 @@ This site is a repository for IBM WSC intellectual capital related to IBM MQ for
 ### Acknowledgements
 
 Contributors to the site include Lyn Elkins, Mitch Johnson, and Dorothy Quincy
+

@@ -20,9 +20,9 @@ Out of the box, it contains:
 
 ### **Overview of exercise**
 
-I.	Use OEMPUT to populate a queue with a bunch of messages
+I.	Set up the local queue MP1B.TESTER
 
-II.	Make sure settings are in place to record SMF data for our 
+II.	Make sure settings are in place to record SMF data 
 
 III.	Run JCL to record our SMF data 
 
@@ -146,17 +146,19 @@ V.	Interpret the performance problem
     ![Picture of SMFDUMP Output: SUMMARY ACTIVITY REPORT](assets/mp1b-10.png "SUMMARY ACTIVITY REPORT")
 
  
-23.	After submitting, you will have to submit another job MQSMFP in ZQS1.MP1B.JCL. This job will give us some formatted information about the SMF data. Type ‘submit’ and hit enter.
+23.	After submitting, you will have to submit another job MQSMFP in ZQS1.MP1B.JCL. This job will give us some formatted information about the SMF data. Make one change before submitting: ensure that the julian date is correct. For labs taking place on 2/24/2025, the julian date is 25055.
+
+24. Type ‘submit’ and hit enter.
 
     ![Picture of MQSMFP JCL](assets/mp1b-11.png)
 
-24.	Now, navigate to the SDSF output for the submitted job. We will be able to see the SMF output in useful categories that can also be exported as CSV files.
+25.	Now, navigate to the SDSF output for the submitted job. We will be able to see the SMF output in useful categories that can also be exported as CSV files.
  
     ![Picture of MQSMFP Output](assets/mp1b-12.png)
 
-25.	Navigate to the LOG statistics by putting a ‘s’ next to it and hitting enter. Scroll down until you see a screen similar to the one below. 
+26.	Navigate to the LOG statistics by putting a ‘s’ next to it and hitting enter. Scroll down until you see a screen similar to the one below. 
 
-26.	Here you can see LLCheckpoints has a value of 1564. Within our interval, we would expect this value to be 0’s or single-digits. 1564 is way too high. This indicates we should adjust our LOGLOAD attribute to have it write more log records between checkpoints.
+27.	Here you can see LLCheckpoints has a value of 1564. Within our interval, we would expect this value to be 0’s or single-digits. 1564 is way too high. This indicates we should adjust our LOGLOAD attribute to have it write more log records between checkpoints.
  
     ![Picture of Checkpoint count](assets/mp1b-13.png)
 

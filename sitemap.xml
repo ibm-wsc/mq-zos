@@ -2,46 +2,46 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://github.com/ibm-wsc/mq-zos/</loc>
-         <lastmod>2025-02-20</lastmod>
+         <lastmod>2025-02-22</lastmod>
     </url>
     <url>
          <loc>https://github.com/ibm-wsc/mq-zos/archive/</loc>
-         <lastmod>2025-02-20</lastmod>
+         <lastmod>2025-02-22</lastmod>
     </url>
     <url>
-         <loc>https://github.com/ibm-wsc/mq-zos/comparingoffloading/</loc>
-         <lastmod>2025-02-20</lastmod>
+         <loc>https://github.com/ibm-wsc/mq-zos/comparing-offloading/</loc>
+         <lastmod>2025-02-22</lastmod>
     </url>
     <url>
          <loc>https://github.com/ibm-wsc/mq-zos/connectivity/</loc>
-         <lastmod>2025-02-20</lastmod>
+         <lastmod>2025-02-22</lastmod>
     </url>
     <url>
-         <loc>https://github.com/ibm-wsc/mq-zos/mp1bhowto/</loc>
-         <lastmod>2025-02-20</lastmod>
+         <loc>https://github.com/ibm-wsc/mq-zos/mp1b/</loc>
+         <lastmod>2025-02-22</lastmod>
     </url>
     <url>
-         <loc>https://github.com/ibm-wsc/mq-zos/qstats/</loc>
-         <lastmod>2025-02-20</lastmod>
+         <loc>https://github.com/ibm-wsc/mq-zos/queue-statistics/</loc>
+         <lastmod>2025-02-22</lastmod>
     </url>
     <url>
-         <loc>https://github.com/ibm-wsc/mq-zos/streamingqueues/</loc>
-         <lastmod>2025-02-20</lastmod>
+         <loc>https://github.com/ibm-wsc/mq-zos/streaming-queues/</loc>
+         <lastmod>2025-02-22</lastmod>
     </url>
     <url>
          <loc>https://github.com/ibm-wsc/mq-zos/Blog/CF%20calls%20Generated%20by%20an%20MQGET%20Query/</loc>
-         <lastmod>2025-02-20</lastmod>
+         <lastmod>2025-02-22</lastmod>
     </url>
     <url>
          <loc>https://github.com/ibm-wsc/mq-zos/Blog/MultipleQSGAndViews/</loc>
-         <lastmod>2025-02-20</lastmod>
+         <lastmod>2025-02-22</lastmod>
     </url>
     <url>
          <loc>https://github.com/ibm-wsc/mq-zos/Blog/Symptoms%20that%20led%20to%20PD/</loc>
-         <lastmod>2025-02-20</lastmod>
+         <lastmod>2025-02-22</lastmod>
     </url>
     <url>
          <loc>https://github.com/ibm-wsc/mq-zos/Blog/Task%20record%20information/</loc>
-         <lastmod>2025-02-20</lastmod>
+         <lastmod>2025-02-22</lastmod>
     </url>
 </urlset>

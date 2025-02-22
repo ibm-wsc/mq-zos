@@ -12,13 +12,13 @@
         <meta name="author" content="IBM Z WSC">
       
       
-        <link rel="canonical" href="https://github.com/ibm-wsc/mq-zos/mp1bhowto/">
+        <link rel="canonical" href="https://github.com/ibm-wsc/mq-zos/mp1b/">
       
       
-        <link rel="prev" href="../comparingoffloading/">
+        <link rel="prev" href="../comparing-offloading/">
       
       
-        <link rel="next" href="../streamingqueues/">
+        <link rel="next" href="../queue-statistics/">
       
       
       <link rel="icon" href="../assets/wsc-logo.png">
@@ -297,7 +297,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../comparingoffloading/" class="md-nav__link">
+      <a href="../comparing-offloading/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -431,7 +431,27 @@
   
   
     <li class="md-nav__item">
-      <a href="../streamingqueues/" class="md-nav__link">
+      <a href="../queue-statistics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Queue Statistics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../streaming-queues/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -478,10 +498,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
         
           
-          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -492,8 +512,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_7">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
             MQSMF Blog
           </label>
@@ -701,8 +721,8 @@
 <p><em>MQSMF</em> – a program for interpreting your own accounting and statistics data</p>
 <p><em>OEMPUT</em> - a program to put/get messages in high quantities, useful for testing throughput</p>
 <h3 id="overview-of-exercise"><strong>Overview of exercise</strong></h3>
-<p>I.  Use OEMPUT to populate a queue with a bunch of messages</p>
-<p>II. Make sure settings are in place to record SMF data for our </p>
+<p>I.  Set up the local queue MP1B.TESTER</p>
+<p>II. Make sure settings are in place to record SMF data </p>
 <p>III.    Run JCL to record our SMF data </p>
 <p>IV. Navigate the SMF data output to find performance problems in our queue</p>
 <p>V.  Interpret the performance problem</p>
@@ -847,7 +867,10 @@ ZQS1 START TRACE(ACCTG) CLASS(3,4)
 <p><img alt="Picture of SMFDUMP Output: SUMMARY ACTIVITY REPORT" src="../assets/mp1b-10.png" title="SUMMARY ACTIVITY REPORT" /></p>
 </li>
 <li>
-<p>After submitting, you will have to submit another job MQSMFP in ZQS1.MP1B.JCL. This job will give us some formatted information about the SMF data. Type ‘submit’ and hit enter.</p>
+<p>After submitting, you will have to submit another job MQSMFP in ZQS1.MP1B.JCL. This job will give us some formatted information about the SMF data. Make one change before submitting: ensure that the julian date is correct. For labs taking place on 2/24/2025, the julian date is 25055.</p>
+</li>
+<li>
+<p>Type ‘submit’ and hit enter.</p>
 <p><img alt="Picture of MQSMFP JCL" src="../assets/mp1b-11.png" /></p>
 </li>
 <li>

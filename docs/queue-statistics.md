@@ -104,7 +104,24 @@ V.	Interpret the performance problem
 
 13.	We will use OEMPUT to load messages into MP1B.TESTER. In the directory ZQS1.MP1B.JCL, place an ‘e’ to the left of the OEMPUT member. 
 
-     ![Screenshot of OEMPUT JCL](assets/mp1b-7.png "Screenshot of OEMPUT JCL")
+    ```
+        //************************************************
+    //*                                               
+    //  SET QM=ZQS1                                   
+    //  SET Q=TEAM1.STREAM.BASE                       
+    //S1   EXEC PGM=OEMPUT,REGION=0M,                 
+    //  PARM=('-M&QM -tm1 -Q&Q -fileDD:MSGIN -P  ')   
+    //SYSIN  DD *                                     
+    /*                                                
+    //STEPLIB  DD DISP=SHR,DSN=ZQS1.MP1B.LOAD         
+    //         DD DISP=SHR,DSN=MQ940CD.SCSQLOAD       
+    //         DD DISP=SHR,DSN=MQ940CD.SCSQAUTH       
+    //         DD DISP=SHR,DSN=MQ940CD.SCSQANLE       
+    //SYSPRINT DD SYSOUT=*                            
+    //MSGIN    DD DISP=SHR,DSN=ZQS1.MQ.JCL(MSGS)      
+    //                                                
+    ```
+
 
 14.	Make sure that your queue manager and queue names are correct in lines 46 and 47.
 
@@ -115,7 +132,6 @@ V.	Interpret the performance problem
     `PARM=('-M&QM -tm3 -Q&Q -crlf -fileDD:MSGIN -P')`
 
     Lets break it down:
-
 
     | Parameter    | Meaning |
     | -------- | ------- |
@@ -130,13 +146,17 @@ V.	Interpret the performance problem
 
     ![MQ Explorer display of message depth on queue](assets/mp1b-8.png "MQ Explorer display of message depth on queue")
 
-17.	Back in ZQS1.MP1B.JCL, navigate to the SMFDUMP member. Once inside, modify the date to be accurate. If you are completing this lab on 2/24/2025 at SHARE, the date will be 2025055. 
+17.	Back in ZQS1.MP1B.JCL, navigate to the SMFDUMP member. Once inside, modify the date to be accurate. If you are completing this lab on 2/24/2025 at SHARE, the date will be 2025055. Additionally adjust the START parameter to reflect the appropriate hh:MM. Your JCL should look something like:
+    ```
+    //SYSIN  DD *                                          
+    LSNAME(IFASMF.DEFAULT,OPTIONS(DUMP))                 
+    OUTDD(DUMPOUT,TYPE(115,116),START(1230),END(2200))   
+    DATE(2025055,2025055)     
+    ```                           
 
 > This is a date in the Julian format.
 
 18. Enter ‘submit’ on the command line to execute SMFDUMP JCL. The SMFDUMP JCL starts with deleting old tasks, then outputs it in a specified location, in our case, ZQS1.QUEUE.MQSMF.SHRSTRMx.
-
-    ![SMFDUMP JCL](assets/mp1b-9.png "SMFDUMP JCL")
 
  
 18.	You can check that the SMFDUMP is processing by navigating to your job using SDSF. Access SDSF using =D from the ISPF menu.
@@ -150,8 +170,28 @@ V.	Interpret the performance problem
  
 23.	You will have to submit one final job MQSMFP in ZQS1.MP1B.JCL. This job will give us some formatted information about the SMF data. Type ‘submit’ and hit enter.
 
-    ![Picture of MQSMFP JCL](assets/mp1b-11.png)
-
+    ```
+    //****************************************************************
+    //*                                                               
+    //S1 EXEC PGM=MQSMF,REGION=0M                                     
+    //STEPLIB  DD DISP=SHR,DSN=ZQS1.MP1B.LOAD                         
+    //SMFIN    DD DISP=SHR,DSN=ZQS1.QUEUE.MQSMF.SHRSTRM6              
+    //SYSIN    DD *                                                   
+    DETAIL 5                                                         
+    SMF_Interval_time 900                                            
+    /*                                                                
+    //SYSPRINT DD SYSOUT=*,DCB=(LRECL=200)                            
+    //SYSOUT   DD SYSOUT=*,DCB=(RECFM=VB,LRECL=200,BLKSIZE=27998)     
+    //SYSERR   DD SYSOUT=*                                            
+    //ADAP     DD SYSOUT=*                                            
+    //ADAPCSV  DD SYSOUT=*                                            
+    //BUFF     DD SYSOUT=*,DCB=(LRECL=200)                            
+    //BUFFIO   DD SYSOUT=*,DCB=(LRECL=200)                            
+    //BUFFCSV  DD SYSOUT=*,DCB=(LRECL=200)                            
+    //CF       DD SYSOUT=*                                            
+    //CFCSV    DD SYSOUT=*                                            
+    //CHINIT   DD SYSOUT=*                                            
+    ```
 #### IV.	Navigate the SMF data output to find performance problems
 
 24.	Now, navigate to the SDSF output for the submitted job. We will be able to see the SMF output in useful categories that can also be exported as CSV files.
@@ -162,17 +202,98 @@ V.	Interpret the performance problem
 
     f MP1B.TESTER
 
-26. Voila, you should now see detailed information about the queue we set up, including the storage 
+26. Voila, you should now see detailed information about the queue we set up, including the storage. 
 
 ![Picture of QSTATS output](assets/qstats2.png)
 
 #### V.	Interpret the findings
 
-Compare the findings above with what you are able to glean from the WQ Task Accounting records below:
- 
-![Picture of WQ output](assets/qstats3.png)
+While we just went through QSTATS output, take some time to explore the other outputs we get with queue statistics. 
 
+**QALL**
+```
+Queue data summarised by queue                                                 
+          0 Open name                                  TEAM1.STREAM.BASE       
+          0 Queue type:  QLocal                        TEAM1.STREAM.BASE       
+          0 Page set ID                        4       TEAM1.STREAM.BASE       
+          0 Buffer pool                        3       TEAM1.STREAM.BASE       
+          0 Put count                      51057       TEAM1.STREAM.BASE       
+          0 Put avg elapsed time            1171 uS    TEAM1.STREAM.BASE       
+          0 Put avg CPU time                  47 uS    TEAM1.STREAM.BASE       
+          0 Put + put1 valid count         51057       TEAM1.STREAM.BASE       
+          0 Inq count                          1       TEAM1.STREAM.BASE       
+          0 Inq avg elapsed time              14 uS    TEAM1.STREAM.BASE       
+          0 Inq avg CPU time                  14 uS    TEAM1.STREAM.BASE       
+          0 Total queue elapsed time    59803352 uS    TEAM1.STREAM.BASE       
+          0 Total queue CPU used         2406244 uS    TEAM1.STREAM.BASE    
+```   
+**QSTAT**
 
+```
+Queue statistics                                                                
+                                                                                
+MQS1,ZQS1,2025/02/24,09:00:06,VRM:940,                                          
+  From 2025/02/24,08:59:05 to 2025/02/24,09:00:05, duration   60 seconds.       
+                                                                                
+MQS1,ZQS1,2025/02/24,09:00:06,VRM:940,                                          
+Queue Name.................................SYSTEM.PROTECTION.POLICY.QUEUE       
+Disposition................................Private                              
+Pageset ID.................................Unallocated                          
+Bufferpool ID..............................Unallocated                          
+Current Depth..............................0                                    
+Open Output Count..........................0                                    
+Open Input Count...........................0                                    
+QTIME Short................................0                                    
+QTIME Long.................................0                                    
+Last Put Time..............................                                     
+Last Get Time..............................                                     
+Uncommitted Changes........................No                                   
+```                    
+
+**QPUTSCSV** provides all data relevant to putting messages onto the queue.
+```
+Queue,Puts,Put1s,TotBytes,MaxMsgSz,MinMsgSz      
+TEAM1.STREAM.BASE,51057,0,40845600,800,800    
+``` 
+
+**QGETSCSV** provides all data relevant to getting messages from the queue.
+**QSTATCSV** provides all data related to handles, API calls other miscellaneous items.
+
+```
+z/OS,QM,Date,Time,Queue,Disp,PSID,BPID,QSG,CF,Dpth,OPPROC,IPPROC,QTIMES,QTIMEL,L
+cLow,IPProcHigh,IPProcLow,MQOPENs,MQCLOSEs,MQINQs,MQSETs,ExpiredMsgs,RecType    
+MQS1,ZQS1,2025/02/24,09:00:06,SYSTEM.PROTECTION.POLICY.QUEUE,Private,Unallocated
+0,Full                                                                          
+MQS1,ZQS1,2025/02/24,09:00:06,QCPY.INPUT,Private,Unallocated,Unallocated,,,0,0,0
+MQS1,ZQS1,2025/02/24,09:00:06,SYSTEM.JMS.ADMIN.QUEUE,Private,Unallocated,Unalloc
+MQS1,ZQS1,2025/02/24,09:00:06,TEAM1.STREAM.BASE,Private,4,3,,,66370,0,0,0,0,2025
+,0,0,0,0,0,Full                                                                 
+MQS1,ZQS1,2025/02/24,09:00:06,CICS01.INITQ,Private,Unallocated,Unallocated,,,0,0
+MQS1,ZQS1,2025/02/24,09:00:06,SYSTEM.JMS.ND.SUBSCRIBER.QUEUE,Private,Unallocated
+0,Full                                                                          
+MQS1,ZQS1,2025/02/24,09:00:06,SYSTEM.JMS.ND.CC.SUBSCRIBER.QUEUE,Private,Unalloca
+,0,0,Full                                                                       
+MQS1,ZQS1,2025/02/24,09:00:06,QCPY.SHARED.CONTROL,Shared,,,QSGA,TEST2       ,0,0
+MQS1,ZQS1,2025/02/24,09:00:06,QCPY.CONTROL,Private,Unallocated,Unallocated,,,0,0
+MQS1,ZQS1,2025/02/24,09:00:06,MSGSELECT.SHAREDQ,Shared,,,QSGA,TEST2       ,1,0,0
+MQS1,ZQS1,2025/02/24,09:00:06,ANSIBLE.DEMO.QUEUE,Private,Unallocated,Unallocated
+MQS1,ZQS1,2025/02/24,09:00:06,SYSTEM.DURABLE.SUBSCRIBER.QUEUE,Private,2,1,,,2,0,
+```
+
+**QSUML** data is a summary of the queue usage over time, for local queues.
+
+```
+Queue tree                                                                      
+Date,Time,Qmgr,Queue,Count,PS,BP,"Put MB","Get MB",!,ValidPut,ValidGet,getpsn,Ma
+2025/02/24,11:00:00, G  ,TEAM1.STREAM.BASE                               ,   2, 
+```
+
+**QSUMS** data is a summary of the queue usage over time, for shared queues.
+
+```
+Queue tree                                                                      
+Date,Time,Qmgr,Queue,Count,Structure,"Put MB","Get MB",!,ValidPut,ValidGet,MaxQD
+```
 
 
 LAB FINISHED!

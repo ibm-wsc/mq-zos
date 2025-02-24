@@ -700,41 +700,59 @@
 <h4 id="overview-of-the-exercise">Overview of the exercise</h4>
 <h4 id="lab-begin">Lab Begin</h4>
 <p>1)  If not already started, start the MQ Explorer by double clicking on the icon on the image.</p>
-<p>2)  The explorer should start and show that it is at MQ Version 9.3 as shown:  </p>
-<p>3)  When the explorer has started, there may be a selection of queue managers available.  We are interested in connections to queue managers on our z/OS environment. If you do not see connections to a queue manager you have been working with, you can create a connection by right clicking ‘Queue Managers’ and selecting to ‘Add Remote Queue Manager…’. You will then fill out all the necessary details for IP address and port number.<br />
+<p><img alt="Picture of MQ Explorer" src="../assets/streamq1.png" /></p>
+<p>2)  The application should start and show that it is at MQ Version 9.4</p>
+<p>3)  When the application has started, there may be a selection of queue managers available.  We are interested in connections to queue managers on our z/OS environment. If you do not see connections to a queue manager you have been working with, you can create a connection by right clicking ‘Queue Managers’ and selecting to ‘Add Remote Queue Manager…’. You will then fill out all the necessary details for IP address and port number.<br />
  
 4)  Right click on ZQS1 and select connect.  Please note that the IP address may be different from what is shown here.  </p>
 <p>The description and command level show that this is a 9.4 queue manager on z/OS.  </p>
+<p><img alt="Picture of MQ explorer application showing ZQS1" src="../assets/streamq4.png" /></p>
 <p>5)  Expand the ZQS1 queue manager – click on the ‘&gt;’ beside the name to see the resources defined to this queue manager. </p>
 <p>6)  Click on the ‘Queues’ to see the queues that are currently defined.  Please note that the list may differ from what is shown here. For example, you may see the SYSTEM queues or temporary dynamic queues that are currently in use. </p>
+<p><img alt="Picture of MQ explorer queues" src="../assets/streamq5.png" /></p>
 <p>7)  Right click on the Queues under the ZQS1 queue manager and select New-&gt; Local Queue</p>
-<p>8)  The New Local Queue dialog box should appear, and you will type in the queue name for the streaming target queue.  It should be TEAMXX.STREAM.COPY, replacing the TEAMXX with the TEAM number you have been assigned (it will be TEAM01-TEAM32). After entering the queue name, please click on the ‘Next’ button.</p>
+<p><img alt="Picture of MQ explorer queue manager drop-down menu" src="../assets/streamq6.png" /></p>
+<p>8)  The new local queue dialog box should appear, and you will type in the queue name for the streaming target queue.  It should be TEAMXX.STREAM.COPY, replacing the TEAMXX with the TEAM number you have been assigned (it will be TEAM01-TEAM20). After entering the queue name, please click on the ‘Next’ button.</p>
+<p><img alt="Picture of MQ explorer local queue setup" src="../assets/streamq7.png" /></p>
 <p>9)  On the Change Properties dialog box Please select the ‘Extended’ option and change the ‘Sharability’ to ‘Sharable’ and the ‘Default input open option’ to ‘Input Shared as shown and click on the Finish Button.</p>
-<p>10) The object should be successfully created, and the following dialog box should appear.  If you would like to check the ‘do not show success messages in future’ please feel free.  Please then click the OK button to clear the success display. </p>
-<p>11) You will now define the base queue for streaming.  Right click on the queues tab again and select ‘New’ -&gt; ‘Local Queue’ to define the streaming base queue.  It’s name will be TEAMXX.STREAM.BASE, replacing the TEAMXX with your team number (TEAM01 thru TEAM32) . </p>
+<p><img alt="Picture of new queue's properties" src="../assets/streamq8.png" /></p>
+<p>10) The object should be successfully created, and the following dialog box should appear.  If you would like to check the ‘do not show success messages in future’ please feel free.  Please then click the OK button to clear the display. </p>
+<p>11) You will now define the base queue for streaming.  Right click on the queues tab again and select ‘New’ -&gt; ‘Local Queue’ to define the streaming base queue.  It’s name will be TEAMXX.STREAM.BASE, replacing the TEAMXX with your team number (TEAM01 thru TEAM20) . </p>
+<p><img alt="Picture of MQ explorer local queue setup" src="../assets/streamq9.png" /></p>
 <p>12) Click on the Next Button.  There are both Extended and Storage tab changes that will be made.  </p>
 <p>13) On the ‘Extended’ tab please change the Sharability and Default Open input option to ‘Sharable’ and ‘Input Shared’ as you did for the first queue. </p>
-<p>14) For those of you familiar with the Storage tab on this dialoge box, there have been some changes.  The streaming queue name and quality of service are set here.  </p>
+<p>14) For those of you familiar with the Storage tab on this dialog box, there have been some changes.  The streaming queue name and quality of service are set here. </p>
+<p><img alt="Picture of queue storage properties" src="../assets/streamq10.png" /></p>
 <p>15) The queue name may be selected from the previously defined queues by using the ‘Select’  Button and choosing the name from the dialog box.  Please select the streaming target queue defined above, you may have to scroll down to find it, and click on ‘OK’.</p>
-<p>16) The queue name should now be populated in the dialog box.  Please then select ‘Must duplicate’ for the first test and click on Finish.</p>
+<p>16) The queue name should now be populated in the dialog box.  Please then select ‘Must duplicate’ for the 'Streaming quality of service' and click on Finish.</p>
+<p><img alt="Picture of test message" src="../assets/streamq13.png" /></p>
 <p>17) To test, we are just going to put messages to the base queue.  From the queue list right click on the TEAMXX.STREAM.BASE queue (replacing TEAMXX with your team number) and select ‘Put Test message’.  In the dialog box, please enter a test message and click on the ‘OK’ button</p>
+<p><img alt="Picture of refresh button" src="../assets/streamq14.png" /></p>
 <p>18) Please put two more messages onto the queue, varying the contents a bit.  ‘Test 1, Test2, Test 3’ is just fine.  Click on the ‘Close’ button to return to the queue list.</p>
 <p>19) Click on the refresh key, in the upper right side of the queue list box to refresh the list of queues. </p>
-<p>20) You should now see that both the base and copy queues have an equal number of messages. </p>
+<p><img alt="Picture of both queues listed" src="../assets/streamq15.png" /></p>
+<p>20) You should now see that both the base and copy queues have an equal number of messages.</p>
 <p>21) At this point you can browse the queues.  Note that the message contents are the same as are the Message IDs on both queues.  </p>
 <p>BASE:</p>
+<p><img alt="Picture of base queue messages" src="../assets/streamq17.png" /></p>
 <p>COPY:</p>
-<p>BASE:</p>
-<p>COPY:</p>
-<p>BASE:</p>
-<p>COPY:</p>
+<p><img alt="Picture of stream queue messages" src="../assets/streamq18.png" /></p>
 <p>22) Testing an Exception – put inhibit the COPY queue.  From the list of queues, Right click on the TEAMXX.STREAM.COPY (USE YOUR TEAM NUMBER IN PLACE OF TEAMXX) queue and select Properties.  Select ‘Inhibited’ for put messages, and click on OK.</p>
+<p><img alt="Picture of stream queue properties" src="../assets/streamq23.png" /></p>
 <p>23) Attempt to put a message on the TEAMXX.BASE.QUEUE, replacing the TEAMXX with your team ID.  </p>
+<p><img alt="Picture of putting test message" src="../assets/streamq24.png" /></p>
 <p>24) You should receive a message that you cannot put a message to this queue.</p>
+<p><img alt="Picture of dialog box for unsuccessful message put" src="../assets/streamq25.png" /></p>
 <p>25) Clicking on the ‘Details’ shows the reason:</p>
-<p>26) Going back to the BASE queue, change the Streaming Quality of service from ‘Must Duplicate’ to ‘Best effort’ and click the OK button.  </p>
-<p>27) Try to put another message to the BASE queue, like what is shown. </p>
+<p><img alt="Picture of dialog box for unsuccessful message put" src="../assets/streamq26.png" />
+ 
+26) Going back to the BASE queue, change the Streaming Quality of service from ‘Must Duplicate’ to ‘Best effort’ and click the OK button.  </p>
+<p><img alt="Picture of details of put failure" src="../assets/streamq27.png" />
+ 
+27) Try to put another message to the BASE queue, like what is shown. </p>
+<p><img alt="Picture of putting test message" src="../assets/streamq28.png" /></p>
 <p>28) That should work, and the depths of the base and copy queues should now be different: </p>
+<p><img alt="Picture of both  queues listed" src="../assets/streamq29.png" /></p>
 <p>29) Congratulations!  You have now been able to create and use a streaming, private queue.  </p>
 <p>30) Now, we will use the queue-sharing group defined on the environment called QSGA to create a streaming, shared queue. </p>
 <p>31) On MQ explorer, under Queue-sharing groups, you should see QSGA defined. Click the drop-down to see a list of Shared Queues.  </p>

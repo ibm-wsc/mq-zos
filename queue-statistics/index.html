@@ -425,14 +425,56 @@
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#summary" class="md-nav__link">
+    <nav class="md-nav" aria-label="Exercise">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#i-set-up-the-local-queue-mp1btester" class="md-nav__link">
     <span class="md-ellipsis">
-      Summary
+      I. Set up the local queue MP1B.TESTER
     </span>
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ii-make-sure-settings-are-in-place-to-record-smf-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      II. Make sure settings are in place to record SMF data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iii-run-jcl-to-record-our-smf-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      III. Run JCL to record our SMF data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iv-navigate-the-smf-data-output-to-find-performance-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      IV. Navigate the SMF data output to find performance problems
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v-interpret-the-findings" class="md-nav__link">
+    <span class="md-ellipsis">
+      V. Interpret the findings
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -679,14 +721,56 @@
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#summary" class="md-nav__link">
+    <nav class="md-nav" aria-label="Exercise">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#i-set-up-the-local-queue-mp1btester" class="md-nav__link">
     <span class="md-ellipsis">
-      Summary
+      I. Set up the local queue MP1B.TESTER
     </span>
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ii-make-sure-settings-are-in-place-to-record-smf-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      II. Make sure settings are in place to record SMF data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iii-run-jcl-to-record-our-smf-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      III. Run JCL to record our SMF data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iv-navigate-the-smf-data-output-to-find-performance-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      IV. Navigate the SMF data output to find performance problems
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v-interpret-the-findings" class="md-nav__link">
+    <span class="md-ellipsis">
+      V. Interpret the findings
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -714,20 +798,21 @@
 <h4 id="skillset"><strong>Skillset</strong></h4>
 <p>MQ Administration, z/OS systems programming</p>
 <h4 id="background"><strong>Background</strong></h4>
-<p>Queue statistics was introduced into the IBM MQ for z/OS product in continuous delivery version 9.3.3. This lab is a modification of the MP1B performance lab to demonstrate how to access per-queue statistics data. Queue statistics fields are well-documented at the following link: [Link]/(https://www.ibm.com/docs/en/ibm-mq/9.3?topic=statistics-queue-data-records-version-933-release)</p>
-<p>MP1B is a utility provided by IBM to analyze your IBM MQ environment’s performance. MP1B shows you your SMF performance data and allows you to roll it off platform to CSV files for further analysis.</p>
+<p>Queue statistics was introduced into the IBM MQ for z/OS product in continuous delivery version 9.3.3. This lab is a modification of the MP1B performance lab to demonstrate how to access per-queue statistics data. Queue statistics fields are well-documented at the following link: <a href="https://www.ibm.com/docs/en/ibm-mq/9.3?topic=statistics-queue-data-records-version-933-release">Link</a></p>
+<p>For this lab, we will be using MP1B to produce a performance report. MP1B is a utility provided by IBM to analyze your IBM MQ environment’s performance. MP1B shows you your SMF performance data and allows you to roll it off platform to CSV files for further analysis.</p>
 <p>MP1B is installable at <a href="https://www.ibm.com/support/fixcentral/swg/selectFixes?parent=ibm~WebSphere&amp;product=ibm/WebSphere/WebSphere+MQ&amp;release=9.3.2.0&amp;platform=z/OS&amp;function=fixId&amp;fixids=mp1b*">Link</a></p>
 <p>Out of the box, it contains:</p>
 <p><em>MQCMD</em> – a program to display queue statistics and channel status over time</p>
-<p><em>MQSMF</em> – a program for interpreting your own accounting and statistics data</p>
+<p><em>MQSMF</em> – a program for interpreting your own statistics data, including queue statistics</p>
 <p><em>OEMPUT</em> - a program to put/get messages in high quantities, useful for testing throughput</p>
 <h3 id="overview-of-exercise"><strong>Overview of exercise</strong></h3>
-<p>I.  Use OEMPUT to populate a queue with a bunch of messages</p>
-<p>II. Make sure settings are in place to record SMF data for our </p>
+<p>I.  Set up the local queue MP1B.TESTER</p>
+<p>II. Make sure settings are in place to record SMF data </p>
 <p>III.    Run JCL to record our SMF data </p>
-<p>IV. Navigate the SMF data output to find performance problems in our queue</p>
+<p>IV. Navigate the SMF data output to find performance problems </p>
 <p>V.  Interpret the performance problem</p>
 <h3 id="exercise"><strong>Exercise</strong></h3>
+<h4 id="i-set-up-the-local-queue-mp1btester">I. Set up the local queue MP1B.TESTER</h4>
 <ol>
 <li>
 <p>MP1B has been installed on this environment, and you can find it by searching for the directory ZQS1.MP1B.JCL in the =3.4 data set search bar.</p>
@@ -754,9 +839,10 @@
 <p>Why make the queue shareable? Great question! Shareable queues tend to come in handy in a test environment, so that developers can browse the queues.</p>
 </blockquote>
 <ol>
-<li>
-<p>Now that we have our queue defined, head back to z/OS. </p>
-</li>
+<li>Now that we have our queue defined, head back to z/OS. </li>
+</ol>
+<h4 id="ii-make-sure-settings-are-in-place-to-record-smf-data">II.    Make sure settings are in place to record SMF data</h4>
+<ol>
 <li>
 <p>Now, we will enter a series of MVS commands to adjust the settings of the queue manager to prepare it for the collection of SMF data. To do this, navigate to the ISPF main menu</p>
 </li>
@@ -775,12 +861,6 @@
 <div class="highlight"><pre><span></span><code>ZQS1 SET SYSTEM STATIME(1.00)
 </code></pre></div>
 <p>To change the statistics time interval to 1 minute</p>
-<div class="highlight"><pre><span></span><code>ZQS1 SET SYSTEM ACCTIME(-1)
-</code></pre></div>
-<p>To change the accounting time interval to match the statistics time interval</p>
-<div class="highlight"><pre><span></span><code>ZQS1 SET SYSTEM LOGLOAD(200)
-</code></pre></div>
-<p>To change the log load attribute to the minimum.</p>
 <p>We want to modify our queue manager’s log load attribute to be super low in order to manufacture a lot of checkpointing so we see something interesting in the SMF records for the purpose of the lab</p>
 <div class="highlight"><pre><span></span><code>DISPLAY SMF
 </code></pre></div>
@@ -795,13 +875,14 @@
 </code></pre></div>
 <p>This tells z/OS to turn on monitoring for the queue manager’s channels at a moderate ratio of data collection</p>
 <div class="highlight"><pre><span></span><code>ZQS1 START TRACE(STAT) CLASS(1,2,4,5)
-
-ZQS1 START TRACE(ACCTG) CLASS(3,4)
 </code></pre></div>
 </li>
 <li>
-<p>Now all the settings should be in place for our queue manager. Head back to ZQS1.MQ.JCL using 3.4 from the main ISPF menu. </p>
+<p>Now all the settings should be in place for our queue manager. Head back to ZQS1.MP1B.JCL using 3.4 from the main ISPF menu. </p>
 </li>
+</ol>
+<h4 id="iii-run-jcl-to-record-our-smf-data">III.    Run JCL to record our SMF data</h4>
+<ol>
 <li>
 <p>We will use OEMPUT to load messages into MP1B.TESTER. In the directory ZQS1.MP1B.JCL, place an ‘e’ to the left of the OEMPUT member. </p>
 <p><img alt="Screenshot of OEMPUT JCL" src="../assets/mp1b-7.png" title="Screenshot of OEMPUT JCL" /></p>
@@ -854,7 +935,15 @@ ZQS1 START TRACE(ACCTG) CLASS(3,4)
 <p><img alt="MQ Explorer display of message depth on queue" src="../assets/mp1b-8.png" title="MQ Explorer display of message depth on queue" /></p>
 </li>
 <li>
-<p>Navigate to the SMFDUMP member. Once inside, enter ‘submit’ on the command line to execute SMFDUMP JCL. The SMFDUMP JCL starts with deleting old tasks, then outputs it in a specified location, in our case, ZQS1.QUEUE.MQSMF.SHRSTRM2.</p>
+<p>Back in ZQS1.MP1B.JCL, navigate to the SMFDUMP member. Once inside, modify the date to be accurate. If you are completing this lab on 2/24/2025 at SHARE, the date will be 2025055. </p>
+</li>
+</ol>
+<blockquote>
+<p>This is a date in the Julian format.</p>
+</blockquote>
+<ol>
+<li>
+<p>Enter ‘submit’ on the command line to execute SMFDUMP JCL. The SMFDUMP JCL starts with deleting old tasks, then outputs it in a specified location, in our case, ZQS1.QUEUE.MQSMF.SHRSTRMx.</p>
 <p><img alt="SMFDUMP JCL" src="../assets/mp1b-9.png" title="SMFDUMP JCL" /></p>
 </li>
 <li>
@@ -868,25 +957,29 @@ ZQS1 START TRACE(ACCTG) CLASS(3,4)
 <p><img alt="Picture of SMFDUMP Output: SUMMARY ACTIVITY REPORT" src="../assets/mp1b-10.png" title="SUMMARY ACTIVITY REPORT" /></p>
 </li>
 <li>
-<p>After submitting, you will have to submit another job MQSMFP in ZQS1.MP1B.JCL. This job will give us some formatted information about the SMF data. Type ‘submit’ and hit enter.</p>
+<p>You will have to submit one final job MQSMFP in ZQS1.MP1B.JCL. This job will give us some formatted information about the SMF data. Type ‘submit’ and hit enter.</p>
 <p><img alt="Picture of MQSMFP JCL" src="../assets/mp1b-11.png" /></p>
 </li>
+</ol>
+<h4 id="iv-navigate-the-smf-data-output-to-find-performance-problems">IV.    Navigate the SMF data output to find performance problems</h4>
+<ol>
 <li>
 <p>Now, navigate to the SDSF output for the submitted job. We will be able to see the SMF output in useful categories that can also be exported as CSV files.</p>
-<p><img alt="Picture of MQSMFP Output" src="../assets/mp1b-12.png" /></p>
+<p><img alt="Picture of QSTATS Output" src="../assets/qstats1.png" /></p>
 </li>
 <li>
-<p>Navigate to the LOG statistics by putting a ‘s’ next to it and hitting enter. Scroll down until you see a screen similar to the one below. </p>
+<p>Navigate to the QSTATS statistics by putting a ‘s’ next to it and hitting enter. Once inside QSTATS, on the command line, enter:</p>
+<p>f MP1B.TESTER</p>
 </li>
 <li>
-<p>Here you can see LLCheckpoints has a value of 1564. Within our interval, we would expect this value to be 0’s or single-digits. 1564 is way too high. This indicates we should adjust our LOGLOAD attribute to have it write more log records between checkpoints.</p>
-<p><img alt="Picture of Checkpoint count" src="../assets/mp1b-13.png" /></p>
+<p>Voila, you should now see detailed information about the queue we set up, including the storage </p>
 </li>
 </ol>
-<h3 id="summary">Summary</h3>
-<p><img alt="Picture of logging schematic" src="../assets/mp1b-14.png" /></p>
-<p>The LOGLOAD parameter specifies the number of log records that are written between checkpoints. In the figure above, you can see the LOGLOAD indicated by the blue brackets. For the above image’s example, the LOGLOAD looks to be 6 here (6 would be impossibly small in a real environment).
-We set our queue manager’s LOGLOAD attribute to the lowest possible value of 200 then flood our environment with messages. We saw see this cause high checkpointing in our recorded SMF window, resulting in unnecessary consumption of processor time and additional I/O.</p>
+<p><img alt="Picture of QSTATS output" src="../assets/qstats2.png" /></p>
+<h4 id="v-interpret-the-findings">V. Interpret the findings</h4>
+<p>Compare the findings above with what you are able to glean from the WQ Task Accounting records below:</p>
+<p><img alt="Picture of WQ output" src="../assets/qstats3.png" /></p>
+<p>LAB FINISHED!</p>
 
 
 

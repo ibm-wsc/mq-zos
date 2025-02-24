@@ -6,9 +6,9 @@ Some knowledge of MQ or z/OS
 MQ Administration, z/OS systems programming
 
 #### **Background**
-Queue statistics was introduced into the IBM MQ for z/OS product in continuous delivery version 9.3.3. This lab is a modification of the MP1B performance lab to demonstrate how to access per-queue statistics data. Queue statistics fields are well-documented at the following link: [Link]/(https://www.ibm.com/docs/en/ibm-mq/9.3?topic=statistics-queue-data-records-version-933-release)
+Queue statistics was introduced into the IBM MQ for z/OS product in continuous delivery version 9.3.3. This lab is a modification of the MP1B performance lab to demonstrate how to access per-queue statistics data. Queue statistics fields are well-documented at the following link: [Link](https://www.ibm.com/docs/en/ibm-mq/9.3?topic=statistics-queue-data-records-version-933-release)
 
-MP1B is a utility provided by IBM to analyze your IBM MQ environment’s performance. MP1B shows you your SMF performance data and allows you to roll it off platform to CSV files for further analysis.
+For this lab, we will be using MP1B to produce a performance report. MP1B is a utility provided by IBM to analyze your IBM MQ environment’s performance. MP1B shows you your SMF performance data and allows you to roll it off platform to CSV files for further analysis.
 
 MP1B is installable at [Link](https://www.ibm.com/support/fixcentral/swg/selectFixes?parent=ibm~WebSphere&product=ibm/WebSphere/WebSphere+MQ&release=9.3.2.0&platform=z/OS&function=fixId&fixids=mp1b*)
 
@@ -16,23 +16,25 @@ Out of the box, it contains:
 
 *MQCMD* – a program to display queue statistics and channel status over time
 
-*MQSMF* – a program for interpreting your own accounting and statistics data
+*MQSMF* – a program for interpreting your own statistics data, including queue statistics
 
 *OEMPUT* - a program to put/get messages in high quantities, useful for testing throughput
 
 ### **Overview of exercise**
 
-I.	Use OEMPUT to populate a queue with a bunch of messages
+I.	Set up the local queue MP1B.TESTER
 
-II.	Make sure settings are in place to record SMF data for our 
+II.	Make sure settings are in place to record SMF data 
 
-III.	Run JCL to record our SMF data 
+III.    Run JCL to record our SMF data 
 
-IV.	Navigate the SMF data output to find performance problems in our queue
+IV.	Navigate the SMF data output to find performance problems 
 
 V.	Interpret the performance problem
 
 ### **Exercise** 
+
+#### I.	Set up the local queue MP1B.TESTER
 
 1.	MP1B has been installed on this environment, and you can find it by searching for the directory ZQS1.MP1B.JCL in the =3.4 data set search bar.
 
@@ -58,6 +60,8 @@ V.	Interpret the performance problem
 
 6.	Now that we have our queue defined, head back to z/OS. 
 
+#### II.	Make sure settings are in place to record SMF data 
+
 7.	Now, we will enter a series of MVS commands to adjust the settings of the queue manager to prepare it for the collection of SMF data. To do this, navigate to the ISPF main menu
 
 8.	Once in the ISPF main menu, enter ‘d’ in the command line and hit enter
@@ -73,14 +77,6 @@ V.	Interpret the performance problem
         ZQS1 SET SYSTEM STATIME(1.00)
 
     To change the statistics time interval to 1 minute
-
-        ZQS1 SET SYSTEM ACCTIME(-1)
-
-    To change the accounting time interval to match the statistics time interval
-
-        ZQS1 SET SYSTEM LOGLOAD(200) 
-        
-    To change the log load attribute to the minimum.
 
     We want to modify our queue manager’s log load attribute to be super low in order to manufacture a lot of checkpointing so we see something interesting in the SMF records for the purpose of the lab
 
@@ -102,9 +98,9 @@ V.	Interpret the performance problem
 
         ZQS1 START TRACE(STAT) CLASS(1,2,4,5)
 
-        ZQS1 START TRACE(ACCTG) CLASS(3,4)
+12.	Now all the settings should be in place for our queue manager. Head back to ZQS1.MP1B.JCL using 3.4 from the main ISPF menu. 
 
-12.	Now all the settings should be in place for our queue manager. Head back to ZQS1.MQ.JCL using 3.4 from the main ISPF menu. 
+#### III.    Run JCL to record our SMF data 
 
 13.	We will use OEMPUT to load messages into MP1B.TESTER. In the directory ZQS1.MP1B.JCL, place an ‘e’ to the left of the OEMPUT member. 
 
@@ -134,7 +130,11 @@ V.	Interpret the performance problem
 
     ![MQ Explorer display of message depth on queue](assets/mp1b-8.png "MQ Explorer display of message depth on queue")
 
-17.	Navigate to the SMFDUMP member. Once inside, enter ‘submit’ on the command line to execute SMFDUMP JCL. The SMFDUMP JCL starts with deleting old tasks, then outputs it in a specified location, in our case, ZQS1.QUEUE.MQSMF.SHRSTRM2.
+17.	Back in ZQS1.MP1B.JCL, navigate to the SMFDUMP member. Once inside, modify the date to be accurate. If you are completing this lab on 2/24/2025 at SHARE, the date will be 2025055. 
+
+> This is a date in the Julian format.
+
+18. Enter ‘submit’ on the command line to execute SMFDUMP JCL. The SMFDUMP JCL starts with deleting old tasks, then outputs it in a specified location, in our case, ZQS1.QUEUE.MQSMF.SHRSTRMx.
 
     ![SMFDUMP JCL](assets/mp1b-9.png "SMFDUMP JCL")
 
@@ -148,28 +148,34 @@ V.	Interpret the performance problem
     ![Picture of SMFDUMP Output: SUMMARY ACTIVITY REPORT](assets/mp1b-10.png "SUMMARY ACTIVITY REPORT")
 
  
-23.	After submitting, you will have to submit another job MQSMFP in ZQS1.MP1B.JCL. This job will give us some formatted information about the SMF data. Type ‘submit’ and hit enter.
+23.	You will have to submit one final job MQSMFP in ZQS1.MP1B.JCL. This job will give us some formatted information about the SMF data. Type ‘submit’ and hit enter.
 
     ![Picture of MQSMFP JCL](assets/mp1b-11.png)
 
+#### IV.	Navigate the SMF data output to find performance problems
+
 24.	Now, navigate to the SDSF output for the submitted job. We will be able to see the SMF output in useful categories that can also be exported as CSV files.
  
-    ![Picture of MQSMFP Output](assets/mp1b-12.png)
+    ![Picture of QSTATS Output](assets/qstats1.png)
 
-25.	Navigate to the LOG statistics by putting a ‘s’ next to it and hitting enter. Scroll down until you see a screen similar to the one below. 
+25.	Navigate to the QSTATS statistics by putting a ‘s’ next to it and hitting enter. Once inside QSTATS, on the command line, enter:
 
-26.	Here you can see LLCheckpoints has a value of 1564. Within our interval, we would expect this value to be 0’s or single-digits. 1564 is way too high. This indicates we should adjust our LOGLOAD attribute to have it write more log records between checkpoints.
+    f MP1B.TESTER
+
+26. Voila, you should now see detailed information about the queue we set up, including the storage 
+
+![Picture of QSTATS output](assets/qstats2.png)
+
+#### V.	Interpret the findings
+
+Compare the findings above with what you are able to glean from the WQ Task Accounting records below:
  
-    ![Picture of Checkpoint count](assets/mp1b-13.png)
-
-### Summary
-
-![Picture of logging schematic](assets/mp1b-14.png)
-
-The LOGLOAD parameter specifies the number of log records that are written between checkpoints. In the figure above, you can see the LOGLOAD indicated by the blue brackets. For the above image’s example, the LOGLOAD looks to be 6 here (6 would be impossibly small in a real environment).
-We set our queue manager’s LOGLOAD attribute to the lowest possible value of 200 then flood our environment with messages. We saw see this cause high checkpointing in our recorded SMF window, resulting in unnecessary consumption of processor time and additional I/O.
+![Picture of WQ output](assets/qstats3.png)
 
 
+
+
+LAB FINISHED!
 
 
 

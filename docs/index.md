@@ -5,13 +5,15 @@ This site is a repository for IBM WSC intellectual capital related to IBM MQ for
 
 ### Other IBM MQ resources - not specific to z/OS
 
+[IBM Developer - MQ Materials](https://developer.ibm.com/components/ibm-mq/)
+
+[IBM Integration Community Blog](https://community.ibm.com/community/user/integration/communities/community-home/recent-community-blogs?communitykey=183ec850-4947-49c8-9a2e-8e7c7fc46c64)
+
 [IBM Messaging GitHub](https://github.com/ibm-messaging)
 
 [IBM MQ Documentation](https://www.ibm.com/docs/en/ibm-mq)
 
-[IBM Developer - MQ Materials](https://developer.ibm.com/components/ibm-mq/)
-
-[IBM Integration Community Blog](https://community.ibm.com/community/user/integration/communities/community-home/recent-community-blogs?communitykey=183ec850-4947-49c8-9a2e-8e7c7fc46c64)
+[IBM MQ Performance](https://ibm-messaging.github.io/mqperf/)
 
 ### Acknowledgements
 

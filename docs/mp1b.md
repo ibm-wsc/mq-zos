@@ -30,6 +30,8 @@ IV.	Navigate the SMF data output to find performance problems in our queue
 
 V.	Interpret the performance problem
 
+Video tutorial of the following exercise: [Link](https://youtu.be/Mv4e50Xztn0)
+
 ### **Exercise** 
 
 1.	MP1B has been installed on this environment, and you can find it by searching for the directory ZQS1.MP1B.JCL in the =3.4 data set search bar.
@@ -102,7 +104,7 @@ V.	Interpret the performance problem
 
         ZQS1 START TRACE(ACCTG) CLASS(3,4)
 
-12.	Now all the settings should be in place for our queue manager. Head back to ZQS1.MQ.JCL using 3.4 from the main ISPF menu. 
+12.	Now all the settings should be in place for our queue manager. Head back to ZQS1.MP1B.JCL using 3.4 from the main ISPF menu. 
 
 13.	We will use OEMPUT to load messages into MP1B.TESTER. In the directory ZQS1.MP1B.JCL, place an ‘e’ to the left of the OEMPUT member. 
 
@@ -132,7 +134,7 @@ V.	Interpret the performance problem
 
     ![MQ Explorer display of message depth on queue](assets/mp1b-8.png "MQ Explorer display of message depth on queue")
 
-17.	Navigate to the SMFDUMP member. Once inside, enter ‘submit’ on the command line to execute SMFDUMP JCL. The SMFDUMP JCL starts with deleting old tasks, then outputs it in a specified location, in our case, ZQS1.QUEUE.MQSMF.SHRSTRM2.
+17.	Back in ZQS1.MP1B.JCL, navigate to the SMFDUMP member. Once inside, enter ‘submit’ on the command line to execute SMFDUMP JCL. The SMFDUMP JCL starts with deleting old tasks, then outputs it in a specified location, in our case, ZQS1.QUEUE.MQSMF.SHRSTRM2.
 
     ![SMFDUMP JCL](assets/mp1b-9.png "SMFDUMP JCL")
 

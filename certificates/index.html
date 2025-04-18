@@ -12,13 +12,13 @@
         <meta name="author" content="IBM Z WSC">
       
       
-        <link rel="canonical" href="https://github.com/ibm-wsc/mq-zos/comparing-offloading/">
+        <link rel="canonical" href="https://github.com/ibm-wsc/mq-zos/certificates/">
       
       
-        <link rel="prev" href="../connectivity/">
+        <link rel="prev" href="..">
       
       
-        <link rel="next" href="../mp1b/">
+        <link rel="next" href="../new-queue-manager/">
       
       
       <link rel="icon" href="../assets/wsc-logo.png">
@@ -26,7 +26,7 @@
     
     
       
-        <title>Comparing Offloading Lab - IBM MQ for z/OS</title>
+        <title>Certificate Management - IBM MQ for z/OS</title>
       
     
     
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#lab-exercise-comparing-smds-and-db2-blobs-for-queue-sharing" class="md-skip">
+        <a href="#using-ssl-with-mq" class="md-skip">
           Skip to content
         </a>
       
@@ -115,7 +115,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Comparing Offloading Lab
+              Certificate Management
             
           </span>
         </div>
@@ -274,10 +274,30 @@
       
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../certificates/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Certificate Management
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -286,6 +306,104 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#audience-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      Audience level
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#skillset" class="md-nav__link">
+    <span class="md-ellipsis">
+      Skillset
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      Background
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview-of-exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview of exercise
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-begin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab begin
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab begin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#i-set-up-the-zos-side" class="md-nav__link">
+    <span class="md-ellipsis">
+      I. Set up the z/OS side
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ii-configuring-the-mq-explorer-ssl-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      II. Configuring the MQ Explorer SSL Support
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iii-configure-channel-encryption" class="md-nav__link">
+    <span class="md-ellipsis">
+      III. Configure channel encryption
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -334,30 +452,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Comparing Offloading Lab
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../comparing-offloading/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -366,98 +464,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#audience-level-knowledge-of-mq-or-zos" class="md-nav__link">
-    <span class="md-ellipsis">
-      Audience level: knowledge of MQ or z/OS
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#skillset-zos-systems-programming-mq-administration" class="md-nav__link">
-    <span class="md-ellipsis">
-      Skillset: z/OS Systems Programming, MQ Administration
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#background" class="md-nav__link">
-    <span class="md-ellipsis">
-      Background
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#overview-of-exercise" class="md-nav__link">
-    <span class="md-ellipsis">
-      Overview of exercise
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#steps-of-exercise" class="md-nav__link">
-    <span class="md-ellipsis">
-      Steps of exercise
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#i-run-oemput-program-against-smds-enabled-cf-structure-test1" class="md-nav__link">
-    <span class="md-ellipsis">
-      I. Run OEMPUT program against SMDS-enabled CF structure (TEST1)
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#ii-run-oemput-program-against-blob-enabled-cf-structure-test2" class="md-nav__link">
-    <span class="md-ellipsis">
-      II. Run OEMPUT program against BLOB-enabled CF structure (TEST2)
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#iii-compare-the-output-from-both" class="md-nav__link">
-    <span class="md-ellipsis">
-      III. Compare the output from both
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -715,18 +721,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#audience-level-knowledge-of-mq-or-zos" class="md-nav__link">
+  <a href="#audience-level" class="md-nav__link">
     <span class="md-ellipsis">
-      Audience level: knowledge of MQ or z/OS
+      Audience level
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#skillset-zos-systems-programming-mq-administration" class="md-nav__link">
+  <a href="#skillset" class="md-nav__link">
     <span class="md-ellipsis">
-      Skillset: z/OS Systems Programming, MQ Administration
+      Skillset
     </span>
   </a>
   
@@ -751,38 +757,44 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#steps-of-exercise" class="md-nav__link">
+  <a href="#lab-begin" class="md-nav__link">
     <span class="md-ellipsis">
-      Steps of exercise
+      Lab begin
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab begin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#i-set-up-the-zos-side" class="md-nav__link">
+    <span class="md-ellipsis">
+      I. Set up the z/OS side
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#i-run-oemput-program-against-smds-enabled-cf-structure-test1" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#ii-configuring-the-mq-explorer-ssl-support" class="md-nav__link">
     <span class="md-ellipsis">
-      I. Run OEMPUT program against SMDS-enabled CF structure (TEST1)
+      II. Configuring the MQ Explorer SSL Support
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#ii-run-oemput-program-against-blob-enabled-cf-structure-test2" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#iii-configure-channel-encryption" class="md-nav__link">
     <span class="md-ellipsis">
-      II. Run OEMPUT program against BLOB-enabled CF structure (TEST2)
+      III. Configure channel encryption
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#iii-compare-the-output-from-both" class="md-nav__link">
-    <span class="md-ellipsis">
-      III. Compare the output from both
-    </span>
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -804,153 +816,271 @@
   
 
 
-<h1 id="lab-exercise-comparing-smds-and-db2-blobs-for-queue-sharing"><strong>Lab Exercise:</strong> Comparing SMDS and DB2 Blobs for queue-sharing</h1>
-<h4 id="audience-level-knowledge-of-mq-or-zos">Audience level: knowledge of MQ or z/OS</h4>
-<h4 id="skillset-zos-systems-programming-mq-administration">Skillset: z/OS Systems Programming, MQ Administration</h4>
-<h4 id="background">Background</h4>
-<p>Shared message data sets (SMDS) are the preferred method for offloading large messages in queue-sharing groups. SMDS’s are designed to handle large messages efficiently, so in this exercise, we will test two CF structures, one with SMDS and the other with BLOBs to examine the differences between the two offloading mechanisms.</p>
-<h4 id="overview-of-exercise">Overview of exercise</h4>
-<p>I.  Run OEMPUT program against SMDS-enabled CF structure (TEST1)</p>
-<p>II. Run OEMPUT program against BLOB-enabled CF structure (TEST2)</p>
-<p>III.    Compare the output from both</p>
-<h4 id="steps-of-exercise">Steps of exercise</h4>
-<h4 id="i-run-oemput-program-against-smds-enabled-cf-structure-test1">I. Run OEMPUT program against SMDS-enabled CF structure (TEST1)</h4>
+<h1 id="using-ssl-with-mq">Using SSL with MQ</h1>
+<h3 id="audience-level">Audience level</h3>
+<p>Intermediate or advanced; Users should have an understanding of MQ, RACF, Java, SSL/TLS  </p>
+<h3 id="skillset">Skillset</h3>
+<p>z/OS Systems Programming, MQ Administration</p>
+<h3 id="background">Background</h3>
+<p>IBM MQ for z/OS customers are continually looking for methods to keep their environments secure. Understanding how to use SSL/TLS with z/OS is critical to keeping up with encryption requirements. In this lab, you will set up the infrastructure for certificates in a IBM MQ environment. </p>
+<h3 id="overview-of-exercise">Overview of exercise</h3>
+<p><img alt="Picture of certificate diagram" src="../assets/cert_diagram.png" title="Picture of certificate diagram" /></p>
+<p>In the first part of this exercise, we will generate a self-signed certificate connecting z/OS to our client. This step is necessary to create the TLS infrastructure to be used for channel encryption. </p>
+<p>We will do this by generating a certificate authority and personal certificate on z/OS using the RACF Certificate Authority, then we will export the certificate as a trusted certificate to our client, then we will configure a java keystore on our client-side, generate a personal certificate on the client-side and sign the client's personal certificate using our z/OS certificate authority. </p>
+<p>Please note: self-signed certificates should only be used in lab or test environments. They should not be used in production environments.</p>
+<p>In the second part of this exercise, we will implement channel encryption to securely connect to a sample queue manager running on z/OS.</p>
+<p>We will do this by adjusting settings on our queue manager, mainly using MQ Explorer.</p>
+<h3 id="lab-begin">Lab begin</h3>
+<h4 id="i-set-up-the-zos-side">I. Set up the z/OS side</h4>
 <ol>
 <li>
-<p>Using MQ Explorer, verify that the below configuration is in place. You should see connections to ZQS1, ZQS2, and you should see a QSGA queue-sharing group visible.</p>
+<p>Use the TSO command RACDCERT CERTAUTH GENCERT command to create a signer
+certificate with label 'MQ CA'.</p>
+<div class="highlight"><pre><span></span><code>racdcert certauth gencert subjectsdn(CN(&#39;MQ CA&#39;) OU(&#39;ATS&#39;)
+O(&#39;IBM&#39;) C(&#39;US&#39;)) withlabel(&#39;MQ CA&#39;) keyusage(certsign)
+notafter(date(2029/12/31)) 
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>subjectsdn(CN('common-name') OU('organizational-unit-name1') O('organization-name') C('country'))</td>
+<td>Specifies the subject's X.509 distinguished name, which consists of the following components: CommonName - specified with the CN subkeyword. Organizational Unit - specified with the OU subkeyword. Multiple values can be specified for the organizational unit. Country - specified with the C subkeyword.</td>
+</tr>
+<tr>
+<td>withlabel</td>
+<td>Specifies the label assigned to this certificate. If specified, this must be unique to the user ID with which the certificate is associated. If not specified, it defaults in the same manner as the WITHLABEL keyword on the RACDCERT ADD command.</td>
+</tr>
+<tr>
+<td>signwith</td>
+<td>Specifies the certificate with a private key that is signing the certificate. If SIGNWITH is specified, it must refer to a certificate that has a private key associated with it. If no private key is associated with the certificate, an informational message is issued and processing stops.</td>
+</tr>
+<tr>
+<td>notafter</td>
+<td>Specifies the local date and time after which the certificate is no longer valid.</td>
+</tr>
+</tbody>
+</table>
 </li>
 <li>
-<p>In MQ Explorer, navigate to the queue-sharing group QSGA’s Coupling Facility Structures by clicking  ‘&gt;’ next to the QSGA label then pressing Coupling Facility Structures to display more information.</p>
-</li>
-<li>
-<p>Your structures should look like the following:
-    <img alt="Picture of CF structures list from MQ Explorer" src="../assets/offload1.png" title="Picture of structure list from MQ Explorer" /></p>
-</li>
-<li>
-<p>Scroll to the right, making sure that all offload rules are the same for TEST1 and TEST2 except for the ‘Offload’ and ‘Group data set name’ fields.</p>
-<p><img alt="Picture of CF structures list from MQ Explorer" src="../assets/offload2.png" title="Picture of structure list from MQ Explorer" /></p>
-</li>
-<li>
-<p>Now, navigate to the MQS1 z/OS image.</p>
-</li>
-<li>
-<p>Use option 3.4 to navigate to the ZQS1.MQ.JCL data set. Navigate to PUTSMDS and type an ‘e’ to edit the member.</p>
-<p><img alt="Picture of ZQS1.MQ.JCL members" src="../assets/offload3.png" title="Picture of ZQS1.MQ.JCL members" /></p>
-</li>
-<li>
-<p>In PUTSMDS, you will see an execution of OEMPUT. This JCL puts a large amount of large messages on our SMDS.QUEUE, defined to TEST1.
-Which parameters are we using with OEMPUT here?</p>
+<p>Use the RACDCERT CERTAUTH GENCERT command to create a personal certificate for the
+MQ channel initiator (CHIN) with a label of 'MQCHIN'.</p>
+<div class="highlight"><pre><span></span><code>racdcert id(SYSPROG) gencert subjectsdn(CN(&#39;MQ CHIN&#39;) OU(&#39;ATS&#39;)
+O(&#39;IBM&#39;) C(&#39;US&#39;)) withlabel(&#39;MQ CHIN&#39;) signwith(certauth
+label(&#39;MQ CA&#39;)) notafter(date(2029/12/31) 
+</code></pre></div>
 </li>
 </ol>
 <table>
 <thead>
 <tr>
 <th>Parameter</th>
-<th>Description</th>
+<th>Meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>- mZQS1</td>
-<td>Specify target queue manager</td>
+<td>subjectsdn</td>
+<td>Specifies the subject's X.509 distinguished name, which consists of the following components: CommonName - specified with the CN subkeyword. Organizational Unit - specified with the OU subkeyword. Multiple values can be specified for the organizational unit. Country - specified with the C subkeyword.</td>
 </tr>
 <tr>
-<td>-qSMDS.QUEUE</td>
-<td>Specify target queue</td>
+<td>withlabel</td>
+<td>Specifies the label assigned to this certificate. If specified, this must be unique to the user ID with which the certificate is associated. If not specified, it defaults in the same manner as the WITHLABEL keyword on the RACDCERT ADD command.</td>
 </tr>
 <tr>
-<td>-fileDD:MSGIN</td>
-<td>Specify messages to be used</td>
+<td>signwith</td>
+<td>Specifies the certificate with a private key that is signing the certificate. If SIGNWITH is specified, it must refer to a certificate that has a private key associated with it. If no private key is associated with the certificate, an informational message is issued and processing stops.</td>
 </tr>
 <tr>
-<td>-ts500</td>
-<td>Specify how long message stream should last (500 seconds)</td>
-</tr>
-<tr>
-<td>-s650000</td>
-<td>Specify the size of the message, note we are using a message larger than 63KB here, as to necessitate the use of offloading, since large messages can’t be held in the CF list structures.</td>
-</tr>
-<tr>
-<td>-l10</td>
-<td>Loop MQPUT and MQGET 10 times during execution</td>
-</tr>
-<tr>
-<td>-cgcpc</td>
-<td>Mimic client application program by procressing a commit after both MQPUTs and MQGETs</td>
-</tr>
-<tr>
-<td>-crlf</td>
-<td>Each line in the input message file is used in sequence as message data</td>
-</tr>
-<tr>
-<td>-rSMDS.QUEUE</td>
-<td>Reply-to-queue from which replies will be retrieved (MQGET). If the -r option is omitted, MQGETs will not be issued.</td>
+<td>notafter</td>
+<td>Specifies the local date and time after which the certificate is no longer valid.</td>
 </tr>
 </tbody>
 </table>
-<p>**Note: If we specified persistent messages here, the contrast between SMDS and BLOBs would be less noticeable because transactions on both sides would have to wait on logging.</p>
-<ol>
-<li>Type ‘submit’ in the command line and press your enter key. You should see a reason code (RC) of 0000. This execution will take a few minutes to complete.</li>
-</ol>
-<h4 id="ii-run-oemput-program-against-blob-enabled-cf-structure-test2">II. Run OEMPUT program against BLOB-enabled CF structure (TEST2)</h4>
+<blockquote>
+<p><em><strong>Tech-Tip:</strong> SYSPROG is the MQ channel initiator region’s RACF identity under which the CHIN started task is executing.</em></p>
+</blockquote>
 <ol>
 <li>
-<p>Now, we will repeat the steps to submit another execution of OEMPUT, this time for our queue tied to BLOB storage. </p>
-</li>
-<li>
-<p>Use F3 to back out to the ZQS1.MQ.JCL data set. Place an ‘E’ next to PUTBLOB and press enter to edit the member. </p>
-</li>
-<li>
-<p>As you look through PUTBLOB, navigating up and down the screen using the F7 and F8 keys, you will notice that the only difference between PUTSMDS and PUTBLOB is the queue name. We are keep all other variables constant, especially message size.</p>
-</li>
-<li>
-<p>Type ‘submit’ in the command line and press your enter key. You should see a reason code (RC) of 0000. This execution will take a few minutes to complete. </p>
+<p>Run the command </p>
+<div class="highlight"><pre><span></span><code>racdcert certauth list(label(&#39;MQ CA&#39;))
+</code></pre></div>
+<p>Your output should look like this:</p>
+<div class="highlight"><pre><span></span><code>Digital certificate information for CERTAUTH:           
+
+Label: MQ CA                                          
+Certificate ID: 2QiJmZmDhZmjgdTYQMPB                  
+Status: TRUST                                         
+Start Date: 2025/03/10 00:00:00                       
+End Date:   2025/03/31 23:59:59                       
+Serial Number:                                        
+    &gt;00&lt;                                             
+Issuer&#39;s Name:                                        
+    &gt;CN=MQ CA.OU=ATS.O=IBM.C=US&lt;                     
+Subject&#39;s Name:                                       
+    &gt;CN=MQ CA.OU=ATS.O=IBM.C=US&lt;                     
+Signing Algorithm: sha256RSA                          
+Key Usage: CERTSIGN                                   
+Key Type: RSA                                         
+Key Size: 2048                                        
+Private Key: YES                                      
+</code></pre></div>
 </li>
 </ol>
-<h4 id="iii-compare-the-output-from-both">III. Compare the output from both</h4>
+<blockquote>
+<p><em><strong>Tech-Tip:</strong> The common name (CN), organization unite(OU), organization(O) country (C) , labels and aliases are case sensitive. Subsequent RACF or keytool commands referencing a label, an alias or common name, etc. in any command must use the exact same case and spacing when referring to the values of these fields in the certificate (i.e. be consistent).</em></p>
+</blockquote>
+<p><em>For example, command racdcert certauth list(label(‘MQ CA’)) would display this certificate while command racdcert certauth list(label(‘mq CA’)) would not. Command racdcert certauth delete(label(‘MQ CA’)) could be used to delete this certificate while command racdcert certauth delete(label(‘mq CA’)) could not.</em></p>
+<ol>
+<li>Use the RACDCERT ADDRING command to create a RACF Key Ring for the MQ CHIN region’s RACF identity. The signer certificates and WMQ’s personal certificates will be connected to this key ring.<div class="highlight"><pre><span></span><code>racdcert id(user1) addring(MQCHIN.KeyRing)
+</code></pre></div>
+</li>
+</ol>
+<blockquote>
+<p><em><strong>Tech-Tip:</strong> Tech-Tip: RACF key rings are case sensitive so be sure to enter the key ring name, e.g. MQ.KeyRing in exactly the same case in subsequent commands.</em></p>
+<p><em><strong>Tech-Tip:</strong> START1 needs READ access to FACILITY resource IRR.DIGTCERT.LISTRING in order to access this key ring.</em></p>
+</blockquote>
+<ol>
+<li>Use the RACDCERT CONNECT command to connect the MQ signer certificate that was used to sign the ‘MQ CA’ client’s personal certificate to the MQ CHIN’s key ring.<div class="highlight"><pre><span></span><code>racdcert id(SYSPROG) connect(ring(MQCHIN.KeyRing) label(&#39;MQ CA&#39;) certauth usage(certauth))
+</code></pre></div>
+</li>
+</ol>
+<blockquote>
+<p><em>Tech-Tip:</em> A RACF key ring is unique to the owning user. A key ring labeled “MQ.KeyRing” owned by user START1 is not the same key ring owned by user START2. So connecting a signer certificate labeled “MQ CA” with command RACDCERT ID(START1) CONNECT(RING(MQCHIN.KeyRing) has no effect on a key ring labeled MQCHIN.KeyRing owned by user START2. The significance of this is more apparent during key ring maintenance when a key ring is updated with new information but the application is actually using another key ring with the same name but owned by a different user.*</p>
+</blockquote>
+<ol>
+<li>Use the RACDCERT CONNECT command to connect the MQ CHIN region's persional certificate to the MQCHIN.KeyRing. <div class="highlight"><pre><span></span><code>racdcert id(SYSPROG) connect(ring(MQCHIN.KeyRing) label(&#39;MQ CHIN&#39;) default)
+</code></pre></div>
+</li>
+</ol>
+<blockquote>
+<p><em>Tech-Tip:</em> The default parameter indicates that this is the personal certificate that will be provided to the remote application during a connection request.</p>
+</blockquote>
 <ol>
 <li>
-<p>From the ISPF main menu, type ‘sdsf’ or ‘d’ on the command line and press enter to access the SDSF menu. </p>
+<p>Use the RACF RACDCERT LISTRING command to display the MQCHIN.KeyRing contents</p>
+<div class="highlight"><pre><span></span><code>racdcert id(SYSPROG) listring(MQCHIN.KeyRing)
+</code></pre></div>
 </li>
 <li>
-<p>Here, type ‘ST’ on the command line and press enter to access the status of recent jobs.</p>
-</li>
-<li>
-<p>In our JCL, our OEMPUT jobs were named OEMPSMDS and OEMBLOB, respectively. We can search for all jobs beginning with OEM, but typing in the command line ‘pre OEM*’ and pressing enter.</p>
-</li>
-<li>
-<p>Both jobs should appear in a list. Let’s look at OEMPSMDS first. Place a question mark to the left of the job name and press enter. </p>
-</li>
-<li>
-<p>A list should appear with output on how successful the job was and any output from the job. We are interested in the SYSPRINT output. Place a ‘s’ to the left of SYSPRINT and press enter.</p>
-</li>
-<li>
-<p>Scroll down on the SYSPRINT output until you see the following output. Make not of the Total Transaction value, the Transaction Rate value, and the Avg App CPU per msg value. This gives us information about how many transactions were completed in the allotted time with SMDS storage specified, the efficiency of those transactions, and the CPU consumption required.</p>
+<p>The MQ signer certificate needs to be exported and installed in the client's trust stores. Use the RACDCERT CERTAUTH EXPORT command to export the MQ signer certificate from RACF into a sequential dataset.</p>
+<div class="highlight"><pre><span></span><code>racdcert certauth export(label(&#39;MQ CA&#39;)) dsn(mq.cacert.cer)
+</code></pre></div>
 </li>
 </ol>
-<p><strong>If you are unable to see the SYSPRINT screen for any reason, we have prepared sample examples at the end of this lab for reference.</strong></p>
+<h4 id="ii-configuring-the-mq-explorer-ssl-support">II. Configuring the MQ Explorer SSL Support</h4>
 <ol>
 <li>
-<p>Now, let’s check out the same information for BLOB storage. Use F3 to back out twice until you reach the list containing OEMPSMDS and OEMPBLOB.</p>
+<p>Open a command window and enter the following:</p>
+<div class="highlight"><pre><span></span><code>user1@129.40.114.132&#39;s password:
+Connected to 129.40.114.132.
+sftp&gt; cd //&#39;USER1&#39;
+sftp&gt; ls /+mode=text
+/+mode=text
+sftp&gt; get MQ.CACERT.CER
+Fetching //USER1/MQ.CACERT.CER to MQ.CACERT.CER
+</code></pre></div>
 </li>
 <li>
-<p>Place a ‘?’ next to the OEMPBLOB job and press enter.</p>
+<p>Import the MQ Certificate Authority certificate using the keytool import command to import the signer certificate into local trust store file(e.g. USER1.jks) and indicate that this is a trusted signer certificates (-trustcacerts)</p>
+<div class="highlight"><pre><span></span><code>keytool -import -v -trustcacerts -alias &quot;MQ CA&quot; -file MQ.CACERT.CER -keystore USER1.jks
+</code></pre></div>
 </li>
 <li>
-<p>Place a ‘s’ next to the SYSPRINT output and press enter.</p>
+<p>Use the keytool genkey command to generate a self-signed certificate with the desired distinguished name specification. This is required in order to generate a certificate request that will be sent to RACF for signing by the MQ CA certificate.</p>
+<div class="highlight"><pre><span></span><code>keytool -genkey -alias &quot;USER1&quot; -dname &quot;CN=USER1, OU=ATS, O=IBM, C=US&quot; -keystore USER1jks -keyalg RSA
+</code></pre></div>
 </li>
 <li>
-<p>Navigate until you see the Total Transaction value, the Transaction Rate value, and the Avg App CPU per msg value.</p>
+<p>Use the keytool certreq command to extraact the self-signed certificate to a certificate request file that can be uploaded to z/OS.</p>
+<div class="highlight"><pre><span></span><code>keytool -certreq -alias &quot;USER1&quot; -file certreq.cer -keystore USER1.jks
+</code></pre></div>
+</li>
+<li>
+<p>Use ftp to move the certificate request to z/OS.</p>
+<div class="highlight"><pre><span></span><code>user1@129.40.114.132&#39;s password:
+Connected to 129.40.114.132.
+sftp&gt; cd //&#39;USER1&#39;
+sftp&gt; ls /+lrecl=256,recfm=vb,blksize=0
+/+lrecl=256,recfm=vb,blksize=0
+sftp&gt; mput certreq.cer
+</code></pre></div>
+</li>
+<li>
+<p>Browse USER1.CERTREQ.CER and you should see something like this below:</p>
+<div class="highlight"><pre><span></span><code>---------BEGIN NEW CERTIFICATE REQUEST----------
+JASKHUGSIteusheughaoer8hoiueahgkshrekughkurehgr
+...
+----------END NEW CERTIFICATE REQUEST-----------
+</code></pre></div>
+</li>
+<li>
+<p>After uploading the certificate request to z/OS, use the RACDCERT GENCERT command to sign the certificate request with the RACF MQ signer certificate and associate this certificate with a valid RACF identity (e.g. USER1).</p>
+<p>racdcert id(USER1) gencert(certreq.cer) withlabel('USER1') signwith(certauth label('MQ CA')) notafter(date(2029/12/31))</p>
+</li>
+<li>
+<p>Export the signed client certificate request file to a sequential z/OS dataset using the RACDCERT EXPORT command.</p>
+<p>racdcert id(USER1) export(label('USER1')) dsn(cert.cer)</p>
+</li>
+<li>
+<p>Browse USER1.CERT.CER and you should see something like below:</p>
+<div class="highlight"><pre><span></span><code>-------BEGIN CERTIFICATE --------
+ADSUHFAKURENJJLANFJLRELUGNAJKFNVA
+...
+------END CERTIFICATE------------
+</code></pre></div>
+</li>
+<li>
+<p>Use ftp to move the signed certificate in dataset USER1.CERT.CER to Windows</p>
+<div class="highlight"><pre><span></span><code>user1@129.40.114.132&#39;s password:
+Connected to 129.40.114.132.
+sftp&gt; cd //&#39;USER1&#39;
+sftp&gt; ls /+mode=text
+/+mode=text
+sftp&gt; get USER1.CACERT.CER
+Fetching //USER1/CERT.CER to USER1.CERT.CER
+</code></pre></div>
+</li>
+<li>
+<p>Use the keytool -import command to import the signed certificate into the JSSE keystore.</p>
+<div class="highlight"><pre><span></span><code>keytool -v -import -alias &quot;USER1&quot; -file CERT.CER -keystore USER1.jks
+</code></pre></div>
 </li>
 </ol>
-<p><strong>If you are unable to see the SYSPRINT screen for any reason, we have prepared sample examples at the end of this lab for reference.</strong></p>
+<blockquote>
+<p><em>Tech-tip</em> If the message “Certificate reply was installed in keystore” is not displayed then there was problem somewhere in this process. Steps 2 to 12 could repeated after removing file user1.jks and deleting the USER1 certificate with command racdcert id(USER1) delete(label('USER1')</p>
+</blockquote>
 <ol>
-<li>You have now compared the performance and storage consumption of SMDS and BLOB offloading in our test environment! Hopefully, this helps you see the advantages of using SMDS in terms of throughput. While CPU consumption is higher for SMDS in this test environment, </li>
+<li>To recap, in this part of the exercise, we configured a self-signed certificate.</li>
 </ol>
-<p><em>Figure 1. SMDS performance</em></p>
-<p><img alt="Picture of SMDS performance report" src="../assets/offload4.png" title="Picture of SMDS performance" /></p>
-<p><em>Figure 2 BLOB performance</em></p>
-<p><img alt="Picture of BLOB performance report" src="../assets/offload5.png" title="Picture of SMDS performance" /></p>
+<p><img alt="Picture of certificate diagram" src="../assets/cert_diagram.png" title="Picture of certificate diagram" /></p>
+<h4 id="iii-configure-channel-encryption">III. Configure channel encryption</h4>
+<ol>
+<li>
+<p>At this point, we have to adjust queue manager settings for our z/OS queue manager ZQS1. Start by opening MQ Explorer.</p>
+</li>
+<li>
+<p>Modify RACF key ring (SSLKEYR) to be accessed for personal and certificate authority digital certificates</p>
+<div class="highlight"><pre><span></span><code>/ZQS1 ALTER QMGR SSLKEYR(&#39;MQCHIN.KeyRing&#39;)
+</code></pre></div>
+</li>
+<li>
+<p>Modify the number of SSL sub tasks (SSLTASKS) for processing SSL calls</p>
+<div class="highlight"><pre><span></span><code>/ZQS1 ALTER QMGR SSLTASKS(5)
+</code></pre></div>
+</li>
+<li>
+<p>Restart CHINIT address space</p>
+<div class="highlight"><pre><span></span><code>/ZQS1 STOP CHINIT
+/ZQS1 START CHINIT
+</code></pre></div>
+</li>
+</ol>
 
 
 

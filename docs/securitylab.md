@@ -7,6 +7,8 @@ Part 2 – Testing Local Security to the Queue Manager
 
 ## Exercise Objectives
 
+DEMO EDIT 
+
 The objective of this exercise is to gain experience with protecting access to IBM MQ queues, MQ commands and connection to a queue manager using RACF. In this exercise you will enable the RACF protection of these resources and then provide appropriate access to these resources to different sets of users both local and remote.
 
 ## General Exercise Information and Guidelines

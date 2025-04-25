@@ -12,28 +12,28 @@
         <meta name="author" content="IBM Z WSC">
       
       
-        <link rel="canonical" href="https://github.com/ibm-wsc/mq-zos/Blog/MultipleQSGAndViews/">
+        <link rel="canonical" href="https://github.com/ibm-wsc/mq-zos/kafka-client/">
       
       
-        <link rel="prev" href="../CF%20calls%20Generated%20by%20an%20MQGET%20Query/">
+        <link rel="prev" href="../comparing-offloading/">
       
       
-        <link rel="next" href="../Symptoms%20that%20led%20to%20PD/">
+        <link rel="next" href="../mp1b/">
       
       
-      <link rel="icon" href="../../assets/wsc-logo.png">
+      <link rel="icon" href="../assets/wsc-logo.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.46">
     
     
       
-        <title>Multiple QSG And Views - IBM MQ for z/OS</title>
+        <title>Kafka via Client Connections Lab - IBM MQ for z/OS</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.6f8fc17f.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.6f8fc17f.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -52,9 +52,9 @@
       
     
     
-      <link rel="stylesheet" href="../../stylesheets/extra.css">
+      <link rel="stylesheet" href="../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -79,6 +79,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#connecting-ibm-mq-for-zos-to-kafka-as-a-client" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -91,9 +96,9 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="IBM MQ for z/OS" class="md-header__button md-logo" aria-label="IBM MQ for z/OS" data-md-component="logo">
+    <a href=".." title="IBM MQ for z/OS" class="md-header__button md-logo" aria-label="IBM MQ for z/OS" data-md-component="logo">
       
-  <img src="../../assets/wsc-logo.png" alt="logo">
+  <img src="../assets/wsc-logo.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -110,7 +115,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Multiple QSG And Views
+              Kafka via Client Connections Lab
             
           </span>
         </div>
@@ -223,9 +228,9 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="IBM MQ for z/OS" class="md-nav__button md-logo" aria-label="IBM MQ for z/OS" data-md-component="logo">
+    <a href=".." title="IBM MQ for z/OS" class="md-nav__button md-logo" aria-label="IBM MQ for z/OS" data-md-component="logo">
       
-  <img src="../../assets/wsc-logo.png" alt="logo">
+  <img src="../assets/wsc-logo.png" alt="logo">
 
     </a>
     IBM MQ for z/OS
@@ -252,7 +257,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href=".." class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -272,7 +277,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../certificates/" class="md-nav__link">
+      <a href="../certificates/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -292,7 +297,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../new-queue-manager/" class="md-nav__link">
+      <a href="../new-queue-manager/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -312,7 +317,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../connectivity/" class="md-nav__link">
+      <a href="../connectivity/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -332,7 +337,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../comparing-offloading/" class="md-nav__link">
+      <a href="../comparing-offloading/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -349,10 +354,30 @@
       
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../kafka-client/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Kafka via Client Connections Lab
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -361,6 +386,62 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#audience-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      Audience level
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#skillset" class="md-nav__link">
+    <span class="md-ellipsis">
+      Skillset
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      Background
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-under-construction-check-back-soon" class="md-nav__link">
+    <span class="md-ellipsis">
+      LAB UNDER CONSTRUCTION, CHECK BACK SOON!
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -372,7 +453,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../mp1b/" class="md-nav__link">
+      <a href="../mp1b/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -392,7 +473,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../queue-statistics/" class="md-nav__link">
+      <a href="../queue-statistics/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -412,7 +493,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../streaming-queues/" class="md-nav__link">
+      <a href="../streaming-queues/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -432,7 +513,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security.md" class="md-nav__link">
+      <a href="../security.md" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -452,7 +533,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../archive/" class="md-nav__link">
+      <a href="../archive/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -469,19 +550,17 @@
       
   
   
-    
   
   
-  
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
         
           
           <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
@@ -495,7 +574,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_12">
             <span class="md-nav__icon md-icon"></span>
             MQSMF Blog
@@ -509,7 +588,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../CF%20calls%20Generated%20by%20an%20MQGET%20Query/" class="md-nav__link">
+      <a href="../Blog/CF%20calls%20Generated%20by%20an%20MQGET%20Query/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -527,17 +606,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../Blog/MultipleQSGAndViews/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -546,7 +618,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -559,7 +630,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Symptoms%20that%20led%20to%20PD/" class="md-nav__link">
+      <a href="../Blog/Symptoms%20that%20led%20to%20PD/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -580,7 +651,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Task%20record%20information/" class="md-nav__link">
+      <a href="../Blog/Task%20record%20information/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -618,6 +689,52 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#audience-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      Audience level
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#skillset" class="md-nav__link">
+    <span class="md-ellipsis">
+      Skillset
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      Background
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-under-construction-check-back-soon" class="md-nav__link">
+    <span class="md-ellipsis">
+      LAB UNDER CONSTRUCTION, CHECK BACK SOON!
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -635,55 +752,14 @@
   
 
 
-  <h1>Multiple QSG And Views</h1>
-
-<p>Over the past year we have seen more customers with multiple queue sharing groups (QSG) in
-production. Managing the SMF data is more challenging when this is the case, especially when
-there are multiple QSGs that have the same structure names (we see this a lot) and the same
-shared queue names. This is because most of the MQ SMF data is completely queue manager
-centric. Except for the QCCT (channel initiator statistics) and the new QQST (queue statistics
-records) this important information does not appear in the others. So, when I am looking at the
-MQ reported Coupling Facility statistics for a structure named APP1, if that structure is in
-multiple QSGs, the simple query we have commonly used those results will be misleading.
-Misleading data leads to errors when trying to track down workload skewing and performance
-problems. And while those of us using this hope that the QSG name gets added to more records
-in the future, what do we at the WSC do to address this in the meantime?</p>
-<p>Up until 2022, I hand coded SQL. Then Dorothy coded up Python scripts to generate the 'usual
-suspects' queries for our health check work. To use those in situations where there are multiple
-queue sharing groups, we have then had to replicate and tailor those scripts to pull the data for
-the queue managers in individual QSGs. And we have been in situations where the customer's
-documentation about QSG members has not been kept up to date - new queue managers have
-been added, older queue managers have been retired, or (even worse!) been moved to a different
-QSG.</p>
-<p>Looking for simpler, more efficient, less subject to error methods, and because these multi-QSGs
-have become more common, we talked about reconfiguring the python scripts, etc. But as I was
-working with data over this past week, and Dorothy was fighting fires on another front, I decided
-to try using Db2 Views to separate the queue managers into the QSGs. I am not an SQL expert,
-and as we all know the IBM documentation can be quite effective when you know what you are
-looking for and painful to follow when you are searching for the answers to ‘this is how you do
-this.’ So, in case others are in this same position, I felt like it was time to write this up.
-The first thing to do was figure out which queue managers are in which queue sharing group.
-After loading the data processed by MQSMFCSV into Db2 we run this very simple SQL:</p>
-<p>The results from this query look something like this:
-What this shows is that there are two queue sharing groups represented each with 6 queue managers,
-and 7 standalone queue managers. Using this information, I created views over all the tables generated
-by MQSMFCSV. The pattern looks like this:</p>
-<p>[INSERT IMAGE]</p>
-<p>A view for the tables for the standalone queue managers was also created.
-What this allowed us to do was use the views to isolate the activity reported on the individual QSGs,
-making the queries simpler, more readable, and giving us more accurate data about the use of the CF,
-Db2 and SMDS. It also allowed us to review the queue and task activity by QSG, giving better insight
-into their use as well.</p>
-<p>To illustrate the simplification, the SQL WHERE clause we had to compose to retrieve the QEST data (the
-queue managers calls to a structure data) before creating the views looked like this:
-After creating the views, the same Where clause looks like this:</p>
-<p>[INSERT IMAGE]</p>
-<p>This does not seem like much, but using views has once again saved much needed time and prevented
-typos. And it means that we are looking at data from a single queue sharing group, that we do not have
-the possibility of comingling data from multiple QSGs and can evaluate more complex situations more
-accurately.</p>
-<p>Please note that all samples considered open source, feel free to use them but they are provided AS-IS.
-There is no guarantee of support. </p>
+<h1 id="connecting-ibm-mq-for-zos-to-kafka-as-a-client">Connecting IBM MQ for z/OS to Kafka as a client</h1>
+<h4 id="audience-level"><strong>Audience level</strong></h4>
+<p>Knowledge of IBM MQ for z/OS or Linux</p>
+<h4 id="skillset"><strong>Skillset</strong></h4>
+<p>Kafka, IBM MQ for z/OS, SSL/TLS</p>
+<h4 id="background"><strong>Background</strong></h4>
+<p>If you are looking to gain familiarity with connecting IBM MQ for z/OS to Kafka for event-streaming, this lab is a great place to start. In this lab, we will walk through configuring the open-source Kafka Connector to demonstrate how to capture z/OS events with a standalone Kafka instance. Businesses are looking to capture the valuable insights on z/OS with events, using Kafka. As an MQ administrator, this lab will help you become comfortable with the Kafka architecture.</p>
+<h3 id="lab-under-construction-check-back-soon">LAB UNDER CONSTRUCTION, CHECK BACK SOON!</h3>
 
 
 
@@ -734,10 +810,10 @@ There is no guarantee of support. </p>
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      <script src="../assets/javascripts/bundle.83f73b43.min.js"></script>
       
     
   </body>

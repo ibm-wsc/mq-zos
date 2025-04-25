@@ -12,13 +12,9 @@
         <meta name="author" content="IBM Z WSC">
       
       
-        <link rel="canonical" href="https://github.com/ibm-wsc/mq-zos/security/">
+        <link rel="canonical" href="https://github.com/ibm-wsc/mq-zos/securitylab/">
       
       
-        <link rel="prev" href="../streaming-queues/">
-      
-      
-        <link rel="next" href="../archive/">
       
       
       <link rel="icon" href="../assets/wsc-logo.png">
@@ -26,7 +22,7 @@
     
     
       
-        <title>Security Lab - IBM MQ for z/OS</title>
+        <title>Securitylab - IBM MQ for z/OS</title>
       
     
     
@@ -115,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Security Lab
+              Securitylab
             
           </span>
         </div>
@@ -281,7 +277,7 @@
         
   
   <span class="md-ellipsis">
-    Certificate Management
+    Certificate Management Lab
   </span>
   
 
@@ -301,7 +297,7 @@
         
   
   <span class="md-ellipsis">
-    Configuring a New Queue Manager
+    Configuring a New Queue Manager Lab
   </span>
   
 
@@ -357,6 +353,26 @@
   
   
     <li class="md-nav__item">
+      <a href="../kafka-client/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kafka via Client Connections Lab
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../mp1b/" class="md-nav__link">
         
   
@@ -381,7 +397,7 @@
         
   
   <span class="md-ellipsis">
-    Queue Statistics
+    Queue Statistics Lab
   </span>
   
 
@@ -414,28 +430,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Security Lab
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../security.md" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -444,69 +442,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#exercise-objectives" class="md-nav__link">
-    <span class="md-ellipsis">
-      Exercise Objectives
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#general-exercise-information-and-guidelines" class="md-nav__link">
-    <span class="md-ellipsis">
-      General Exercise Information and Guidelines
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#part-1-configuring-base-racf-resources" class="md-nav__link">
-    <span class="md-ellipsis">
-      Part 1 – Configuring Base RACF resources
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#lab-begin" class="md-nav__link">
-    <span class="md-ellipsis">
-      Lab Begin
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#part-2-testing-local-security-to-the-queue-manager" class="md-nav__link">
-    <span class="md-ellipsis">
-      Part 2 – Testing Local Security to the Queue Manager
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -545,10 +480,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
         
           
-          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -559,8 +494,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_11">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
             <span class="md-nav__icon md-icon"></span>
             MQSMF Blog
           </label>
@@ -744,7 +679,7 @@
   
 
 
-  <h1>Security Lab</h1>
+  <h1>Securitylab</h1>
 
 <p>Implementing Queue Manager Security</p>
 <p>Exercise Objectives
@@ -752,6 +687,7 @@ General Exercise Information and Guidelines
 Part 1 – Configuring Base RACF resources
 Part 2 – Testing Local Security to the Queue Manager</p>
 <h2 id="exercise-objectives">Exercise Objectives</h2>
+<p>DEMO EDIT </p>
 <p>The objective of this exercise is to gain experience with protecting access to IBM MQ queues, MQ commands and connection to a queue manager using RACF. In this exercise you will enable the RACF protection of these resources and then provide appropriate access to these resources to different sets of users both local and remote.</p>
 <h2 id="general-exercise-information-and-guidelines">General Exercise Information and Guidelines</h2>
 <p> This exercise requires using TSO user USER1 on the MQ sysplex z/OS system.</p>

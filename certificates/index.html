@@ -26,7 +26,7 @@
     
     
       
-        <title>Certificate Management - IBM MQ for z/OS</title>
+        <title>Certificate Management Lab - IBM MQ for z/OS</title>
       
     
     
@@ -115,7 +115,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Certificate Management
+              Certificate Management Lab
             
           </span>
         </div>
@@ -290,7 +290,7 @@
           
   
   <span class="md-ellipsis">
-    Certificate Management
+    Certificate Management Lab
   </span>
   
 
@@ -301,7 +301,7 @@
         
   
   <span class="md-ellipsis">
-    Certificate Management
+    Certificate Management Lab
   </span>
   
 
@@ -419,7 +419,7 @@
         
   
   <span class="md-ellipsis">
-    Configuring a New Queue Manager
+    Configuring a New Queue Manager Lab
   </span>
   
 
@@ -475,6 +475,26 @@
   
   
     <li class="md-nav__item">
+      <a href="../kafka-client/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kafka via Client Connections Lab
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../mp1b/" class="md-nav__link">
         
   
@@ -499,7 +519,7 @@
         
   
   <span class="md-ellipsis">
-    Queue Statistics
+    Queue Statistics Lab
   </span>
   
 
@@ -535,7 +555,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/" class="md-nav__link">
+      <a href="../security.md" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -582,10 +602,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
         
           
-          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -596,8 +616,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_11">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
             <span class="md-nav__icon md-icon"></span>
             MQSMF Blog
           </label>
@@ -862,7 +882,7 @@ notafter(date(2029/12/31))
 </tr>
 <tr>
 <td>notafter</td>
-<td>Specifies the local date and time after which the certificate is no longer valid.</td>
+<td>Specifies the local date and time after which the certificate is no longer valid</td>
 </tr>
 </tbody>
 </table>
@@ -905,74 +925,58 @@ label(&#39;MQ CA&#39;)) notafter(date(2029/12/31)
 <blockquote>
 <p><em><strong>Tech-Tip:</strong> SYSPROG is the MQ channel initiator region’s RACF identity under which the CHIN started task is executing.</em></p>
 </blockquote>
-<ol>
-<li>
-<p>Run the command </p>
-<div class="highlight"><pre><span></span><code>racdcert certauth list(label(&#39;MQ CA&#39;))
+<p>3.    Run the command </p>
+<div class="highlight"><pre><span></span><code>    racdcert certauth list(label(&#39;MQ CA&#39;))
 </code></pre></div>
 <p>Your output should look like this:</p>
-<div class="highlight"><pre><span></span><code>Digital certificate information for CERTAUTH:           
+<div class="highlight"><pre><span></span><code>    Digital certificate information for CERTAUTH:
 
-Label: MQ CA                                          
-Certificate ID: 2QiJmZmDhZmjgdTYQMPB                  
-Status: TRUST                                         
-Start Date: 2025/03/10 00:00:00                       
-End Date:   2025/03/31 23:59:59                       
-Serial Number:                                        
-    &gt;00&lt;                                             
-Issuer&#39;s Name:                                        
-    &gt;CN=MQ CA.OU=ATS.O=IBM.C=US&lt;                     
-Subject&#39;s Name:                                       
-    &gt;CN=MQ CA.OU=ATS.O=IBM.C=US&lt;                     
-Signing Algorithm: sha256RSA                          
-Key Usage: CERTSIGN                                   
-Key Type: RSA                                         
-Key Size: 2048                                        
-Private Key: YES                                      
+    Label: MQ CA                                          
+    Certificate ID: 2QiJmZmDhZmjgdTYQMPB                  
+    Status: TRUST                                         
+    Start Date: 2025/03/10 00:00:00                       
+    End Date:   2025/03/31 23:59:59                       
+    Serial Number:                                        
+            &gt;00&lt;                                             
+    Issuer&#39;s Name:                                        
+            &gt;CN=MQ CA.OU=ATS.O=IBM.C=US&lt;                     
+    Subject&#39;s Name:                                       
+            &gt;CN=MQ CA.OU=ATS.O=IBM.C=US&lt;                     
+    Signing Algorithm: sha256RSA                          
+    Key Usage: CERTSIGN                                   
+    Key Type: RSA                                         
+    Key Size: 2048                                        
+    Private Key: YES
 </code></pre></div>
-</li>
-</ol>
 <blockquote>
 <p><em><strong>Tech-Tip:</strong> The common name (CN), organization unite(OU), organization(O) country (C) , labels and aliases are case sensitive. Subsequent RACF or keytool commands referencing a label, an alias or common name, etc. in any command must use the exact same case and spacing when referring to the values of these fields in the certificate (i.e. be consistent).</em></p>
 </blockquote>
 <p><em>For example, command racdcert certauth list(label(‘MQ CA’)) would display this certificate while command racdcert certauth list(label(‘mq CA’)) would not. Command racdcert certauth delete(label(‘MQ CA’)) could be used to delete this certificate while command racdcert certauth delete(label(‘mq CA’)) could not.</em></p>
-<ol>
-<li>Use the RACDCERT ADDRING command to create a RACF Key Ring for the MQ CHIN region’s RACF identity. The signer certificates and WMQ’s personal certificates will be connected to this key ring.<div class="highlight"><pre><span></span><code>racdcert id(user1) addring(MQCHIN.KeyRing)
+<p>4. Use the RACDCERT ADDRING command to create a RACF Key Ring for the MQ CHIN region’s RACF identity. The signer certificates and WMQ’s personal certificates will be connected to this key ring.</p>
+<div class="highlight"><pre><span></span><code>    racdcert id(user1) addring(MQCHIN.KeyRing)
 </code></pre></div>
-</li>
-</ol>
 <blockquote>
-<p><em><strong>Tech-Tip:</strong> Tech-Tip: RACF key rings are case sensitive so be sure to enter the key ring name, e.g. MQ.KeyRing in exactly the same case in subsequent commands.</em></p>
-<p><em><strong>Tech-Tip:</strong> START1 needs READ access to FACILITY resource IRR.DIGTCERT.LISTRING in order to access this key ring.</em></p>
+<p><em><strong>Tech-Tip:</strong> RACF key rings are case sensitive so be sure to enter the key ring name, e.g. MQ.KeyRing in exactly the same case in subsequent commands.</em></p>
+<p><em><strong>Tech-Tip:</strong> SYSPROG needs READ access to FACILITY resource IRR.DIGTCERT.LISTRING in order to access this key ring.</em></p>
 </blockquote>
-<ol>
-<li>Use the RACDCERT CONNECT command to connect the MQ signer certificate that was used to sign the ‘MQ CA’ client’s personal certificate to the MQ CHIN’s key ring.<div class="highlight"><pre><span></span><code>racdcert id(SYSPROG) connect(ring(MQCHIN.KeyRing) label(&#39;MQ CA&#39;) certauth usage(certauth))
+<p>5. Use the RACDCERT CONNECT command to connect the MQ signer certificate that was used to sign the ‘MQ CA’ client’s personal certificate to the MQ CHIN’s key ring.</p>
+<div class="highlight"><pre><span></span><code>    racdcert id(SYSPROG) connect(ring(MQCHIN.KeyRing) label(&#39;MQ CA&#39;) certauth usage(certauth))
 </code></pre></div>
-</li>
-</ol>
 <blockquote>
-<p><em>Tech-Tip:</em> A RACF key ring is unique to the owning user. A key ring labeled “MQ.KeyRing” owned by user START1 is not the same key ring owned by user START2. So connecting a signer certificate labeled “MQ CA” with command RACDCERT ID(START1) CONNECT(RING(MQCHIN.KeyRing) has no effect on a key ring labeled MQCHIN.KeyRing owned by user START2. The significance of this is more apparent during key ring maintenance when a key ring is updated with new information but the application is actually using another key ring with the same name but owned by a different user.*</p>
+<p><em><strong>Tech-Tip:</strong> A RACF key ring is unique to the owning user. So connecting a signer certificate labeled “MQ CA” with command RACDCERT ID(USER1) CONNECT(RING(MQCHIN.KeyRing) has no effect on a key ring labeled MQCHIN.KeyRing owned by user USER2.</em></p>
 </blockquote>
-<ol>
-<li>Use the RACDCERT CONNECT command to connect the MQ CHIN region's persional certificate to the MQCHIN.KeyRing. <div class="highlight"><pre><span></span><code>racdcert id(SYSPROG) connect(ring(MQCHIN.KeyRing) label(&#39;MQ CHIN&#39;) default)
+<p>6. Use the RACDCERT CONNECT command to connect the MQ CHIN region's persional certificate to the MQCHIN.KeyRing. </p>
+<div class="highlight"><pre><span></span><code>    racdcert id(SYSPROG) connect(ring(MQCHIN.KeyRing) label(&#39;MQ CHIN&#39;) default)
 </code></pre></div>
-</li>
-</ol>
 <blockquote>
-<p><em>Tech-Tip:</em> The default parameter indicates that this is the personal certificate that will be provided to the remote application during a connection request.</p>
+<p><em><strong>Tech-Tip:</strong> The default parameter indicates that this is the personal certificate that will be provided to the remote application during a connection request.</em></p>
 </blockquote>
-<ol>
-<li>
-<p>Use the RACF RACDCERT LISTRING command to display the MQCHIN.KeyRing contents</p>
-<div class="highlight"><pre><span></span><code>racdcert id(SYSPROG) listring(MQCHIN.KeyRing)
+<p>7. Use the RACF RACDCERT LISTRING command to display the MQCHIN.KeyRing contents</p>
+<div class="highlight"><pre><span></span><code>    racdcert id(SYSPROG) listring(MQCHIN.KeyRing)
 </code></pre></div>
-</li>
-<li>
-<p>The MQ signer certificate needs to be exported and installed in the client's trust stores. Use the RACDCERT CERTAUTH EXPORT command to export the MQ signer certificate from RACF into a sequential dataset.</p>
-<div class="highlight"><pre><span></span><code>racdcert certauth export(label(&#39;MQ CA&#39;)) dsn(mq.cacert.cer)
+<p>8. The MQ signer certificate needs to be exported and installed in the client's trust stores. Use the RACDCERT CERTAUTH EXPORT command to export the MQ signer certificate from RACF into a sequential dataset.</p>
+<div class="highlight"><pre><span></span><code>    racdcert certauth export(label(&#39;MQ CA&#39;)) dsn(mq.cacert.cer)
 </code></pre></div>
-</li>
-</ol>
 <h4 id="ii-configuring-the-mq-explorer-ssl-support">II. Configuring the MQ Explorer SSL Support</h4>
 <ol>
 <li>

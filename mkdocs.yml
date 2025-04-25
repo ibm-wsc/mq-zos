@@ -1,12 +1,13 @@
 site_name: "IBM MQ for z/OS"
 nav:
   - Home: index.md
-  - Certificate Management: certificates.md
-  - Configuring a New Queue Manager: new-queue-manager.md
+  - Certificate Management Lab: certificates.md
+  - Configuring a New Queue Manager Lab: new-queue-manager.md
   - Connectivity to Lab Environment: connectivity.md
   - Comparing Offloading Lab: comparing-offloading.md
+  - Kafka via Client Connections Lab: kafka-client.md
   - MP1B Lab: mp1b.md
-  - Queue Statistics: queue-statistics.md
+  - Queue Statistics Lab: queue-statistics.md
   - Streaming Queues Lab: streaming-queues.md
   - Security Lab: security.md
   - Archived Materials: archive.md

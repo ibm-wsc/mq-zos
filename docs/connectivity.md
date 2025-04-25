@@ -18,26 +18,29 @@ a.	From the Windows programs, please expand the IBM Personal Communications grou
 
 b.	Some of our Windows images do not have the correct directory for PCOMM sessions.  If the Session Manager pane comes up empty, please change the directory that PCOMM uses. 
 
-    i.	In the upper left had corner of the Session manager pane, please chose ‘File’ then Change Directory 
+i.	In the upper left had corner of the Session manager pane, please chose ‘File’ then Change Directory 
 
-        ![Picture of session manager pane](assets/conn2.png)
+![Picture of session manager pane](assets/conn2.png)
 
-    ii.	Select the Documents directory
+ii.	Select the Documents directory
 
-        ![Picture of Documents window](assets/conn3.png)
+![Picture of Documents window](assets/conn3.png)
     
-    iii.	If you see the MQS1 ‘WS’ file, please click on ‘Open’ as shown. 
+iii.	If you see the MQS1 ‘WS’ file, please click on ‘Open’ as shown. 
 
-        ![Picture of Documents window](assets/conn4.png)
+![Picture of Documents window](assets/conn4.png)
     
-    iv.	IF you do not see the ‘mqs1.WS’ file, please notify Dorothy or Lyn immediately.  We may need to reset your image. 
+iv.	IF you do not see the ‘mqs1.WS’ file, please notify Dorothy or Lyn immediately.  We may need to reset your image. 
 
-    v.	If you do see the file, after clicking on Open, your ‘Session Manager’ pane should look something like this:
+v.	If you do see the file, after clicking on Open, your ‘Session Manager’ pane should look something like this:
 
  
 c.	Highlight ‘mqs1’ and click on the ‘Start’ button.
-3)	If you do see the ‘mqs1’ icon, please click on it.  
-4)	At this point the WSC MQPLEX1 should be shown.  It may take a minute or so to connect.  
+
+3)	If you do see the ‘mqs1’ icon, please click on it.
+
+4)	At this point the WSC MQPLEX1 should be shown.  It may take a minute or so to connect. 
+ 
 5)	Enter ‘mqs1 user1’ and press the enter key (note it may be the right hand ‘ctrl’ key or the actual enter key depending on your keyboard map.  If you would like to change the enter key and do not know how to alter your keyboard, please ask Dorothy or Lyn for assistance. 
 
 

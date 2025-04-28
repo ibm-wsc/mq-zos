@@ -1,0 +1,27 @@
+### Another Wrinkle! Suggestions for updating SMF data gathering
+#### Author: Lyn Elkins
+
+Over the weekend I was processing customer data from a customer we work with regularly, and low and behold I noticed something I probably should have seen before.  This is that information. 
+Names have been changed to protect the participants.
+
+When we receive MQ for z/OS SMF data from customers, after we process it thru MQSMFCSV and load it to Db2 we run a couple of standard queries.  First to get the names of the LPARs and QMGRs in the data, we use this output to drive a python script to generate our ‘standard queries’ for each queue manager.  Second, we run a query to get the Queue Sharing Group names from the Channel Statistics (the class 4 statistics).  There are some specialized queries we run against the QSG Views we create on the tables so we can make sure we are not co-mingling data from separate QSGs.  We do ask for all queue managers to have all the classes of Statistics for evaluation, because the channel statistics are the only SMF records that currently contain the QSG. We have asked that the QSG be added to all MQ SMF records.  
+
+An example of when this data gets confusing is that we see many customers with multiple QSGs in production, but with the same structure names in each QSG.  This works because the QSG knows the structure name as QSGNCFStructure, where QSGN is the QSG name and CFStructure is the structure name as known to MQ.  There may be several APP1 structures in different Coupling Facilities, but they are differentiated by the QSG name.  This lack of differentiation in the MQ SMF data, especially in the case of the CF statistics,  has caused confusion and possibly bad recommendations in the past.  
+
+If QSG QSGA has structure APP1 and QSGB also has structure APP1 – they are different to the QSGs and QMGRs in each, but the MQ SMF statistics currently just show the data for ‘APP1.’  We now have seen another level of potential confusion when looking thru customer data. 
+
+In one of this customer’s QSGs there were several queue managers, only half of which seem to have the Channel Statistics turned on.  So, when I initially ran the query to get the list of QSG members, the list did not include all the queue managers in that group.  I was accidentally reviewing Queue data (the WQ records for a queue manager) and saw that a queue manager did not show up on the QSG list because of this.  I had to go back and do some re-work to pull in the correct queue managers.  
+
+I have submitted an IBM Idea for this issue, and I would appreciate you looking at the Idea, making suggestions where I may have missed something, and voting if you feel it would help you as well: Make it simpler to turn on SMF capture - [Link](https://ideas.ibm.com/ideas/MESNS-I-838) 
+
+For years it has been traditionally difficult to turn on the various levels of SMF data gathering.  For example, when writing our data collection for MQ on z/OS there are 4 pages of instructions, longer than Db2s which is asking for more different kinds of data.  I have been through the instructions multiple times with customers and too often find that I am still missing specific queue data for a number of queues because they or their models are delivered with accounting and monitoring turned off.  This makes figuring out which of the millions of tasks captured are not showing the full compliment of queues used complex.  We try using the ‘other’ counts that show up in the WTAS (Task Statistics Records) – but those can be many different types of activity, and we need to know which queues are in use.  This is likely to be a carry over based on the past costs of gathering this critical information and to allow customers more flexibility in their data gathering.  However, it often prevents those of us in various roles that need to look at this data from getting a complete picture. 
+
+Checking every queue for the correct settings is also cumbersome for our customers.  Getting customers to change individual queue and channel setting when we are trying to chase down a problem is time-consuming and often painful.  Especially if they have very strict change control, as they should.    
+
+My suggestion is simple, change the queue manager/chinit level (ZPRM) settings to include option of ‘gather all accounting’ or ‘gather all statistics’ or ‘gather everything’ - overriding individual queue and channel level settings.  We would get far more compliance and it would be easier for customers to understand.   The default should be ‘gather all statistics.’   
+
+In a subsequent update I added this:
+Greetings, another related idea related to our ability to rely on the data for correct customer environment information.  Perhaps this switch should be a QSG related field.  Over the weekend I found a customer's data showed use of some CF resources by QMGRs that were not from our generated list of QSG members based on the QSG name from the Channel statistics records.  While we ask customers to turn on all the collection for all queue managers in the QSG, in haste some folks forget this step.  But for ease of use and ease of compliance a switch or switches to turn on all SMF collection that can be used dynamically would have a lot of benefit for both customers and those engaged in the task of trying to find performance issues, patterns of behavior (people, any AI enhanced tool), etc. 
+
+
+

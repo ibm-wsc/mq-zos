@@ -6,7 +6,7 @@ Intermediate or advanced; Users should have an understanding of MQ, RACF, Java, 
 z/OS Systems Programming, MQ Administration
 
 ### Background
-IBM MQ for z/OS customers are continually looking for methods to keep their environments secure. Understanding how to use SSL/TLS with z/OS is critical to keeping up with encryption requirements. In this lab, you will set up the infrastructure for certificates in a IBM MQ environment. 
+IBM MQ for z/OS customers are continually looking for methods to keep their environments secure. Understanding how to use SSL/TLS with z/OS is critical to keeping up with encryption requirements. In this lab, you will set up the infrastructure for certificates in a IBM MQ environment and implemented SSL security between MQ Explorer and a z/OS queue manager.
 
 ### Overview of exercise
 
@@ -18,9 +18,7 @@ We will do this by generating a certificate authority and personal certificate o
 
 Please note: self-signed certificates should only be used in lab or test environments. They should not be used in production environments.
 
-In the second part of this exercise, we will implement channel encryption to securely connect to a sample queue manager running on z/OS.
-
-We will do this by adjusting settings on our queue manager, mainly using MQ Explorer.
+In the second part of this exercise, we will implement channel encryption to securely connect to a sample queue manager running on z/OS. We will do this by adjusting settings on our queue manager, mainly using MQ Explorer.
 
 ### Lab begin
 
@@ -191,26 +189,122 @@ Your output should look like this:
 
 > *Tech-tip* If the message “Certificate reply was installed in keystore” is not displayed then there was problem somewhere in this process. Steps 2 to 12 could repeated after removing file user1.jks and deleting the USER1 certificate with command racdcert id(USER1) delete(label('USER1')
 
-12. To recap, in this part of the exercise, we configured a self-signed certificate.
+12\. To recap, in this part of the exercise, we configured a self-signed certificate.
 
 ![Picture of certificate diagram](assets/cert_diagram.png "Picture of certificate diagram")
 
 
 #### III. Configure channel encryption
 
-1. At this point, we have to adjust queue manager settings for our z/OS queue manager ZQS1. Start by opening MQ Explorer.
+1\. At this point, we have to adjust queue manager settings for our z/OS queue manager ZQS1. Start by opening MQ Explorer.
 
-2. Modify RACF key ring (SSLKEYR) to be accessed for personal and certificate authority digital certificates
+2\. Modify RACF key ring (SSLKEYR) to be accessed for personal and certificate authority digital certificates
 
         /ZQS1 ALTER QMGR SSLKEYR('MQCHIN.KeyRing')
 
 
-3. Modify the number of SSL sub tasks (SSLTASKS) for processing SSL calls
+3\. Modify the number of SSL sub tasks (SSLTASKS) for processing SSL calls
 
         /ZQS1 ALTER QMGR SSLTASKS(5) 
 
-4. Restart CHINIT address space
+4\. Restart CHINIT address space
 
         /ZQS1 STOP CHINIT
         /ZQS1 START CHINIT
         
+5\. Start MQ Explorer on your desktop. Click on Window on the tool bar and then click on Preferences. Expand the MQ Explorer option and then expand Client Connections. Select SSL Key Repositories preferences. Check the box beside 'Enable default SSL key repositories' and then use the 'Browse' buttons to select the key store configured earlier in this exercise (e.g. USER1.jks) for both for Trusted Certificates and Personal Certificates store files. Use the Enter password button to enter the password for both store files.
+
+![Picture of MQ explorer SSL key store preferences](assets/cert2.png "Picture of MQ explorer SSL key store preferences")
+
+6\. Click Apply and Close to continue.
+
+7\. Switch to the SSL Options preference window. Check the box beside 'Enable default SSL options' and then use the pull down to select a SSL CipherSpec of ECDHE_RSA_AES_128_CBC_SHA256. Click 'Apply' and 'Close' to continue.
+
+![Picture of MQ explorer SSL CipherSpec settings](assets/cert3.png "Picture of SSL CipherSpec settings")
+
+> Tech-Tip: Which cipher suite selected is not important as long as the same cipher is used consistently. 
+
+8\. Using an existing non-SSL connection to QMZ1, create a new server connection channel by selecting 'Channels' and right-clicking 'Select New' -> Server-connection Channel'. Enter a nameof USER1.SSL.SVRCONN and click 'Next' to continue.
+
+9\. On the 'New Server-connection Channel' window, select 'SSL' and use the pull down arrow to select ECDHE_RSA_AES_128_CBC_SHA256 as the SSL CipherSpec. Select 'General' to
+continue.
+
+![Picture of MQ explorer SSL CipherSpec settings](assets/cert4.png "Picture of SSL CipherSpec settings")
+
+10\. On the General window use the pull-down arrow to select TCP. Click Finish to continue.
+
+![Picture of MQ explorer SSL CipherSpec settings](assets/cert5.png "Picture of SSL CipherSpec settings")
+
+11\. Next a Channel Authentication record needs to be added to allow access to the
+USER1.SSL.SVRCONN channel. Using a non-SSL connection to ZQS1, expand 'Channels' and
+select 'Channel Authentication Records'. 
+
+![Picture of Channel authentication records list](assets/cert6.png)
+
+12\. Right-click and select 'New -> Channel Authentication Record' to display the 'New Channel Authentication Record – Create a Channel Authentication Record' window. Take the default for the 'Rule' type (Allow access) and press 'Next' to continue.
+
+![Picture of Channel authentication record creation](assets/cert7.png)
+
+13\. On the 'Match' part of the identity window, select the radio button by 'SSL/TLS Distinguished Name'. Click 'Next' to continue.
+
+![Picture of Channel authentication record creation](assets/cert8.png)
+
+14\. On the 'Matching the channels window', enter USER1.SSL.* in the area under Channel Profile. Press 'Next' to continue.
+
+![Picture of Channel authentication record creation](assets/cert9.png)
+
+15\. On the Matching SSL/TLS Distinguished Names window enter 'OU=ATS' as the SSL/TLS
+subject’s Distinguished Name pattern and 'CN=MQ CA,OU=ATS,O=IBM,C=US' as the SSL/TLS
+issuer’s Distinguished Name pattern. Enter an asterisk (*) for the IP address or hostname
+pattern. Click Next to continue. 
+
+![Picture of Channel authentication record rule](assets/cert10.png)
+
+16\. On the Authorization user ID window click the radio button beside 'Fixed user ID' and enter 'USER1' as the 'User ID'. Press 'Next' 3 times to continue. 
+
+![Picture of Channel authentication record rule](assets/cert11.png)
+
+17\. Click 'Finish' on the Summary window to complete the definition of this authentication rule. 
+
+![Picture of Channel authentication record rule](assets/cert12.png)
+
+18\. Next, create a new remote connection to queue manager ZQS1.
+
+![Picture of new remote queue manager setup](assets/cert13.png)
+
+19\. On the 'Specify new connection details' window, enter the appropriate z/OS LPAR IP address as the 'Host name', 1424 as the 'Port Number' and USER1.SSL.SVRCONN as the 'Server-connection channel' name. Click Next 3 times to continue. 
+
+![Picture of new remote queue manager setup](assets/cert14.png)
+
+20\. On the 'Specify SSL certificate key repository details' window, ensure the box beside 'Enable SSL key repositories' is checked. If the 'Trusted Certificate Store' is not configured, use the 'Browse' and 'Enter' password buttons to provide this information. Click 'Finish' to continue.
+
+![Picture of new remote queue manager setup](assets/cert15.png)
+
+21\. You should now be connected to the queue manager using SSL. To confirm enter this MVS
+command:
+
+        ZQS1 display chstatus(USER1.*) mcauser sslcertu 
+
+The RACF identity associated with the client’s certificate is displayed in the SSLCERTU
+property
+ 
+ CSQM201I ZQS1 CSQMDRTC  DISPLAY CHSTATUS DETAILS 610               
+ CHSTATUS(USER1.SSL.SVRCONN)                                        
+ CHLDISP(PRIVATE)                                                   
+ CONNAME(9.31.118.212)                                              
+ CURRENT                                                            
+ CHLTYPE(SVRCONN)                                                   
+ STATUS(RUNNING)                                                    
+ SUBSTATE()                                                         
+ STOPREQ(NO)                                                        
+ RAPPLTAG(MQ Explorer 9.4.1)                                        
+ SSLCERTU(SYSPROG)                                                  
+ MCAUSER(USER1)                                              
+  END CHSTATUS DETAILS                                              
+
+As a test, add and delete queues and other functions that only USER1 should have authority to perform.
+
+22\. CONGRATULATIONS!!! You have configured self-signed certificates and implemented SSL security between MQ Explorer and the queue manager. 
+
+
+

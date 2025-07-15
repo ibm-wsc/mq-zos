@@ -287,7 +287,8 @@ command:
 
 The RACF identity associated with the client’s certificate is displayed in the SSLCERTU
 property
- 
+
+```
  CSQM201I ZQS1 CSQMDRTC  DISPLAY CHSTATUS DETAILS 610               
  CHSTATUS(USER1.SSL.SVRCONN)                                        
  CHLDISP(PRIVATE)                                                   
@@ -300,7 +301,8 @@ property
  RAPPLTAG(MQ Explorer 9.4.1)                                        
  SSLCERTU(SYSPROG)                                                  
  MCAUSER(USER1)                                              
-  END CHSTATUS DETAILS                                              
+  END CHSTATUS DETAILS   
+```                                           
 
 As a test, add and delete queues and other functions that only USER1 should have authority to perform.
 

@@ -12,13 +12,13 @@
         <meta name="author" content="IBM Z WSC">
       
       
-        <link rel="canonical" href="https://github.com/ibm-wsc/mq-zos/comparing-offloading/">
+        <link rel="canonical" href="https://github.com/ibm-wsc/mq-zos/triggering/">
       
       
-        <link rel="prev" href="../connectivity/">
+        <link rel="prev" href="../securitylab/">
       
       
-        <link rel="next" href="../kafka-client/">
+        <link rel="next" href="../archive/">
       
       
       <link rel="icon" href="../assets/wsc-logo.png">
@@ -26,7 +26,7 @@
     
     
       
-        <title>Comparing Offloading Lab - IBM MQ for z/OS</title>
+        <title>Triggering Lab - IBM MQ for z/OS</title>
       
     
     
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#lab-exercise-comparing-smds-and-db2-blobs-for-queue-sharing" class="md-skip">
+        <a href="#configuring-triggering-on-mq-for-zos" class="md-skip">
           Skip to content
         </a>
       
@@ -115,7 +115,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Comparing Offloading Lab
+              Triggering Lab
             
           </span>
         </div>
@@ -334,30 +334,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Comparing Offloading Lab
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../comparing-offloading/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -366,98 +346,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#audience-level-knowledge-of-mq-or-zos" class="md-nav__link">
-    <span class="md-ellipsis">
-      Audience level: knowledge of MQ or z/OS
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#skillset-zos-systems-programming-mq-administration" class="md-nav__link">
-    <span class="md-ellipsis">
-      Skillset: z/OS Systems Programming, MQ Administration
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#background" class="md-nav__link">
-    <span class="md-ellipsis">
-      Background
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#overview-of-exercise" class="md-nav__link">
-    <span class="md-ellipsis">
-      Overview of exercise
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#steps-of-exercise" class="md-nav__link">
-    <span class="md-ellipsis">
-      Steps of exercise
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#i-run-oemput-program-against-smds-enabled-cf-structure-test1" class="md-nav__link">
-    <span class="md-ellipsis">
-      I. Run OEMPUT program against SMDS-enabled CF structure (TEST1)
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#ii-run-oemput-program-against-blob-enabled-cf-structure-test2" class="md-nav__link">
-    <span class="md-ellipsis">
-      II. Run OEMPUT program against BLOB-enabled CF structure (TEST2)
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#iii-compare-the-output-from-both" class="md-nav__link">
-    <span class="md-ellipsis">
-      III. Compare the output from both
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -566,10 +454,30 @@
       
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../triggering/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Triggering Lab
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -578,6 +486,89 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#audience-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      Audience level
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#skillset" class="md-nav__link">
+    <span class="md-ellipsis">
+      Skillset
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-begin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab Begin
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#i-part-1-defining-mq-objects-for-triggering" class="md-nav__link">
+    <span class="md-ellipsis">
+      I. PART 1: Defining MQ Objects for Triggering
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ii-part-2-configuring-cics-component" class="md-nav__link">
+    <span class="md-ellipsis">
+      II. PART 2: Configuring CICS component
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iii-part-3-testing-it-out" class="md-nav__link">
+    <span class="md-ellipsis">
+      III. PART 3: Testing it out
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -776,72 +767,63 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#audience-level-knowledge-of-mq-or-zos" class="md-nav__link">
+  <a href="#audience-level" class="md-nav__link">
     <span class="md-ellipsis">
-      Audience level: knowledge of MQ or z/OS
+      Audience level
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#skillset-zos-systems-programming-mq-administration" class="md-nav__link">
+  <a href="#skillset" class="md-nav__link">
     <span class="md-ellipsis">
-      Skillset: z/OS Systems Programming, MQ Administration
+      Skillset
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#background" class="md-nav__link">
+  <a href="#overview" class="md-nav__link">
     <span class="md-ellipsis">
-      Background
+      Overview
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#overview-of-exercise" class="md-nav__link">
+  <a href="#lab-begin" class="md-nav__link">
     <span class="md-ellipsis">
-      Overview of exercise
+      Lab Begin
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#steps-of-exercise" class="md-nav__link">
+  <a href="#i-part-1-defining-mq-objects-for-triggering" class="md-nav__link">
     <span class="md-ellipsis">
-      Steps of exercise
+      I. PART 1: Defining MQ Objects for Triggering
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#i-run-oemput-program-against-smds-enabled-cf-structure-test1" class="md-nav__link">
+  <a href="#ii-part-2-configuring-cics-component" class="md-nav__link">
     <span class="md-ellipsis">
-      I. Run OEMPUT program against SMDS-enabled CF structure (TEST1)
+      II. PART 2: Configuring CICS component
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#ii-run-oemput-program-against-blob-enabled-cf-structure-test2" class="md-nav__link">
+  <a href="#iii-part-3-testing-it-out" class="md-nav__link">
     <span class="md-ellipsis">
-      II. Run OEMPUT program against BLOB-enabled CF structure (TEST2)
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#iii-compare-the-output-from-both" class="md-nav__link">
-    <span class="md-ellipsis">
-      III. Compare the output from both
+      III. PART 3: Testing it out
     </span>
   </a>
   
@@ -865,153 +847,87 @@
   
 
 
-<h1 id="lab-exercise-comparing-smds-and-db2-blobs-for-queue-sharing"><strong>Lab Exercise:</strong> Comparing SMDS and DB2 Blobs for queue-sharing</h1>
-<h4 id="audience-level-knowledge-of-mq-or-zos">Audience level: knowledge of MQ or z/OS</h4>
-<h4 id="skillset-zos-systems-programming-mq-administration">Skillset: z/OS Systems Programming, MQ Administration</h4>
-<h4 id="background">Background</h4>
-<p>Shared message data sets (SMDS) are the preferred method for offloading large messages in queue-sharing groups. SMDS’s are designed to handle large messages efficiently, so in this exercise, we will test two CF structures, one with SMDS and the other with BLOBs to examine the differences between the two offloading mechanisms.</p>
-<h4 id="overview-of-exercise">Overview of exercise</h4>
-<p>I.  Run OEMPUT program against SMDS-enabled CF structure (TEST1)</p>
-<p>II. Run OEMPUT program against BLOB-enabled CF structure (TEST2)</p>
-<p>III.    Compare the output from both</p>
-<h4 id="steps-of-exercise">Steps of exercise</h4>
-<h4 id="i-run-oemput-program-against-smds-enabled-cf-structure-test1">I. Run OEMPUT program against SMDS-enabled CF structure (TEST1)</h4>
-<ol>
-<li>
-<p>Using MQ Explorer, verify that the below configuration is in place. You should see connections to ZQS1, ZQS2, and you should see a QSGA queue-sharing group visible.</p>
-</li>
-<li>
-<p>In MQ Explorer, navigate to the queue-sharing group QSGA’s Coupling Facility Structures by clicking  ‘&gt;’ next to the QSGA label then pressing Coupling Facility Structures to display more information.</p>
-</li>
-<li>
-<p>Your structures should look like the following:
-    <img alt="Picture of CF structures list from MQ Explorer" src="../assets/offload1.png" title="Picture of structure list from MQ Explorer" /></p>
-</li>
-<li>
-<p>Scroll to the right, making sure that all offload rules are the same for TEST1 and TEST2 except for the ‘Offload’ and ‘Group data set name’ fields.</p>
-<p><img alt="Picture of CF structures list from MQ Explorer" src="../assets/offload2.png" title="Picture of structure list from MQ Explorer" /></p>
-</li>
-<li>
-<p>Now, navigate to the MQS1 z/OS image.</p>
-</li>
-<li>
-<p>Use option 3.4 to navigate to the ZQS1.MQ.JCL data set. Navigate to PUTSMDS and type an ‘e’ to edit the member.</p>
-<p><img alt="Picture of ZQS1.MQ.JCL members" src="../assets/offload3.png" title="Picture of ZQS1.MQ.JCL members" /></p>
-</li>
-<li>
-<p>In PUTSMDS, you will see an execution of OEMPUT. This JCL puts a large amount of large messages on our SMDS.QUEUE, defined to TEST1.
-Which parameters are we using with OEMPUT here?</p>
-</li>
-</ol>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>- mZQS1</td>
-<td>Specify target queue manager</td>
-</tr>
-<tr>
-<td>-qSMDS.QUEUE</td>
-<td>Specify target queue</td>
-</tr>
-<tr>
-<td>-fileDD:MSGIN</td>
-<td>Specify messages to be used</td>
-</tr>
-<tr>
-<td>-ts500</td>
-<td>Specify how long message stream should last (500 seconds)</td>
-</tr>
-<tr>
-<td>-s650000</td>
-<td>Specify the size of the message, note we are using a message larger than 63KB here, as to necessitate the use of offloading, since large messages can’t be held in the CF list structures.</td>
-</tr>
-<tr>
-<td>-l10</td>
-<td>Loop MQPUT and MQGET 10 times during execution</td>
-</tr>
-<tr>
-<td>-cgcpc</td>
-<td>Mimic client application program by procressing a commit after both MQPUTs and MQGETs</td>
-</tr>
-<tr>
-<td>-crlf</td>
-<td>Each line in the input message file is used in sequence as message data</td>
-</tr>
-<tr>
-<td>-rSMDS.QUEUE</td>
-<td>Reply-to-queue from which replies will be retrieved (MQGET). If the -r option is omitted, MQGETs will not be issued.</td>
-</tr>
-</tbody>
-</table>
-<p>**Note: If we specified persistent messages here, the contrast between SMDS and BLOBs would be less noticeable because transactions on both sides would have to wait on logging.</p>
-<ol>
-<li>Type ‘submit’ in the command line and press your enter key. You should see a reason code (RC) of 0000. This execution will take a few minutes to complete.</li>
-</ol>
-<h4 id="ii-run-oemput-program-against-blob-enabled-cf-structure-test2">II. Run OEMPUT program against BLOB-enabled CF structure (TEST2)</h4>
-<ol>
-<li>
-<p>Now, we will repeat the steps to submit another execution of OEMPUT, this time for our queue tied to BLOB storage. </p>
-</li>
-<li>
-<p>Use F3 to back out to the ZQS1.MQ.JCL data set. Place an ‘E’ next to PUTBLOB and press enter to edit the member. </p>
-</li>
-<li>
-<p>As you look through PUTBLOB, navigating up and down the screen using the F7 and F8 keys, you will notice that the only difference between PUTSMDS and PUTBLOB is the queue name. We are keep all other variables constant, especially message size.</p>
-</li>
-<li>
-<p>Type ‘submit’ in the command line and press your enter key. You should see a reason code (RC) of 0000. This execution will take a few minutes to complete. </p>
-</li>
-</ol>
-<h4 id="iii-compare-the-output-from-both">III. Compare the output from both</h4>
-<ol>
-<li>
-<p>From the ISPF main menu, type ‘sdsf’ or ‘d’ on the command line and press enter to access the SDSF menu. </p>
-</li>
-<li>
-<p>Here, type ‘ST’ on the command line and press enter to access the status of recent jobs.</p>
-</li>
-<li>
-<p>In our JCL, our OEMPUT jobs were named OEMPSMDS and OEMBLOB, respectively. We can search for all jobs beginning with OEM, but typing in the command line ‘pre OEM*’ and pressing enter.</p>
-</li>
-<li>
-<p>Both jobs should appear in a list. Let’s look at OEMPSMDS first. Place a question mark to the left of the job name and press enter. </p>
-</li>
-<li>
-<p>A list should appear with output on how successful the job was and any output from the job. We are interested in the SYSPRINT output. Place a ‘s’ to the left of SYSPRINT and press enter.</p>
-</li>
-<li>
-<p>Scroll down on the SYSPRINT output until you see the following output. Make not of the Total Transaction value, the Transaction Rate value, and the Avg App CPU per msg value. This gives us information about how many transactions were completed in the allotted time with SMDS storage specified, the efficiency of those transactions, and the CPU consumption required.</p>
-</li>
-</ol>
-<p><strong>If you are unable to see the SYSPRINT screen for any reason, we have prepared sample examples at the end of this lab for reference.</strong></p>
-<ol>
-<li>
-<p>Now, let’s check out the same information for BLOB storage. Use F3 to back out twice until you reach the list containing OEMPSMDS and OEMPBLOB.</p>
-</li>
-<li>
-<p>Place a ‘?’ next to the OEMPBLOB job and press enter.</p>
-</li>
-<li>
-<p>Place a ‘s’ next to the SYSPRINT output and press enter.</p>
-</li>
-<li>
-<p>Navigate until you see the Total Transaction value, the Transaction Rate value, and the Avg App CPU per msg value.</p>
-</li>
-</ol>
-<p><strong>If you are unable to see the SYSPRINT screen for any reason, we have prepared sample examples at the end of this lab for reference.</strong></p>
-<ol>
-<li>You have now compared the performance and storage consumption of SMDS and BLOB offloading in our test environment! Hopefully, this helps you see the advantages of using SMDS in terms of throughput. While CPU consumption is higher for SMDS in this test environment, </li>
-</ol>
-<p><em>Figure 1. SMDS performance</em></p>
-<p><img alt="Picture of SMDS performance report" src="../assets/offload4.png" title="Picture of SMDS performance" /></p>
-<p><em>Figure 2 BLOB performance</em></p>
-<p><img alt="Picture of BLOB performance report" src="../assets/offload5.png" title="Picture of SMDS performance" /></p>
+<h1 id="configuring-triggering-on-mq-for-zos">Configuring triggering on MQ for z/OS</h1>
+<h4 id="audience-level">Audience level</h4>
+<p>Some knowledge of MQ, z/OS, CICS</p>
+<h4 id="skillset">Skillset</h4>
+<p>MQ Administration</p>
+<h4 id="overview">Overview</h4>
+<p>The purpose of this lab is to give you a hands-on introduction to triggering. Triggering can be used to:
+(1) Automatically start a CICS transaction to process messages on a queue.
+(2) Automatically start a channel when messages arrive on its transmission queue.</p>
+<p>This lab walks you through an example of (1) using a simple example CICS program called QCOPY. The QCOPY program is executed from the QCPY transaction. When the necessary conditions are met, QCPY is triggered (or automatically started) to move messages from one queue to another in MQ, applying a message property to each message. </p>
+<p>In part 1 and 2 of the lab, we will walk through the configuration for triggering, and in part 3, we will validate it works. </p>
+<p>By the end of this lab, you should have an understanding of how triggering is configured, so you can implement it for our own use cases.</p>
+<p>The sample requires a currently supported version of IBM MQ and CICS. You can find the COBOL source code for the QCOPY program in ZQS1.COBOL.SOURCE. </p>
+<p><img alt="Picture of triggering process" src="../assets/trigdiagram.png" /></p>
+<h4 id="lab-begin">Lab Begin</h4>
+<h3 id="i-part-1-defining-mq-objects-for-triggering">I. PART 1: Defining MQ Objects for Triggering</h3>
+<p>1. Now navigate to the MQ web console. You can use MQ Explorer or MQSC commands via PCOMM.</p>
+<p>2. You will need to define several queue objects:
+    a.  QCPY.CONTROL
+    b.  QCPY.INPUT
+    c.  QCPY.OUTPUT
+    d.  QCPY.STATUS
+    e.  CICS.INITQ</p>
+<p>3. Create the 5 local queues below, using the pictures to guide which parameters to set.</p>
+<p><em>a. QCPY.CONTROL - Contains the message used to start the QCPY transaction.  For QCPY, the message payload will contain, in comma delimited format: the number of messages to be copied, the source queue, the target queue</em>
+<img alt="Picture of QCPY.CONTROL parameters" src="../TRIG1.png" /></p>
+<p><em>b. QCPY.INPUT - The source of the messages to be copied.</em>
+<img alt="Picture of QCPY.INPUT parameters" src="../TRIG2.png" /></p>
+<p><em>c. QCPY.OUTPUT – The target for the copied messages.</em><br />
+<img alt="Picture of QCPY.OUTPUT parameters" src="../TRIG2.png" /></p>
+<p><em>d. QCPY.STATUS – The queue which will hold the status messages, reporting on success or failure.</em>
+<img alt="Picture of QCPY.STATUS parameters" src="../TRIG2.png" /></p>
+<p><em>e. CICS.INITQ - The initiation queue to connect CICS to MQ for triggering purposes</em>
+<img alt="Picture of CICS.INITQ parameters" src="../image-11.png" /></p>
+<p>4. Next navigate to MQS1 PCOMM.</p>
+<p>5. Navigate to SDSF from the ISPF main menu.</p>
+<p>6. Define a process using the MQSC command below on SDSF. A process is an MQ object that defines an application to the MQ Queue Manager. MQ will use the process definition to identify our CICS application, QCPY, to be started by a trigger monitor.</p>
+<p>a.  Here, we’ll specify CICS as our application</p>
+<p>b.  'QCPY' is our application ID. This is the transaction name in CICS</p>
+<p>c.  Environment data is status queue which tells us what happen at the end of the process </p>
+<p><em>QCPY.PROCESS</em>
+<img alt="Picture of QCPY.PROCESS" src="../image-7.png" /></p>
+<h3 id="ii-part-2-configuring-cics-component">II. PART 2: Configuring CICS component</h3>
+<p>7. Now, ensure CICS is running. Test this via SDSF from the ISPF main menu.</p>
+<p>8. Navigate to ‘da’ once in the SDSF menu to see active users.</p>
+<p>9. Set the prefix to * so we can see all active users with the command ‘prefix *’. Then, using the F7 and F8 keys, navigate to see if CICS is running. You should see something like this:</p>
+<p><img alt="Picture of SDSF CICS address space" src="../image-12.png" /></p>
+<p>10.    If there is no CICS region active, you will need to start the CICS region w/ command ‘start MQS1CICS’</p>
+<p>11.    Once you've validated CICS is running, navigate to the CICS display by starting another MQS1 PCOMM session. From the main screen, use the MQS1CICS command and press enter.</p>
+<p><img alt="MQS1 PCOMM login page" src="../image-8.png" /></p>
+<p>12.    From the CICS main screen, hit tab once, then type in CKQC. This is the MQ CICS transaction CKQC. This transaction makes it possible to monitor and control the interface between MQ and CICS.</p>
+<p>13.    Currently, no one is listening, so we’ll need to add a listener to CICS01.INITQ. From z/OS CICS screen, navigate to CKQCM0 by typing in the command.</p>
+<p><img alt="CICS homepage" src="../image-2.png" /></p>
+<p>14.    This screen should pop up. </p>
+<p><img alt="CKQC" src="../image-3.png" /></p>
+<p>15.    Enter the tab or tab button with your cursor next to the Connection option. The following menu will pop up. Type in option 1 and press enter.</p>
+<p><img alt="CKQC option menu" src="../image-4.png" /></p>
+<p>16. Enter in your appropriate queue manager name and initiation queue name and press enter.</p>
+<p>17. Press F12 to return to the main menu. Move your cursor next to CKTI option and press enter. The following menu will pop up. Type in option 1 and press enter.</p>
+<p>18.    Enter in your appropriate queue queue name and press enter.</p>
+<p><img alt="initiation queue name" src="../image-5.png" /></p>
+<p>This step initiates the CKTI transaction, which is what controls the CICS trigger monitor.</p>
+<p><img alt="confirmation message" src="../image-6.png" /></p>
+<p>19. F12 to escape. If you display your connection or CKTI using the menu options, you should see the appropriate initiation queue linked, similarly to the examples below. You will also now see that your CICS.INITQ in MQ has a open input count of 1.</p>
+<p>Connection display:
+<img alt="Connection display" src="../image-10.png" /></p>
+<p>CKTI display:
+<img alt="CKTI display" src="../image-9.png" /></p>
+<h3 id="iii-part-3-testing-it-out">III. PART 3: Testing it out</h3>
+<p>20.    Now, we have all of our necessary objects (queues and process) configured, we have our connection between MQ and CICS configured, so we are all set to test out triggering. </p>
+<p>21. Navigate to the web console. Once in the web console, navigate to the QCPY.INPUT queue. </p>
+<p>22. Place several test messages on the QCPY.INPUT queue. Place at least 5 messages on the queue. The message payload can be any text you'd like.</p>
+<p>23. Now, put a test message on QCPY.CONTROL. The message MUST be in the format below: </p>
+<p><code>2,QCPY.INPUT,QCPY.OUTPUT</code>
+where 2 is the number of messages you want to copy, QCPY.INPUT is the input queue, and QCPY.OUTPUT is the output queue.</p>
+<p>This message requests that MQ copies 2 messages from QCPY.INPUT to QCPY.OUTPUT. After you submit this, check it worked by looking at the queue depths of QCPY.INPUT an QCPY.OUTPUT. QCPY.INPUT should have 2 less messages, QCPY.OUTPUT should have 2 more messages.</p>
+<p>24. Next, look at the QCPY.STATUS messages. You should see a new message on the queue confirming the QCPY was successful:</p>
+<p><code>MESSAGES COPIED  =  000002 
+FROM QUEUE =       QCPY.INPUT
+TO QUEUE =         QCPY.OUTPUT</code></p>
+<p>25.    Congratulations! You have successfully used a CICS application for triggering! </p>
 
 
 

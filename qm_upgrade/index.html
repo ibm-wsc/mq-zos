@@ -12,13 +12,9 @@
         <meta name="author" content="IBM Z WSC">
       
       
-        <link rel="canonical" href="https://github.com/ibm-wsc/mq-zos/comparing-offloading/">
+        <link rel="canonical" href="https://github.com/ibm-wsc/mq-zos/qm_upgrade/">
       
       
-        <link rel="prev" href="../connectivity/">
-      
-      
-        <link rel="next" href="../kafka-client/">
       
       
       <link rel="icon" href="../assets/wsc-logo.png">
@@ -26,7 +22,7 @@
     
     
       
-        <title>Comparing Offloading Lab - IBM MQ for z/OS</title>
+        <title>Customizing a new queue manager on IBM MQ for z/OS - IBM MQ for z/OS</title>
       
     
     
@@ -80,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#lab-exercise-comparing-smds-and-db2-blobs-for-queue-sharing" class="md-skip">
+        <a href="#customizing-a-new-queue-manager-on-ibm-mq-for-zos" class="md-skip">
           Skip to content
         </a>
       
@@ -115,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Comparing Offloading Lab
+              Customizing a new queue manager on IBM MQ for z/OS
             
           </span>
         </div>
@@ -334,30 +330,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Comparing Offloading Lab
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../comparing-offloading/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -366,98 +342,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#audience-level-knowledge-of-mq-or-zos" class="md-nav__link">
-    <span class="md-ellipsis">
-      Audience level: knowledge of MQ or z/OS
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#skillset-zos-systems-programming-mq-administration" class="md-nav__link">
-    <span class="md-ellipsis">
-      Skillset: z/OS Systems Programming, MQ Administration
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#background" class="md-nav__link">
-    <span class="md-ellipsis">
-      Background
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#overview-of-exercise" class="md-nav__link">
-    <span class="md-ellipsis">
-      Overview of exercise
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#steps-of-exercise" class="md-nav__link">
-    <span class="md-ellipsis">
-      Steps of exercise
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#i-run-oemput-program-against-smds-enabled-cf-structure-test1" class="md-nav__link">
-    <span class="md-ellipsis">
-      I. Run OEMPUT program against SMDS-enabled CF structure (TEST1)
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#ii-run-oemput-program-against-blob-enabled-cf-structure-test2" class="md-nav__link">
-    <span class="md-ellipsis">
-      II. Run OEMPUT program against BLOB-enabled CF structure (TEST2)
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#iii-compare-the-output-from-both" class="md-nav__link">
-    <span class="md-ellipsis">
-      III. Compare the output from both
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -776,18 +660,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#audience-level-knowledge-of-mq-or-zos" class="md-nav__link">
+  <a href="#audience-level" class="md-nav__link">
     <span class="md-ellipsis">
-      Audience level: knowledge of MQ or z/OS
+      Audience level
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#skillset-zos-systems-programming-mq-administration" class="md-nav__link">
+  <a href="#skillset" class="md-nav__link">
     <span class="md-ellipsis">
-      Skillset: z/OS Systems Programming, MQ Administration
+      Skillset
     </span>
   </a>
   
@@ -812,38 +696,35 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#steps-of-exercise" class="md-nav__link">
+  <a href="#lab-begin" class="md-nav__link">
     <span class="md-ellipsis">
-      Steps of exercise
+      Lab begin
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab begin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#i-stop-queue-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      I. Stop queue manager
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#i-run-oemput-program-against-smds-enabled-cf-structure-test1" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#ii-optional-re-bind-queue-sharing-group" class="md-nav__link">
     <span class="md-ellipsis">
-      I. Run OEMPUT program against SMDS-enabled CF structure (TEST1)
+      II. OPTIONAL: Re-bind queue sharing group
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#ii-run-oemput-program-against-blob-enabled-cf-structure-test2" class="md-nav__link">
-    <span class="md-ellipsis">
-      II. Run OEMPUT program against BLOB-enabled CF structure (TEST2)
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#iii-compare-the-output-from-both" class="md-nav__link">
-    <span class="md-ellipsis">
-      III. Compare the output from both
-    </span>
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -865,153 +746,27 @@
   
 
 
-<h1 id="lab-exercise-comparing-smds-and-db2-blobs-for-queue-sharing"><strong>Lab Exercise:</strong> Comparing SMDS and DB2 Blobs for queue-sharing</h1>
-<h4 id="audience-level-knowledge-of-mq-or-zos">Audience level: knowledge of MQ or z/OS</h4>
-<h4 id="skillset-zos-systems-programming-mq-administration">Skillset: z/OS Systems Programming, MQ Administration</h4>
-<h4 id="background">Background</h4>
-<p>Shared message data sets (SMDS) are the preferred method for offloading large messages in queue-sharing groups. SMDS’s are designed to handle large messages efficiently, so in this exercise, we will test two CF structures, one with SMDS and the other with BLOBs to examine the differences between the two offloading mechanisms.</p>
-<h4 id="overview-of-exercise">Overview of exercise</h4>
-<p>I.  Run OEMPUT program against SMDS-enabled CF structure (TEST1)</p>
-<p>II. Run OEMPUT program against BLOB-enabled CF structure (TEST2)</p>
-<p>III.    Compare the output from both</p>
-<h4 id="steps-of-exercise">Steps of exercise</h4>
-<h4 id="i-run-oemput-program-against-smds-enabled-cf-structure-test1">I. Run OEMPUT program against SMDS-enabled CF structure (TEST1)</h4>
-<ol>
-<li>
-<p>Using MQ Explorer, verify that the below configuration is in place. You should see connections to ZQS1, ZQS2, and you should see a QSGA queue-sharing group visible.</p>
-</li>
-<li>
-<p>In MQ Explorer, navigate to the queue-sharing group QSGA’s Coupling Facility Structures by clicking  ‘&gt;’ next to the QSGA label then pressing Coupling Facility Structures to display more information.</p>
-</li>
-<li>
-<p>Your structures should look like the following:
-    <img alt="Picture of CF structures list from MQ Explorer" src="../assets/offload1.png" title="Picture of structure list from MQ Explorer" /></p>
-</li>
-<li>
-<p>Scroll to the right, making sure that all offload rules are the same for TEST1 and TEST2 except for the ‘Offload’ and ‘Group data set name’ fields.</p>
-<p><img alt="Picture of CF structures list from MQ Explorer" src="../assets/offload2.png" title="Picture of structure list from MQ Explorer" /></p>
-</li>
-<li>
-<p>Now, navigate to the MQS1 z/OS image.</p>
-</li>
-<li>
-<p>Use option 3.4 to navigate to the ZQS1.MQ.JCL data set. Navigate to PUTSMDS and type an ‘e’ to edit the member.</p>
-<p><img alt="Picture of ZQS1.MQ.JCL members" src="../assets/offload3.png" title="Picture of ZQS1.MQ.JCL members" /></p>
-</li>
-<li>
-<p>In PUTSMDS, you will see an execution of OEMPUT. This JCL puts a large amount of large messages on our SMDS.QUEUE, defined to TEST1.
-Which parameters are we using with OEMPUT here?</p>
-</li>
-</ol>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>- mZQS1</td>
-<td>Specify target queue manager</td>
-</tr>
-<tr>
-<td>-qSMDS.QUEUE</td>
-<td>Specify target queue</td>
-</tr>
-<tr>
-<td>-fileDD:MSGIN</td>
-<td>Specify messages to be used</td>
-</tr>
-<tr>
-<td>-ts500</td>
-<td>Specify how long message stream should last (500 seconds)</td>
-</tr>
-<tr>
-<td>-s650000</td>
-<td>Specify the size of the message, note we are using a message larger than 63KB here, as to necessitate the use of offloading, since large messages can’t be held in the CF list structures.</td>
-</tr>
-<tr>
-<td>-l10</td>
-<td>Loop MQPUT and MQGET 10 times during execution</td>
-</tr>
-<tr>
-<td>-cgcpc</td>
-<td>Mimic client application program by procressing a commit after both MQPUTs and MQGETs</td>
-</tr>
-<tr>
-<td>-crlf</td>
-<td>Each line in the input message file is used in sequence as message data</td>
-</tr>
-<tr>
-<td>-rSMDS.QUEUE</td>
-<td>Reply-to-queue from which replies will be retrieved (MQGET). If the -r option is omitted, MQGETs will not be issued.</td>
-</tr>
-</tbody>
-</table>
-<p>**Note: If we specified persistent messages here, the contrast between SMDS and BLOBs would be less noticeable because transactions on both sides would have to wait on logging.</p>
-<ol>
-<li>Type ‘submit’ in the command line and press your enter key. You should see a reason code (RC) of 0000. This execution will take a few minutes to complete.</li>
-</ol>
-<h4 id="ii-run-oemput-program-against-blob-enabled-cf-structure-test2">II. Run OEMPUT program against BLOB-enabled CF structure (TEST2)</h4>
-<ol>
-<li>
-<p>Now, we will repeat the steps to submit another execution of OEMPUT, this time for our queue tied to BLOB storage. </p>
-</li>
-<li>
-<p>Use F3 to back out to the ZQS1.MQ.JCL data set. Place an ‘E’ next to PUTBLOB and press enter to edit the member. </p>
-</li>
-<li>
-<p>As you look through PUTBLOB, navigating up and down the screen using the F7 and F8 keys, you will notice that the only difference between PUTSMDS and PUTBLOB is the queue name. We are keep all other variables constant, especially message size.</p>
-</li>
-<li>
-<p>Type ‘submit’ in the command line and press your enter key. You should see a reason code (RC) of 0000. This execution will take a few minutes to complete. </p>
-</li>
-</ol>
-<h4 id="iii-compare-the-output-from-both">III. Compare the output from both</h4>
-<ol>
-<li>
-<p>From the ISPF main menu, type ‘sdsf’ or ‘d’ on the command line and press enter to access the SDSF menu. </p>
-</li>
-<li>
-<p>Here, type ‘ST’ on the command line and press enter to access the status of recent jobs.</p>
-</li>
-<li>
-<p>In our JCL, our OEMPUT jobs were named OEMPSMDS and OEMBLOB, respectively. We can search for all jobs beginning with OEM, but typing in the command line ‘pre OEM*’ and pressing enter.</p>
-</li>
-<li>
-<p>Both jobs should appear in a list. Let’s look at OEMPSMDS first. Place a question mark to the left of the job name and press enter. </p>
-</li>
-<li>
-<p>A list should appear with output on how successful the job was and any output from the job. We are interested in the SYSPRINT output. Place a ‘s’ to the left of SYSPRINT and press enter.</p>
-</li>
-<li>
-<p>Scroll down on the SYSPRINT output until you see the following output. Make not of the Total Transaction value, the Transaction Rate value, and the Avg App CPU per msg value. This gives us information about how many transactions were completed in the allotted time with SMDS storage specified, the efficiency of those transactions, and the CPU consumption required.</p>
-</li>
-</ol>
-<p><strong>If you are unable to see the SYSPRINT screen for any reason, we have prepared sample examples at the end of this lab for reference.</strong></p>
-<ol>
-<li>
-<p>Now, let’s check out the same information for BLOB storage. Use F3 to back out twice until you reach the list containing OEMPSMDS and OEMPBLOB.</p>
-</li>
-<li>
-<p>Place a ‘?’ next to the OEMPBLOB job and press enter.</p>
-</li>
-<li>
-<p>Place a ‘s’ next to the SYSPRINT output and press enter.</p>
-</li>
-<li>
-<p>Navigate until you see the Total Transaction value, the Transaction Rate value, and the Avg App CPU per msg value.</p>
-</li>
-</ol>
-<p><strong>If you are unable to see the SYSPRINT screen for any reason, we have prepared sample examples at the end of this lab for reference.</strong></p>
-<ol>
-<li>You have now compared the performance and storage consumption of SMDS and BLOB offloading in our test environment! Hopefully, this helps you see the advantages of using SMDS in terms of throughput. While CPU consumption is higher for SMDS in this test environment, </li>
-</ol>
-<p><em>Figure 1. SMDS performance</em></p>
-<p><img alt="Picture of SMDS performance report" src="../assets/offload4.png" title="Picture of SMDS performance" /></p>
-<p><em>Figure 2 BLOB performance</em></p>
-<p><img alt="Picture of BLOB performance report" src="../assets/offload5.png" title="Picture of SMDS performance" /></p>
+<h1 id="customizing-a-new-queue-manager-on-ibm-mq-for-zos">Customizing a new queue manager on IBM MQ for z/OS</h1>
+<h3 id="audience-level">Audience level</h3>
+<p>Some knowledge of MQ or z/OS </p>
+<h3 id="skillset">Skillset</h3>
+<p>z/OS Systems Programming, MQ Administration</p>
+<h3 id="background">Background</h3>
+<p>This lab walks users through how to upgrade queue managers on z/OS. This lab assumes the SMP/E work has already been done to install the product. In this lab, we will use MQ v.9.4.2 as an example. As such, our high level qualifier is MQ942CD.</p>
+<h3 id="overview-of-exercise">Overview of exercise</h3>
+<p>What needs to be done here: 
+I. Stop queue manager
+II. OPTIONAL: Re-bind queue sharing group 
+III. Adjust MSTR and CHIN started tasks
+III. Update early code
+IV. Restart queue manager</p>
+<h3 id="lab-begin">Lab begin</h3>
+<h4 id="i-stop-queue-manager">I. Stop queue manager</h4>
+<p>1. From the ISPF main menu, type 'SDSF' and press Enter. System Display and Search Facility (SDSF) is a utility that allows you to monitor, control, and view the output of jobs in the system.</p>
+<p>2. On the SDSF menu, type '/' and press Enter to access the MVS command line via the System Command Extension.</p>
+<p>3. On the command line, type 'ZQS1 STOP CHINIT'</p>
+<p>4. Next, type 'ZQS1 STOP QMGR'</p>
+<h4 id="ii-optional-re-bind-queue-sharing-group">II. OPTIONAL: Re-bind queue sharing group</h4>
 
 
 

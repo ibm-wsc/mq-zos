@@ -521,9 +521,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
+  <a href="#background" class="md-nav__link">
     <span class="md-ellipsis">
-      Overview
+      Background
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab Overview
     </span>
   </a>
   
@@ -539,27 +548,27 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#i-part-1-defining-mq-objects-for-triggering" class="md-nav__link">
+  <a href="#i-defining-mq-objects-for-triggering" class="md-nav__link">
     <span class="md-ellipsis">
-      I. PART 1: Defining MQ Objects for Triggering
+      I. Defining MQ Objects for Triggering
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#ii-part-2-configuring-cics-component" class="md-nav__link">
+  <a href="#ii-configuring-cics-components" class="md-nav__link">
     <span class="md-ellipsis">
-      II. PART 2: Configuring CICS component
+      II. Configuring CICS components
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#iii-part-3-testing-it-out" class="md-nav__link">
+  <a href="#iii-testing-it-out" class="md-nav__link">
     <span class="md-ellipsis">
-      III. PART 3: Testing it out
+      III. Testing it out
     </span>
   </a>
   
@@ -785,9 +794,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
+  <a href="#background" class="md-nav__link">
     <span class="md-ellipsis">
-      Overview
+      Background
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab Overview
     </span>
   </a>
   
@@ -803,27 +821,27 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#i-part-1-defining-mq-objects-for-triggering" class="md-nav__link">
+  <a href="#i-defining-mq-objects-for-triggering" class="md-nav__link">
     <span class="md-ellipsis">
-      I. PART 1: Defining MQ Objects for Triggering
+      I. Defining MQ Objects for Triggering
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#ii-part-2-configuring-cics-component" class="md-nav__link">
+  <a href="#ii-configuring-cics-components" class="md-nav__link">
     <span class="md-ellipsis">
-      II. PART 2: Configuring CICS component
+      II. Configuring CICS components
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#iii-part-3-testing-it-out" class="md-nav__link">
+  <a href="#iii-testing-it-out" class="md-nav__link">
     <span class="md-ellipsis">
-      III. PART 3: Testing it out
+      III. Testing it out
     </span>
   </a>
   
@@ -852,26 +870,41 @@
 <p>Some knowledge of MQ, z/OS, CICS</p>
 <h4 id="skillset">Skillset</h4>
 <p>MQ Administration</p>
-<h4 id="overview">Overview</h4>
-<p>The purpose of this lab is to give you a hands-on introduction to triggering. Triggering can be used to:
-(1) Automatically start a CICS transaction to process messages on a queue.
-(2) Automatically start a channel when messages arrive on its transmission queue.</p>
+<h4 id="background">Background</h4>
+<p>The purpose of this lab is to give you a hands-on introduction to triggering. Triggering can be used to:</p>
+<p>(1) Automatically start a CICS transaction to process messages on a queue.</p>
+<p>(2) Automatically start a channel when messages arrive on its transmission queue.</p>
 <p>This lab walks you through an example of (1) using a simple example CICS program called QCOPY. The QCOPY program is executed from the QCPY transaction. When the necessary conditions are met, QCPY is triggered (or automatically started) to move messages from one queue to another in MQ, applying a message property to each message. </p>
-<p>In part 1 and 2 of the lab, we will walk through the configuration for triggering, and in part 3, we will validate it works. </p>
+<h4 id="lab-overview">Lab Overview</h4>
+<p>I. Defining MQ Objects for Triggering</p>
+<p>II. Configuring CICS components</p>
+<p>III. Testing it all out</p>
+<p>In part I and II of the lab, we will walk through the configuration for triggering, and in part III, we will validate it works. </p>
 <p>By the end of this lab, you should have an understanding of how triggering is configured, so you can implement it for our own use cases.</p>
-<p>The sample requires a currently supported version of IBM MQ and CICS. You can find the COBOL source code for the QCOPY program in ZQS1.COBOL.SOURCE. </p>
-<p><img alt="Picture of triggering process" src="../assets/trigdiagram.png" /></p>
+<p>The sample requires a currently supported version of IBM MQ and CICS. You can find the COBOL source code for the QCOPY program in ZQS1.COBOL.SOURCE if you are using the MQPLEX lab environment. If you need access to a lab sysplex, please contact the Washington Systems Center or dorothy.quincy@ibm.com.</p>
 <h4 id="lab-begin">Lab Begin</h4>
-<h3 id="i-part-1-defining-mq-objects-for-triggering">I. PART 1: Defining MQ Objects for Triggering</h3>
-<p>1. Now navigate to the MQ web console. You can use MQ Explorer or MQSC commands via PCOMM.</p>
-<p>2. You will need to define several queue objects:
-    a.  QCPY.CONTROL
-    b.  QCPY.INPUT
-    c.  QCPY.OUTPUT
-    d.  QCPY.STATUS
-    e.  CICS.INITQ</p>
+<h3 id="i-defining-mq-objects-for-triggering">I. Defining MQ Objects for Triggering</h3>
+<p>1. Navigate to the MQ web console. You can also use MQ Explorer or MQSC commands via PCOMM.</p>
+<p>2. You will need to define several queue objects:</p>
+<ul>
+<li>
+<p>QCPY.CONTROL</p>
+</li>
+<li>
+<p>QCPY.INPUT</p>
+</li>
+<li>
+<p>QCPY.OUTPUT</p>
+</li>
+<li>
+<p>QCPY.STATUS</p>
+</li>
+<li>
+<p>CICS.INITQ</p>
+</li>
+</ul>
 <p>3. Create the 5 local queues below, using the pictures to guide which parameters to set.</p>
-<p><em>a. QCPY.CONTROL - Contains the message used to start the QCPY transaction.  For QCPY, the message payload will contain, in comma delimited format: the number of messages to be copied, the source queue, the target queue</em>
+<p><em>a. QCPY.CONTROL - This queue contains the message used to start the QCPY transaction. For QCPY, the message payload will contain, in comma delimited format: the number of messages to be copied, the source queue, the target queue</em>
 <img alt="Picture of QCPY.CONTROL parameters" src="../TRIG1.png" /></p>
 <p><em>b. QCPY.INPUT - The source of the messages to be copied.</em>
 <img alt="Picture of QCPY.INPUT parameters" src="../TRIG2.png" /></p>
@@ -889,7 +922,7 @@
 <p>c.  Environment data is status queue which tells us what happen at the end of the process </p>
 <p><em>QCPY.PROCESS</em>
 <img alt="Picture of QCPY.PROCESS" src="../image-7.png" /></p>
-<h3 id="ii-part-2-configuring-cics-component">II. PART 2: Configuring CICS component</h3>
+<h3 id="ii-configuring-cics-components">II. Configuring CICS components</h3>
 <p>7. Now, ensure CICS is running. Test this via SDSF from the ISPF main menu.</p>
 <p>8. Navigate to ‘da’ once in the SDSF menu to see active users.</p>
 <p>9. Set the prefix to * so we can see all active users with the command ‘prefix *’. Then, using the F7 and F8 keys, navigate to see if CICS is running. You should see something like this:</p>
@@ -915,7 +948,7 @@
 <img alt="Connection display" src="../image-10.png" /></p>
 <p>CKTI display:
 <img alt="CKTI display" src="../image-9.png" /></p>
-<h3 id="iii-part-3-testing-it-out">III. PART 3: Testing it out</h3>
+<h3 id="iii-testing-it-out">III. Testing it out</h3>
 <p>20.    Now, we have all of our necessary objects (queues and process) configured, we have our connection between MQ and CICS configured, so we are all set to test out triggering. </p>
 <p>21. Navigate to the web console. Once in the web console, navigate to the QCPY.INPUT queue. </p>
 <p>22. Place several test messages on the QCPY.INPUT queue. Place at least 5 messages on the queue. The message payload can be any text you'd like.</p>
@@ -927,7 +960,8 @@ where 2 is the number of messages you want to copy, QCPY.INPUT is the input queu
 <p><code>MESSAGES COPIED  =  000002 
 FROM QUEUE =       QCPY.INPUT
 TO QUEUE =         QCPY.OUTPUT</code></p>
-<p>25.    Congratulations! You have successfully used a CICS application for triggering! </p>
+<p>25.    Congratulations! You have successfully used a CICS application for triggering! To recap, we created all the necessary objects and ran an experiment to copy messages from our source queue to our target queue, seen below.</p>
+<p><img alt="Picture of triggering process" src="../assets/trigdiagram.png" /></p>
 
 
 

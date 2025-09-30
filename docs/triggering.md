@@ -27,7 +27,7 @@ In part I and II of the lab, we will walk through the configuration for triggeri
 
 By the end of this lab, you should have an understanding of how triggering is configured, so you can implement it for our own use cases.
 
-The sample requires a currently supported version of IBM MQ and CICS. You can find the COBOL source code for the QCOPY program in ZQS1.COBOL.SOURCE if you are using the MQPLEX lab environment. If you need access to a lab sysplex, please contact the Washington Systems Center or dorothy.quincy@ibm.com.
+The sample requires a currently supported version of IBM MQ and CICS. You can find the COBOL source code for the QCOPY program in ZQS1.COBOL.SOURCE if you are using the MQPLEX lab environment. If you need access to a lab sysplex, please contact the Washington Systems Center or your IBM technical sales contact.
 
 #### Lab Begin
 
@@ -49,19 +49,19 @@ The sample requires a currently supported version of IBM MQ and CICS. You can fi
 
 3\.	Create the 5 local queues below, using the pictures to guide which parameters to set.
 
-*a. QCPY.CONTROL - This queue contains the message used to start the QCPY transaction. For QCPY, the message payload will contain, in comma delimited format: the number of messages to be copied, the source queue, the target queue*
+*QCPY.CONTROL - This queue contains the message used to start the QCPY transaction. For QCPY, the message payload will contain, in comma delimited format: the number of messages to be copied, the source queue, the target queue*
 ![Picture of QCPY.CONTROL parameters](TRIG1.png)
  
-*b. QCPY.INPUT - The source of the messages to be copied.*
+*QCPY.INPUT - The source of the messages to be copied.*
 ![Picture of QCPY.INPUT parameters](TRIG2.png)
 
-*c. QCPY.OUTPUT – The target for the copied messages.*	
+*QCPY.OUTPUT – The target for the copied messages.*	
 ![Picture of QCPY.OUTPUT parameters](TRIG2.png)
 
-*d. QCPY.STATUS – The queue which will hold the status messages, reporting on success or failure.*
+*QCPY.STATUS – The queue which will hold the status messages, reporting on success or failure.*
 ![Picture of QCPY.STATUS parameters](TRIG2.png)
 
-*e. CICS.INITQ - The initiation queue to connect CICS to MQ for triggering purposes*
+*CICS.INITQ - The initiation queue to connect CICS to MQ for triggering purposes*
 ![Picture of CICS.INITQ parameters](image-11.png)
 
 4\. Next navigate to MQS1 PCOMM.
@@ -89,7 +89,7 @@ c.	Environment data is status queue which tells us what happen at the end of the
 
 ![Picture of SDSF CICS address space](image-12.png)
 
-10\.	If there is no CICS region active, you will need to start the CICS region w/ command ‘start MQS1CICS’
+10\.	If there is no CICS region active, you will need to start the CICS region with command ‘start MQS1CICS’
 
 11\.	Once you've validated CICS is running, navigate to the CICS display by starting another MQS1 PCOMM session. From the main screen, use the MQS1CICS command and press enter.
 

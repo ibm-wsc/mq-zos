@@ -78,8 +78,6 @@ V.	Interpret the performance problem
 
     To change the statistics time interval to 1 minute
 
-    We want to modify our queue manager’s log load attribute to be super low in order to manufacture a lot of checkpointing so we see something interesting in the SMF records for the purpose of the lab
-
         DISPLAY SMF
 
     This tells us where our SMF data will be stored
@@ -98,6 +96,9 @@ V.	Interpret the performance problem
 
         ZQS1 START TRACE(STAT) CLASS(1,2,4,5)
 
+> Class 5 data corresponds to QSTATISTICS.
+
+
 12.	Now all the settings should be in place for our queue manager. Head back to ZQS1.MP1B.JCL using 3.4 from the main ISPF menu. 
 
 #### III.    Run JCL to record our SMF data 
@@ -108,7 +109,7 @@ V.	Interpret the performance problem
         //************************************************
     //*                                               
     //  SET QM=ZQS1                                   
-    //  SET Q=TEAM1.STREAM.BASE                       
+    //  SET Q=MP1B.TESTER                       
     //S1   EXEC PGM=OEMPUT,REGION=0M,                 
     //  PARM=('-M&QM -tm1 -Q&Q -fileDD:MSGIN -P  ')   
     //SYSIN  DD *                                     
@@ -129,7 +130,7 @@ V.	Interpret the performance problem
 
     I won’t summarize the whole JCL, but pay attention to this particular line:  
 
-    `PARM=('-M&QM -tm3 -Q&Q -crlf -fileDD:MSGIN -P')`
+    `PARM=('-M&QM -n1000 -Q&Q -crlf -fileDD:MSGIN')`
 
     Lets break it down:
 
@@ -146,12 +147,12 @@ V.	Interpret the performance problem
 
     ![MQ Explorer display of message depth on queue](assets/mp1b-8.png "MQ Explorer display of message depth on queue")
 
-17.	Back in ZQS1.MP1B.JCL, navigate to the SMFDUMP member. Once inside, modify the date to be accurate. If you are completing this lab on 2/24/2025 at SHARE, the date will be 2025055. Additionally adjust the START parameter to reflect the appropriate hh:MM. Your JCL should look something like:
+17.	Back in ZQS1.MP1B.JCL, navigate to the SMFDUMP member. Once inside, modify the date to be accurate. If you are completing this lab on 12/10/2025, the date will be 2025344. Additionally adjust the START parameter to reflect the appropriate hh:MM. Your JCL should look something like:
     ```
     //SYSIN  DD *                                          
     LSNAME(IFASMF.DEFAULT,OPTIONS(DUMP))                 
     OUTDD(DUMPOUT,TYPE(115,116),START(1230),END(2200))   
-    DATE(2025055,2025055)     
+    DATE(2025344,2025344)     
     ```                           
 
 > This is a date in the Julian format.

@@ -146,12 +146,12 @@ V.	Interpret the performance problem
 
     ![MQ Explorer display of message depth on queue](assets/mp1b-8.png "MQ Explorer display of message depth on queue")
 
-17.	Back in ZQS1.MP1B.JCL, navigate to the SMFDUMP member. Once inside, modify the date to be accurate. If you are completing this lab on 2/24/2025 at SHARE, the date will be 2025055. Additionally adjust the START parameter to reflect the appropriate hh:MM. Your JCL should look something like:
+17.	Back in ZQS1.MP1B.JCL, navigate to the SMFDUMP member. Once inside, modify the date to be accurate. If you are completing this lab on 12/10/2025, the date will be 2025344. Additionally adjust the START parameter to reflect the appropriate hh:MM. Your JCL should look something like:
     ```
     //SYSIN  DD *                                          
     LSNAME(IFASMF.DEFAULT,OPTIONS(DUMP))                 
     OUTDD(DUMPOUT,TYPE(115,116),START(1230),END(2200))   
-    DATE(2025055,2025055)     
+    DATE(2025344,2025344)     
     ```                           
 
 > This is a date in the Julian format.

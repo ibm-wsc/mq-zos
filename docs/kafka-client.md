@@ -2,7 +2,7 @@
 
 #### **Audience level**
 Knowledge of IBM MQ for z/OS or Linux
-#### **Skillset**
+#### **Skill set**
 Kafka, IBM MQ for z/OS
 
 #### **Background**

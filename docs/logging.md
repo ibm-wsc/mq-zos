@@ -3,7 +3,7 @@
 #### **Audience level**
 Beginner; Some knowledge of MQ or z/OS 
 
-#### **Skillset**
+#### **Skill set**
 MQ Administration, z/OS systems programming
 
 #### **Background**

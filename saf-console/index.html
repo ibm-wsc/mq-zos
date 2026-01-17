@@ -12,13 +12,13 @@
         <meta name="author" content="IBM Z WSC">
       
       
-        <link rel="canonical" href="https://github.com/ibm-wsc/mq-zos/streaming-queues/">
+        <link rel="canonical" href="https://github.com/ibm-wsc/mq-zos/saf-console/">
       
       
-        <link rel="prev" href="../saf-console/">
+        <link rel="prev" href="../queue-statistics/">
       
       
-        <link rel="next" href="../securitylab/">
+        <link rel="next" href="../streaming-queues/">
       
       
       <link rel="icon" href="../assets/wsc-logo.png">
@@ -26,7 +26,7 @@
     
     
       
-        <title>Streaming Queues Lab - IBM MQ for z/OS</title>
+        <title>Basic SAF Authentication for MQ Console - IBM MQ for z/OS</title>
       
     
     
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#creating-streaming-queues-w-ibm-mq-for-zos" class="md-skip">
+        <a href="#implementing-basic-authentication-using-saf-for-the-mq-web-console" class="md-skip">
           Skip to content
         </a>
       
@@ -115,7 +115,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Streaming Queues Lab
+              Basic SAF Authentication for MQ Console
             
           </span>
         </div>
@@ -499,28 +499,6 @@
       
   
   
-  
-  
-    <li class="md-nav__item">
-      <a href="../saf-console/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Basic SAF Authentication for MQ Console
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
     
   
   
@@ -538,7 +516,7 @@
   
   
   <span class="md-ellipsis">
-    Streaming Queues Lab
+    Basic SAF Authentication for MQ Console
     
   </span>
   
@@ -551,7 +529,7 @@
   
   
   <span class="md-ellipsis">
-    Streaming Queues Lab
+    Basic SAF Authentication for MQ Console
     
   </span>
   
@@ -601,20 +579,89 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#overview-of-the-exercise" class="md-nav__link">
+  <a href="#overview-of-exercise" class="md-nav__link">
     <span class="md-ellipsis">
-      Overview of the exercise
+      Overview of exercise
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#lab-begin" class="md-nav__link">
+  <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
-      Lab Begin
+      Exercise
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Exercise">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#i-copy-over-the-zos_saf_registryxml" class="md-nav__link">
+    <span class="md-ellipsis">
+      I. Copy over the zos_saf_registry.xml
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ii-alter-the-serverxml" class="md-nav__link">
+    <span class="md-ellipsis">
+      II. Alter the server.xml
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iii-customize-the-zos_saf_registryxml" class="md-nav__link">
+    <span class="md-ellipsis">
+      III. Customize the zos_saf_registry.xml
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iv-configure-racf" class="md-nav__link">
+    <span class="md-ellipsis">
+      IV. Configure RACF
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iii-run-the-angel-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      III. Run the angel process
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v-configure-racf-for-angel-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      V. Configure RACF for angel process
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#appendix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Appendix
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -622,6 +669,28 @@
   
 </nav>
       
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../streaming-queues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Streaming Queues Lab
+    
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -906,20 +975,89 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#overview-of-the-exercise" class="md-nav__link">
+  <a href="#overview-of-exercise" class="md-nav__link">
     <span class="md-ellipsis">
-      Overview of the exercise
+      Overview of exercise
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#lab-begin" class="md-nav__link">
+  <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
-      Lab Begin
+      Exercise
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Exercise">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#i-copy-over-the-zos_saf_registryxml" class="md-nav__link">
+    <span class="md-ellipsis">
+      I. Copy over the zos_saf_registry.xml
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ii-alter-the-serverxml" class="md-nav__link">
+    <span class="md-ellipsis">
+      II. Alter the server.xml
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iii-customize-the-zos_saf_registryxml" class="md-nav__link">
+    <span class="md-ellipsis">
+      III. Customize the zos_saf_registry.xml
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iv-configure-racf" class="md-nav__link">
+    <span class="md-ellipsis">
+      IV. Configure RACF
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iii-run-the-angel-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      III. Run the angel process
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v-configure-racf-for-angel-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      V. Configure RACF for angel process
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#appendix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Appendix
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -942,82 +1080,184 @@
   
 
 
-<h1 id="creating-streaming-queues-w-ibm-mq-for-zos">Creating Streaming queues w/ IBM MQ for z/OS</h1>
-<h4 id="audience-level">Audience level</h4>
-<p>Some knowledge of MQ or z/OS </p>
-<h4 id="skillset">Skillset</h4>
-<p>MQ Administration</p>
-<h4 id="background">Background</h4>
-<p>This lab introduces using streaming queues to IBM MQ for z/OS. Streaming queues was released in the IBM MQ product in release version 9.2.3. The function enables you to send near-duplicate messages to a secondary queue, called the streaming queue. </p>
-<h4 id="overview-of-the-exercise">Overview of the exercise</h4>
-<h4 id="lab-begin">Lab Begin</h4>
-<p>1)  If not already started, start the MQ Explorer by double clicking on the icon on the image.</p>
-<p><img alt="Picture of MQ Explorer" src="../assets/streamq1.png" /></p>
-<p>2)  The application should start and show that it is at MQ Version 9.4</p>
-<p>3)  When the application has started, there may be a selection of queue managers available.  We are interested in connections to queue managers on our z/OS environment. If you do not see connections to a queue manager you have been working with, you can create a connection by right clicking ‘Queue Managers’ and selecting to ‘Add Remote Queue Manager…’. You will then fill out all the necessary details for IP address and port number.<br />
- 
-4)  Right click on ZQS1 and select connect.  Please note that the IP address may be different from what is shown here.  </p>
-<p>The description and command level show that this is a 9.4 queue manager on z/OS.  </p>
-<p><img alt="Picture of MQ explorer application showing ZQS1" src="../assets/streamq4.png" /></p>
-<p>5)  Expand the ZQS1 queue manager – click on the ‘&gt;’ beside the name to see the resources defined to this queue manager. </p>
-<p>6)  Click on the ‘Queues’ to see the queues that are currently defined.  Please note that the list may differ from what is shown here. For example, you may see the SYSTEM queues or temporary dynamic queues that are currently in use. </p>
-<p><img alt="Picture of MQ explorer queues" src="../assets/streamq5.png" /></p>
-<p>7)  Right click on the Queues under the ZQS1 queue manager and select New-&gt; Local Queue</p>
-<p><img alt="Picture of MQ explorer queue manager drop-down menu" src="../assets/streamq6.png" /></p>
-<p>8)  The new local queue dialog box should appear, and you will type in the queue name for the streaming target queue.  It should be TEAMXX.STREAM.COPY, replacing the TEAMXX with the TEAM number you have been assigned (it will be TEAM01-TEAM20). After entering the queue name, please click on the ‘Next’ button.</p>
-<p><img alt="Picture of MQ explorer local queue setup" src="../assets/streamq7.png" /></p>
-<p>9)  On the Change Properties dialog box Please select the ‘Extended’ option and change the ‘Sharability’ to ‘Sharable’ and the ‘Default input open option’ to ‘Input Shared as shown and click on the Finish Button.</p>
-<p><img alt="Picture of new queue's properties" src="../assets/streamq8.png" /></p>
-<p>10) The object should be successfully created, and the following dialog box should appear.  If you would like to check the ‘do not show success messages in future’ please feel free.  Please then click the OK button to clear the display. </p>
-<p>11) You will now define the base queue for streaming.  Right click on the queues tab again and select ‘New’ -&gt; ‘Local Queue’ to define the streaming base queue.  It’s name will be TEAMXX.STREAM.BASE, replacing the TEAMXX with your team number (TEAM01 thru TEAM20) . </p>
-<p><img alt="Picture of MQ explorer local queue setup" src="../assets/streamq9.png" /></p>
-<p>12) Click on the Next Button.  There are both Extended and Storage tab changes that will be made.  </p>
-<p>13) On the ‘Extended’ tab please change the Sharability and Default Open input option to ‘Sharable’ and ‘Input Shared’ as you did for the first queue. </p>
-<p>14) For those of you familiar with the Storage tab on this dialog box, there have been some changes.  The streaming queue name and quality of service are set here. </p>
-<p><img alt="Picture of queue storage properties" src="../assets/streamq10.png" /></p>
-<p>15) The queue name may be selected from the previously defined queues by using the ‘Select’  Button and choosing the name from the dialog box.  Please select the streaming target queue defined above, you may have to scroll down to find it, and click on ‘OK’.</p>
-<p>16) The queue name should now be populated in the dialog box.  Please then select ‘Must duplicate’ for the 'Streaming quality of service' and click on Finish.</p>
-<p><img alt="Picture of test message" src="../assets/streamq13.png" /></p>
-<p>17) To test, we are just going to put messages to the base queue.  From the queue list right click on the TEAMXX.STREAM.BASE queue (replacing TEAMXX with your team number) and select ‘Put Test message’.  In the dialog box, please enter a test message and click on the ‘OK’ button</p>
-<p><img alt="Picture of refresh button" src="../assets/streamq14.png" /></p>
-<p>18) Please put two more messages onto the queue, varying the contents a bit.  ‘Test 1, Test2, Test 3’ is just fine.  Click on the ‘Close’ button to return to the queue list.</p>
-<p>19) Click on the refresh key, in the upper right side of the queue list box to refresh the list of queues. </p>
-<p><img alt="Picture of both queues listed" src="../assets/streamq15.png" /></p>
-<p>20) You should now see that both the base and copy queues have an equal number of messages.</p>
-<p>21) At this point you can browse the queues.  Note that the message contents are the same as are the Message IDs on both queues.  </p>
-<p>BASE:</p>
-<p><img alt="Picture of base queue messages" src="../assets/streamq17.png" /></p>
-<p>COPY:</p>
-<p><img alt="Picture of stream queue messages" src="../assets/streamq18.png" /></p>
-<p>22) Testing an Exception – put inhibit the COPY queue.  From the list of queues, Right click on the TEAMXX.STREAM.COPY (USE YOUR TEAM NUMBER IN PLACE OF TEAMXX) queue and select Properties.  Select ‘Inhibited’ for put messages, and click on OK.</p>
-<p><img alt="Picture of stream queue properties" src="../assets/streamq23.png" /></p>
-<p>23) Attempt to put a message on the TEAMXX.BASE.QUEUE, replacing the TEAMXX with your team ID.  </p>
-<p><img alt="Picture of putting test message" src="../assets/streamq24.png" /></p>
-<p>24) You should receive a message that you cannot put a message to this queue.</p>
-<p><img alt="Picture of dialog box for unsuccessful message put" src="../assets/streamq25.png" /></p>
-<p>25) Clicking on the ‘Details’ shows the reason:</p>
-<p><img alt="Picture of dialog box for unsuccessful message put" src="../assets/streamq26.png" />
- 
-26) Going back to the BASE queue, change the Streaming Quality of service from ‘Must Duplicate’ to ‘Best effort’ and click the OK button.  </p>
-<p><img alt="Picture of details of put failure" src="../assets/streamq27.png" />
- 
-27) Try to put another message to the BASE queue, like what is shown. </p>
-<p><img alt="Picture of putting test message" src="../assets/streamq28.png" /></p>
-<p>28) That should work, and the depths of the base and copy queues should now be different: </p>
-<p><img alt="Picture of both  queues listed" src="../assets/streamq29.png" /></p>
-<p>29) Congratulations!  You have now been able to create and use a streaming, private queue.  </p>
-<p>30) Now, we will use the queue-sharing group defined on the environment called QSGA to create a streaming, shared queue. </p>
-<p>31) On MQ explorer, under Queue-sharing groups, you should see QSGA defined. Click the drop-down to see a list of Shared Queues.  </p>
-<p>32) Unlike private queues, we will need to check which shared storage we should specify for our shared queues. Look under ‘Coupling Facility Structures’</p>
-<p>33) We will go ahead and remember TEST1 for our storage needs. Now, create a new shared queue.  </p>
-<p>34) We will start with defining our streaming queue like so.  </p>
-<p>35) Under the Storage settings, we must specify our Coupling facility structure name of choice. This is where we will put in TEST1. That is the only additional setting you will need to make for the streaming queue. Press finish.</p>
-<p>36) Now, we will define our base queue following the same process of creating a shared queue. Here, however, we will specify a streaming queue to point to like so. </p>
-<p>37) Now, we have defined two shared queues. You should see both in the shared queues list under QSGA.  </p>
-<p>38) Let’s test them out! Right click the base queue and put a test message on the base queue. </p>
-<p>39) Once put, you should see the message duplicated on the streaming queue. </p>
-<p>40) When you navigate to the individual queue managers’ queues, you should see both the shared queues and their messages available to both ZQS1 and ZQS2.</p>
-<p>LAB FINISHED!</p>
+<h1 id="implementing-basic-authentication-using-saf-for-the-mq-web-console">Implementing basic authentication using SAF for the MQ Web Console</h1>
+<h4 id="audience-level"><strong>Audience level</strong></h4>
+<p>Some knowledge of MQ, z/OS, Liberty</p>
+<h4 id="skillset"><strong>Skillset</strong></h4>
+<p>MQ Administration, z/OS systems programming</p>
+<h4 id="background"><strong>Background</strong></h4>
+<p>Basic authentication necessitates the use of a username and password to access a resource. MQ Web Console has two methods of basic authentication: using the basic registry and using the SAF registry. This lab covers using the SAF registry. Today's security requirements have moved away from basic authentication towards the use of tokens and passkeys, so this lab should be used for learning purposes in sandbox or lab environments, not production environments. </p>
+<h3 id="overview-of-exercise"><strong>Overview of exercise</strong></h3>
+<p>I. Copy over the zos_saf_registry.xml
+II. Alter the server.xml
+III. Customize the zos_saf_registry.xml
+IV. Configure RACF
+V. Run the angel process
+VI. Configure RACF for angel process</p>
+<h3 id="exercise"><strong>Exercise</strong></h3>
+<h4 id="i-copy-over-the-zos_saf_registryxml">I. Copy over the zos_saf_registry.xml</h4>
+<p>1. Type <strong>tso omvs</strong> in your command line from the main ISPF main menu</p>
+<p>2. Once in OMVS, type ls /usr/lpp/mqm/V9R4M2X/web/mq/samp/configuration. When you press Enter, you should see a list of the XML files in the directory, including basic_registry.xml.</p>
+<p>3. Change directories to /var/mqm/servers/mqweb, and then execute this command:
+<div class="highlight"><pre><span></span><code>cp /usr/lpp/mqm/V9R4MX/web/mq/samp/configuration/zos_saf_registry.xml .
+</code></pre></div></p>
+<blockquote>
+<p>Important: Do not miss the last . mark. It specifies you want the copy to be made to the directory you are currently in.</p>
+</blockquote>
+<p>4. Enter exit in the command line to quit out of OMVS. Back out of the /MQS1/var/mqm/servers/mqweb directory, and then re-enter it. Now, you should see the zos_saf_registry file in the directory! Browse the zos_saf_registry.xml file using VA to look at what credentials users will be able to use for the MQ Console.</p>
+<h4 id="ii-alter-the-serverxml">II. Alter the server.xml</h4>
+<p>1. Navigate to the /var/mqm/servers/mqweb directory from option 3.4 in ISPF. In the mqweb directory, several XML files were created. You need to modify these files.</p>
+<p>2. Put an L to the left of the mqweb option to browse its contents. You should see several files. Notice the read-write permissions required here.</p>
+<p>3. Type EA next to zos_saf_registry.xml to open the XML file in edit mode. An EDIT Entry Panel, like the one shown below, will be displayed. Press Enter twice to continue until you see the code in edit mode.</p>
+<p>4. Edit the server.xml file. Replace the line <include location="basic_registry.xml"/> with this line: <include location="zos_saf_registry.xml"/>. Save the XML file, and back out using F3.</p>
+<h4 id="iii-customize-the-zos_saf_registryxml">III. Customize the zos_saf_registry.xml</h4>
+<p>1. Navigate to option 3.4 from the ISPF main menu</p>
+<p>2. Navigate to the configuration files for the web server from the Dslist search utility. For example:</p>
+<div class="highlight"><pre><span></span><code>    Enter one or both of the parameters below:                             
+    Dsname Level . . . /var/mqm/servers/mqweb                           
+    Volume serial  . .       
+</code></pre></div>
+<p>3. Using F8, scroll to the zos_saf_registry.xml file and using <strong>ea</strong>, enter edit asci mode to modify the XML file.</p>
+<p>4.  Modify the sample configuration to reflect these changes:</p>
+<div class="highlight"><pre><span></span><code>&lt;server&gt;                                                                
+    &lt;featureManager&gt;                                                    
+        &lt;feature&gt;appSecurity-2.0&lt;/feature&gt;                              
+        &lt;feature&gt;zosSecurity-1.0&lt;/feature&gt;                              
+        &lt;feature&gt;basicAuthenticationMQ-1.0&lt;/feature&gt;                    
+        &lt;feature&gt;apiDiscovery-1.0&lt;/feature&gt;                             
+    &lt;/featureManager&gt;                                                   
+
+    &lt;enterpriseApplication id=&quot;com.ibm.mq.console&quot; /&gt;                   
+
+    &lt;enterpriseApplication id=&quot;com.ibm.mq.rest&quot; /&gt;                      
+
+    &lt;safRegistry id=&quot;saf&quot; /&gt;                                            
+    &lt;safAuthorization id=&quot;saf&quot; reportAuthorizationCheckDetails=&quot;true&quot;/&gt; 
+    &lt;safCredentials unauthenticatedUser=&quot;MQGUEST&quot; profilePrefix=&quot;MQW942&quot; suppressAuthFailureMessages=&quot;false&quot;/&gt;    
+    &lt;sslDefault sslRef=&quot;mqDefaultSSLConfig&quot;/&gt;     
+&lt;/server&gt; 
+</code></pre></div>
+<blockquote>
+<p>Note: You will notice we set the profilePrefix variable to MQW942 to correspond with the version of MQ we are running. You will notice we set the unauthenticatedUser to MQGUEST. Please note, the unauthenticatedUser is more like a pre-authenticated user. The purpose of this parameter is to get users to the login screen before checking their credentials.</p>
+</blockquote>
+<p>7. Back out of the zos_saf_registry.xml and enter the mqwebuser.xml in <strong>ea</strong> mode.</p>
+<p>8. Your mqwebuser.xml should look something like:</p>
+<div class="highlight"><pre><span></span><code>&lt;server&gt;                                                  
+    &lt;featureManager&gt;                                         
+        &lt;feature&gt;appSecurity-2.0&lt;/feature&gt;                   
+    &lt;/featureManager&gt;                                        
+    &lt;webAppSecurity allowFailOverToBasicAuth=&quot;true&quot;/&gt;        
+    &lt;webAppSecurity overrideHttpAuthMethod=&quot;BASIC&quot;/&gt;         
+    &lt;variable name=&quot;httpsPort&quot; value=&quot;9443&quot;/&gt;                
+    &lt;variable name=&quot;httpHost&quot; value=&quot;-1&quot;/&gt;                   
+    &lt;httpEndpoint host=&quot;*&quot; httpPort=&quot;-1&quot; httpsPost=&quot;9443&quot;    
+        id=&quot;defaultHttpEndpoint&quot;/&gt;                              
+    &lt;sslDefault sslRef=&quot;mqDefaultSSLConfig&quot;/&gt;                
+ &lt;/server&gt;                                                  
+</code></pre></div>
+<blockquote>
+<p>Note: You may opt to put the configuration for zos_saf_registry and mqwebuser in one file, but in our example we have both files separate to make it easier to switch between basic_registry and zos_saf_registry.</p>
+</blockquote>
+<h4 id="iv-configure-racf">IV. Configure RACF</h4>
+<p>1. Now that we have our profilePrefix specified, we need to complete the RACF set up. Navigate to the ISPF main menu, then to option 6 for accessing the TSO command line.</p>
+<p>2. In the command line enter <strong>RDEFINE APPL profilePrefix UACC(NONE)</strong> to define the mqweb server APPLID to RACF (In our case, this APPLID is MQW942).</p>
+<p>3. Enter the command <strong>PERMIT profilePrefix CLASS(APPL) ACCESS(READ) ID(userID)</strong> for each user that requires READ access to the MQWEB server. You must also grant access to the unauthenticatedUser you specified in the zos_saf_registry.xml. This access means they will be able to get to the login screen on a web browser.</p>
+<p>4. Enter the command <strong>SETROPTS RACLIST(APPL) REFRESH</strong> to refresh RACF with these updates.</p>
+<p>5. Next, we want to run the following commands to define the profiles in the EJBROLE class needed to give specific users access to the predefined security roles in the IBM MQ Console and REST API.</p>
+<div class="highlight"><pre><span></span><code>    RDEFINE EJBROLE profilePrefix.com.ibm.mq.console.MQWebAdmin UACC(NONE)
+
+    RDEFINE EJBROLE profilePrefix.com.ibm.mq.console.MQWebAdminRO UACC(NONE)
+
+    RDEFINE EJBROLE profilePrefix.com.ibm.mq.console.MQWebUser UACC(NONE)
+
+    RDEFINE EJBROLE profilePrefix.com.ibm.mq.rest.MQWebAdmin UACC(NONE)
+
+    RDEFINE EJBROLE profilePrefix.com.ibm.mq.rest.MQWebAdminRO UACC(NONE)
+
+    RDEFINE EJBROLE profilePrefix.com.ibm.mq.rest.MQWebUser UACC(NONE)
+
+    RDEFINE EJBROLE profilePrefix.com.ibm.mq.rest.MFTWebAdmin UACC(NONE)
+
+    RDEFINE EJBROLE profilePrefix.com.ibm.mq.rest.MFTWebAdminRO UACC(NONE)
+</code></pre></div>
+<p>6. Now we want to specify which users get permission for actually using the predefined security roles in the MQ Console. For example, an MQ administrator should get read access for the EJBROLE AND for the APPLID MQW942.</p>
+<p>7. Run this command as necessary for the appropriate roles and users:</p>
+<p><code>PERMIT profilePrefix.com.ibm.mq.rest.MQWebAdmin CLASS(EJBROLE) ACCESS(READ) ID(userID)</code></p>
+<h4 id="iii-run-the-angel-process">III. Run the angel process</h4>
+<p>We will need an angel process run alongside our web server started task. What is that? The Liberty angel process is a started task that allows Liberty servers to use z/OS authorized services. Its long-lived and can be shared among your multiple Liberty servers.</p>
+<p>1. Navigate to SDSF from the ISPF main menu</p>
+<p>2. In the command input line at the top of SDSF, enter the command: <strong>/s mqangel</strong> and press <strong>enter</strong>. For example, it should look like:</p>
+<div class="highlight"><pre><span></span><code>COMMAND INPUT ===&gt; /s mqangel
+</code></pre></div>
+<p>3. Now, if you navigate to DA under SDSF and set the prefix to MQ*, you should see the angel task running as the address space MQANGEL  </p>
+<p>4. Now, return to the ISPF main menu. Navigate to option 3.4.</p>
+<p>5. Navigate to SYS1.PROCLIB</p>
+<p>6. From the SYS1.PROCLIB partitioned data set, use the sort command to find MQWEBS. Type e to the left of the MQWEBS member to enter edit mode on the member.</p>
+<p>7. In the JCL, you will notice //STENV and //ZTENV sections. //STENV is getting picked up by the program. ZTENV is not. In general, you can use the STDENV DD statement to specify a z/OS shell script that defines the parameters, environment variables, and other elements needed to start the Java virtual machine (JVM) for an IMS dependent region.</p>
+<p>8. Make sure the line  IBM_JAVA_OPTIONS=-Dcom.ibm.ws.zos.core.angelName=MQANGEL is copied to be in the //STENV section of the JCL after the LIBPATH declaration.</p>
+<p>9. F3 to save and exit the MQWEBS JCL.</p>
+<h4 id="v-configure-racf-for-angel-process">V. Configure RACF for angel process</h4>
+<p>At this point, if you try to restart the MQ web console, you will likely be blocked! This is because the web console is running with the userid SYSPROG. We need to give this userid access to the appropriate angel process resources on RACF.</p>
+<p>1. From the ISPF main menu, return to option 6 TSO command line and run the following commands. For the Liberty JVM server to connect to an angel process, create a profile for the angel:</p>
+<div class="highlight"><pre><span></span><code>RDEFINE SERVER BBG.ANGEL UACC(NONE) OWNER(SYSPROG)
+PERMIT BBG.ANGEL CLASS(SERVER) ACCESS(READ) ID(SYSPROG)
+</code></pre></div>
+<p>2. Next, define a server profile for the named angel process, corresponding to our profilePrefix:</p>
+<div class="highlight"><pre><span></span><code>RDEFINE SERVER BBG.ANGEL.MQW942 UACC(NONE) OWNER(SYSPROG)
+PERMIT BBG.ANGEL.MQW942 CLASS(SERVER) ACCESS(READ) ID(SYSPROG)
+</code></pre></div>
+<p>3. Next, define a server profile for the security profilePrefix (MQW942)</p>
+<div class="highlight"><pre><span></span><code>RDEFINE SERVER BBG.SECPFX.MQW942 UACC(NONE)
+PERMIT BBG.SECPFX.MQW942 CLASS(SERVER) ACCESS(READ) ID(SYSPROG)
+</code></pre></div>
+<p>4. Define a server profile for the authorized module BBGZSAFM</p>
+<div class="highlight"><pre><span></span><code>RDEFINE SERVER BBG.AUTHMOD.BBGZSAFM UACC(NONE) OWNER(SYSPROG)
+PERMIT BBG.AUTHMOD.BBGZSAFM CLASS(SERVER) ACCESS(READ) ID(SYSPROG)
+</code></pre></div>
+<p>5. Define a server profile for SAF authorized user registry services and SAF authorization services (SAFCRED)</p>
+<div class="highlight"><pre><span></span><code>RDEFINE SERVER BBG.AUTHMOD.BBGZSAFM.SAFCRED UACC(NONE)
+PERMIT BBG.AUTHMOD.BBGZSAFM.SAFCRED CLASS(SERVER) ACCESS(READ) ID(SYSPROG)
+</code></pre></div>
+<p>6. Define a server profile and permit WLM services (ZOSWLM)</p>
+<div class="highlight"><pre><span></span><code>RDEFINE SERVER BBG.AUTHMOD.BBGZSAFM.ZOSWLM UACC(NONE)
+PERMIT BBG.AUTHMOD.BBGZSAFM.ZOSWLM CLASS(SERVER) ACCESS(READ) ID(SYSPROG)
+</code></pre></div>
+<p>7. Define a server profile for RRS transaction services (TXRRS)</p>
+<div class="highlight"><pre><span></span><code>RDEFINE SERVER BBG.AUTHMOD.BBGZSAFM.TXRRS UACC(NONE)
+PERMIT BBG.AUTHMOD.BBGZSAFM.TXRRS CLASS(SERVER) ACCESS(READ) ID(SYSPROG)
+</code></pre></div>
+<p>8. Define a server profile for SVCDUMP services (ZOSDUMP)</p>
+<div class="highlight"><pre><span></span><code>RDEFINE SERVER BBG.AUTHMOD.BBGZSAFM.ZOSDUMP UACC(NONE)
+PERMIT BBG.AUTHMOD.BBGZSAFM.ZOSDUMP CLASS(SERVER) ACCESS(READ) ID(SYSPROG)
+</code></pre></div>
+<p>9. Define a server profile for server optimized local adapter services</p>
+<div class="highlight"><pre><span></span><code>RDEFINE SERVER BBG.AUTHMOD.BBGZSAFM.WOLA UACC(NONE) OWNER(SYSPROG)
+PERMIT BBG.AUTHMOD.BBGZSAFM.WOLA CLASS(SERVER) ACCESS(READ) ID(SYSPROG)
+RDEFINE SERVER BBG.AUTHMOD.BBGZSAFM.LOCALCOM UACC(NONE) OWNER(SYSPROG)
+PERMIT BBG.AUTHMOD.BBGZSAFM.LOCALCOM CLASS(SERVER) ACCESS(READ) ID(SYSPROG)
+</code></pre></div>
+<p>10. Define a server profile for IFAUSAGE services (PRODMGR)</p>
+<div class="highlight"><pre><span></span><code>RDEFINE SERVER BBG.AUTHMOD.BBGZSAFM.PRODMGR UACC(NONE) OWNER(SYSPROG)
+PERMIT BBG.AUTHMOD.BBGZSAFM.PRODMGR CLASS(SERVER) ACCESS(READ) ID(SYSPROG)
+</code></pre></div>
+<p>11. Define a server profile for AsyncIO services (ZOSAIO)</p>
+<div class="highlight"><pre><span></span><code>RDEFINE SERVER BBG.AUTHMOD.BBGZSAFM.ZOSAIO UACC(NONE) OWNER(SYSPROG)
+PERMIT BBG.AUTHMOD.BBGZSAFM.ZOSAIO CLASS(SERVER) ACCESS(READ) ID(SYSPROG)
+</code></pre></div>
+<p>12. Define a server profile for the authorized client module BBGZSCFM</p>
+<div class="highlight"><pre><span></span><code>RDEFINE SERVER BBG.AUTHMOD.BBGZSCFM UACC(NONE) OWNER(SYSPROG)
+PERMIT BBG.AUTHMOD.BBGZSCFM CLASS(SERVER) ACCESS(READ) ID(SYSPROG)
+</code></pre></div>
+<p>13. Define a server profile for the client optimized local adapter services:</p>
+<p><div class="highlight"><pre><span></span><code>RDEFINE SERVER BBG.AUTHMOD.BBGZSCFM.WOLA UACC(NONE) OWNER(SYSPROG)
+PERMIT BBG.AUTHMOD.BBGZSCFM.WOLA CLASS(SERVER) ACCESS(READ) ID(SYSPROG)
+</code></pre></div>
+14. Finally, refresh the in-storage profiles
+<div class="highlight"><pre><span></span><code>SETROPTS RACLIST(SERVER) REFRESH
+</code></pre></div></p>
+<p>15. Now, you should be set to restart the MQWEBS started task on SDSF and access the MQ Web Console using your RACF credentials in the login screen.</p>
+<h4 id="appendix">Appendix</h4>
+<p>More information about ANGEL RACF profiles: [IBM Documentation (https://www.ibm.com/docs/en/cics-ts/6.x?topic=SSJL4D_6.x/security/java/security_angel.htm]</p>
 
 
 

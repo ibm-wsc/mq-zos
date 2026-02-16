@@ -13,10 +13,15 @@ Basic authentication necessitates the use of a username and password to access a
 ### **Overview of exercise**
 
 I. Copy over the zos_saf_registry.xml
+
 II. Alter the server.xml
+
 III. Customize the zos_saf_registry.xml
+
 IV. Configure RACF
+
 V. Run the angel process
+
 VI. Configure RACF for angel process
 
 ### **Exercise** 
@@ -144,6 +149,9 @@ cp /usr/lpp/mqm/V9R4MX/web/mq/samp/configuration/zos_saf_registry.xml .
 
 
 `PERMIT profilePrefix.com.ibm.mq.rest.MQWebAdmin CLASS(EJBROLE) ACCESS(READ) ID(userID)`
+
+
+8\. Enter the command **SETROPTS RACLIST(APPL) REFRESH** to refresh RACF with these updates.
 
 #### III. Run the angel process
 

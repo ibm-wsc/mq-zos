@@ -1,6 +1,8 @@
 site_name: "IBM MQ for z/OS"
 nav:
   - Home: index.md
+  - Basic SAF Authentication for MQ Console: saf-console.md
+  - Configuring SAF Key Rings for MQ Console: saf-keyrings.md
   - Certificate Management Lab: certificates.md
   - Configuring a New Queue Manager Lab: new-queue-manager.md
   - Connectivity to Lab Environment: connectivity.md
@@ -11,7 +13,6 @@ nav:
   - MP1B Lab: mp1b.md
   - Queue Manager Upgrade Lab: qm_upgrade.md
   - Queue Statistics Lab: queue-statistics.md
-  - Basic SAF Authentication for MQ Console: saf-console.md
   - Streaming Queues Lab: streaming-queues.md
   - Security Lab: securitylab.md
   - Triggering Lab: triggering.md

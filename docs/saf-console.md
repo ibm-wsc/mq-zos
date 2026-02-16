@@ -280,6 +280,6 @@ SETROPTS RACLIST(SERVER) REFRESH
 
 #### Appendix
 
-More information about ANGEL RACF profiles: [IBM Documentation (https://www.ibm.com/docs/en/cics-ts/6.x?topic=SSJL4D_6.x/security/java/security_angel.htm]
+More information about ANGEL RACF profiles: [IBM Documentation](https://www.ibm.com/docs/en/cics-ts/6.x?topic=SSJL4D_6.x/security/java/security_angel.htm)
 
 

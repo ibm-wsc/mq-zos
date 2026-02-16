@@ -15,10 +15,10 @@
         <link rel="canonical" href="https://github.com/ibm-wsc/mq-zos/saf-console/">
       
       
-        <link rel="prev" href="../queue-statistics/">
+        <link rel="prev" href="..">
       
       
-        <link rel="next" href="../streaming-queues/">
+        <link rel="next" href="../saf-keyrings/">
       
       
       <link rel="icon" href="../assets/wsc-logo.png">
@@ -279,6 +279,206 @@
       
   
   
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Basic SAF Authentication for MQ Console
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Basic SAF Authentication for MQ Console
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#audience-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      Audience level
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#skillset" class="md-nav__link">
+    <span class="md-ellipsis">
+      Skillset
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      Background
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview-of-exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview of exercise
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercise
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercise">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#i-copy-over-the-zos_saf_registryxml" class="md-nav__link">
+    <span class="md-ellipsis">
+      I. Copy over the zos_saf_registry.xml
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ii-alter-the-serverxml" class="md-nav__link">
+    <span class="md-ellipsis">
+      II. Alter the server.xml
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iii-customize-the-zos_saf_registryxml" class="md-nav__link">
+    <span class="md-ellipsis">
+      III. Customize the zos_saf_registry.xml
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iv-configure-racf" class="md-nav__link">
+    <span class="md-ellipsis">
+      IV. Configure RACF
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iii-run-the-angel-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      III. Run the angel process
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v-configure-racf-for-angel-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      V. Configure RACF for angel process
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#appendix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Appendix
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../saf-keyrings/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuring SAF Key Rings for MQ Console
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
   
   
     <li class="md-nav__item">
@@ -499,184 +699,6 @@
       
   
   
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Basic SAF Authentication for MQ Console
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
-  
-  
-  <span class="md-ellipsis">
-    Basic SAF Authentication for MQ Console
-    
-  </span>
-  
-
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#audience-level" class="md-nav__link">
-    <span class="md-ellipsis">
-      Audience level
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#skillset" class="md-nav__link">
-    <span class="md-ellipsis">
-      Skillset
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#background" class="md-nav__link">
-    <span class="md-ellipsis">
-      Background
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#overview-of-exercise" class="md-nav__link">
-    <span class="md-ellipsis">
-      Overview of exercise
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#exercise" class="md-nav__link">
-    <span class="md-ellipsis">
-      Exercise
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Exercise">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#i-copy-over-the-zos_saf_registryxml" class="md-nav__link">
-    <span class="md-ellipsis">
-      I. Copy over the zos_saf_registry.xml
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ii-alter-the-serverxml" class="md-nav__link">
-    <span class="md-ellipsis">
-      II. Alter the server.xml
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#iii-customize-the-zos_saf_registryxml" class="md-nav__link">
-    <span class="md-ellipsis">
-      III. Customize the zos_saf_registry.xml
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#iv-configure-racf" class="md-nav__link">
-    <span class="md-ellipsis">
-      IV. Configure RACF
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#iii-run-the-angel-process" class="md-nav__link">
-    <span class="md-ellipsis">
-      III. Run the angel process
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#v-configure-racf-for-angel-process" class="md-nav__link">
-    <span class="md-ellipsis">
-      V. Configure RACF for angel process
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#appendix" class="md-nav__link">
-    <span class="md-ellipsis">
-      Appendix
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
   
   
     <li class="md-nav__item">
@@ -776,10 +798,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_17" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_18" >
         
           
-          <label class="md-nav__link" for="__nav_17" id="__nav_17_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_18" id="__nav_18_label" tabindex="0">
             
   
   
@@ -792,8 +814,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_17_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_17">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_18_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_18">
             <span class="md-nav__icon md-icon"></span>
             MQSMF Blog
           </label>
@@ -1183,6 +1205,7 @@
 <p>6. Now we want to specify which users get permission for actually using the predefined security roles in the MQ Console. For example, an MQ administrator should get read access for the EJBROLE AND for the APPLID MQW942.</p>
 <p>7. Run this command as necessary for the appropriate roles and users:</p>
 <p><code>PERMIT profilePrefix.com.ibm.mq.rest.MQWebAdmin CLASS(EJBROLE) ACCESS(READ) ID(userID)</code></p>
+<p>8. Enter the command <strong>SETROPTS RACLIST(APPL) REFRESH</strong> to refresh RACF with these updates.</p>
 <h4 id="iii-run-the-angel-process">III. Run the angel process</h4>
 <p>We will need an angel process run alongside our web server started task. What is that? The Liberty angel process is a started task that allows Liberty servers to use z/OS authorized services. Its long-lived and can be shared among your multiple Liberty servers.</p>
 <p>1. Navigate to SDSF from the ISPF main menu</p>
@@ -1257,7 +1280,7 @@ PERMIT BBG.AUTHMOD.BBGZSCFM.WOLA CLASS(SERVER) ACCESS(READ) ID(SYSPROG)
 </code></pre></div></p>
 <p>15. Now, you should be set to restart the MQWEBS started task on SDSF and access the MQ Web Console using your RACF credentials in the login screen.</p>
 <h4 id="appendix">Appendix</h4>
-<p>More information about ANGEL RACF profiles: [IBM Documentation (https://www.ibm.com/docs/en/cics-ts/6.x?topic=SSJL4D_6.x/security/java/security_angel.htm]</p>
+<p>More information about ANGEL RACF profiles: <a href="https://www.ibm.com/docs/en/cics-ts/6.x?topic=SSJL4D_6.x/security/java/security_angel.htm">IBM Documentation</a></p>
 
 
 

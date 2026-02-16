@@ -12,13 +12,13 @@
         <meta name="author" content="IBM Z WSC">
       
       
-        <link rel="canonical" href="https://github.com/ibm-wsc/mq-zos/streaming-queues/">
+        <link rel="canonical" href="https://github.com/ibm-wsc/mq-zos/saf-keyrings/">
       
       
-        <link rel="prev" href="../queue-statistics/">
+        <link rel="prev" href="../saf-console/">
       
       
-        <link rel="next" href="../securitylab/">
+        <link rel="next" href="../certificates/">
       
       
       <link rel="icon" href="../assets/wsc-logo.png">
@@ -26,7 +26,7 @@
     
     
       
-        <title>Streaming Queues Lab - IBM MQ for z/OS</title>
+        <title>Configuring SAF Key Rings for MQ Console - IBM MQ for z/OS</title>
       
     
     
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#creating-streaming-queues-w-ibm-mq-for-zos" class="md-skip">
+        <a href="#implementing-basic-authentication-using-saf-for-the-mq-web-console" class="md-skip">
           Skip to content
         </a>
       
@@ -115,7 +115,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Streaming Queues Lab
+              Configuring SAF Key Rings for MQ Console
             
           </span>
         </div>
@@ -301,10 +301,32 @@
       
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../saf-keyrings/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Configuring SAF Key Rings for MQ Console
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -315,6 +337,95 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#audience-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      Audience level
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#skillset" class="md-nav__link">
+    <span class="md-ellipsis">
+      Skillset
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview-of-exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview of exercise
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercise
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercise">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#i-generate-certificates" class="md-nav__link">
+    <span class="md-ellipsis">
+      I. Generate certificates
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ii-add-and-connect-keyrings" class="md-nav__link">
+    <span class="md-ellipsis">
+      II. Add and connect keyrings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edit-the-mqwebuserxml" class="md-nav__link">
+    <span class="md-ellipsis">
+      Edit the mqwebuser.xml
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -543,32 +654,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Streaming Queues Lab
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../streaming-queues/" class="md-nav__link">
         
   
   
@@ -579,71 +668,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#audience-level" class="md-nav__link">
-    <span class="md-ellipsis">
-      Audience level
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#skillset" class="md-nav__link">
-    <span class="md-ellipsis">
-      Skillset
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#background" class="md-nav__link">
-    <span class="md-ellipsis">
-      Background
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#overview-of-the-exercise" class="md-nav__link">
-    <span class="md-ellipsis">
-      Overview of the exercise
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#lab-begin" class="md-nav__link">
-    <span class="md-ellipsis">
-      Lab Begin
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -919,29 +943,53 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#background" class="md-nav__link">
+  <a href="#overview-of-exercise" class="md-nav__link">
     <span class="md-ellipsis">
-      Background
+      Overview of exercise
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#overview-of-the-exercise" class="md-nav__link">
+  <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
-      Overview of the exercise
+      Exercise
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercise">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#i-generate-certificates" class="md-nav__link">
+    <span class="md-ellipsis">
+      I. Generate certificates
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#lab-begin" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#ii-add-and-connect-keyrings" class="md-nav__link">
     <span class="md-ellipsis">
-      Lab Begin
+      II. Add and connect keyrings
     </span>
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edit-the-mqwebuserxml" class="md-nav__link">
+    <span class="md-ellipsis">
+      Edit the mqwebuser.xml
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -964,82 +1012,75 @@
   
 
 
-<h1 id="creating-streaming-queues-w-ibm-mq-for-zos">Creating Streaming queues w/ IBM MQ for z/OS</h1>
-<h4 id="audience-level">Audience level</h4>
-<p>Some knowledge of MQ or z/OS </p>
-<h4 id="skillset">Skillset</h4>
-<p>MQ Administration</p>
-<h4 id="background">Background</h4>
-<p>This lab introduces using streaming queues to IBM MQ for z/OS. Streaming queues was released in the IBM MQ product in release version 9.2.3. The function enables you to send near-duplicate messages to a secondary queue, called the streaming queue. </p>
-<h4 id="overview-of-the-exercise">Overview of the exercise</h4>
-<h4 id="lab-begin">Lab Begin</h4>
-<p>1)  If not already started, start the MQ Explorer by double clicking on the icon on the image.</p>
-<p><img alt="Picture of MQ Explorer" src="../assets/streamq1.png" /></p>
-<p>2)  The application should start and show that it is at MQ Version 9.4</p>
-<p>3)  When the application has started, there may be a selection of queue managers available.  We are interested in connections to queue managers on our z/OS environment. If you do not see connections to a queue manager you have been working with, you can create a connection by right clicking ‘Queue Managers’ and selecting to ‘Add Remote Queue Manager…’. You will then fill out all the necessary details for IP address and port number.<br />
- 
-4)  Right click on ZQS1 and select connect.  Please note that the IP address may be different from what is shown here.  </p>
-<p>The description and command level show that this is a 9.4 queue manager on z/OS.  </p>
-<p><img alt="Picture of MQ explorer application showing ZQS1" src="../assets/streamq4.png" /></p>
-<p>5)  Expand the ZQS1 queue manager – click on the ‘&gt;’ beside the name to see the resources defined to this queue manager. </p>
-<p>6)  Click on the ‘Queues’ to see the queues that are currently defined.  Please note that the list may differ from what is shown here. For example, you may see the SYSTEM queues or temporary dynamic queues that are currently in use. </p>
-<p><img alt="Picture of MQ explorer queues" src="../assets/streamq5.png" /></p>
-<p>7)  Right click on the Queues under the ZQS1 queue manager and select New-&gt; Local Queue</p>
-<p><img alt="Picture of MQ explorer queue manager drop-down menu" src="../assets/streamq6.png" /></p>
-<p>8)  The new local queue dialog box should appear, and you will type in the queue name for the streaming target queue.  It should be TEAMXX.STREAM.COPY, replacing the TEAMXX with the TEAM number you have been assigned (it will be TEAM01-TEAM20). After entering the queue name, please click on the ‘Next’ button.</p>
-<p><img alt="Picture of MQ explorer local queue setup" src="../assets/streamq7.png" /></p>
-<p>9)  On the Change Properties dialog box Please select the ‘Extended’ option and change the ‘Sharability’ to ‘Sharable’ and the ‘Default input open option’ to ‘Input Shared as shown and click on the Finish Button.</p>
-<p><img alt="Picture of new queue's properties" src="../assets/streamq8.png" /></p>
-<p>10) The object should be successfully created, and the following dialog box should appear.  If you would like to check the ‘do not show success messages in future’ please feel free.  Please then click the OK button to clear the display. </p>
-<p>11) You will now define the base queue for streaming.  Right click on the queues tab again and select ‘New’ -&gt; ‘Local Queue’ to define the streaming base queue.  It’s name will be TEAMXX.STREAM.BASE, replacing the TEAMXX with your team number (TEAM01 thru TEAM20) . </p>
-<p><img alt="Picture of MQ explorer local queue setup" src="../assets/streamq9.png" /></p>
-<p>12) Click on the Next Button.  There are both Extended and Storage tab changes that will be made.  </p>
-<p>13) On the ‘Extended’ tab please change the Sharability and Default Open input option to ‘Sharable’ and ‘Input Shared’ as you did for the first queue. </p>
-<p>14) For those of you familiar with the Storage tab on this dialog box, there have been some changes.  The streaming queue name and quality of service are set here. </p>
-<p><img alt="Picture of queue storage properties" src="../assets/streamq10.png" /></p>
-<p>15) The queue name may be selected from the previously defined queues by using the ‘Select’  Button and choosing the name from the dialog box.  Please select the streaming target queue defined above, you may have to scroll down to find it, and click on ‘OK’.</p>
-<p>16) The queue name should now be populated in the dialog box.  Please then select ‘Must duplicate’ for the 'Streaming quality of service' and click on Finish.</p>
-<p><img alt="Picture of test message" src="../assets/streamq13.png" /></p>
-<p>17) To test, we are just going to put messages to the base queue.  From the queue list right click on the TEAMXX.STREAM.BASE queue (replacing TEAMXX with your team number) and select ‘Put Test message’.  In the dialog box, please enter a test message and click on the ‘OK’ button</p>
-<p><img alt="Picture of refresh button" src="../assets/streamq14.png" /></p>
-<p>18) Please put two more messages onto the queue, varying the contents a bit.  ‘Test 1, Test2, Test 3’ is just fine.  Click on the ‘Close’ button to return to the queue list.</p>
-<p>19) Click on the refresh key, in the upper right side of the queue list box to refresh the list of queues. </p>
-<p><img alt="Picture of both queues listed" src="../assets/streamq15.png" /></p>
-<p>20) You should now see that both the base and copy queues have an equal number of messages.</p>
-<p>21) At this point you can browse the queues.  Note that the message contents are the same as are the Message IDs on both queues.  </p>
-<p>BASE:</p>
-<p><img alt="Picture of base queue messages" src="../assets/streamq17.png" /></p>
-<p>COPY:</p>
-<p><img alt="Picture of stream queue messages" src="../assets/streamq18.png" /></p>
-<p>22) Testing an Exception – put inhibit the COPY queue.  From the list of queues, Right click on the TEAMXX.STREAM.COPY (USE YOUR TEAM NUMBER IN PLACE OF TEAMXX) queue and select Properties.  Select ‘Inhibited’ for put messages, and click on OK.</p>
-<p><img alt="Picture of stream queue properties" src="../assets/streamq23.png" /></p>
-<p>23) Attempt to put a message on the TEAMXX.BASE.QUEUE, replacing the TEAMXX with your team ID.  </p>
-<p><img alt="Picture of putting test message" src="../assets/streamq24.png" /></p>
-<p>24) You should receive a message that you cannot put a message to this queue.</p>
-<p><img alt="Picture of dialog box for unsuccessful message put" src="../assets/streamq25.png" /></p>
-<p>25) Clicking on the ‘Details’ shows the reason:</p>
-<p><img alt="Picture of dialog box for unsuccessful message put" src="../assets/streamq26.png" />
- 
-26) Going back to the BASE queue, change the Streaming Quality of service from ‘Must Duplicate’ to ‘Best effort’ and click the OK button.  </p>
-<p><img alt="Picture of details of put failure" src="../assets/streamq27.png" />
- 
-27) Try to put another message to the BASE queue, like what is shown. </p>
-<p><img alt="Picture of putting test message" src="../assets/streamq28.png" /></p>
-<p>28) That should work, and the depths of the base and copy queues should now be different: </p>
-<p><img alt="Picture of both  queues listed" src="../assets/streamq29.png" /></p>
-<p>29) Congratulations!  You have now been able to create and use a streaming, private queue.  </p>
-<p>30) Now, we will use the queue-sharing group defined on the environment called QSGA to create a streaming, shared queue. </p>
-<p>31) On MQ explorer, under Queue-sharing groups, you should see QSGA defined. Click the drop-down to see a list of Shared Queues.  </p>
-<p>32) Unlike private queues, we will need to check which shared storage we should specify for our shared queues. Look under ‘Coupling Facility Structures’</p>
-<p>33) We will go ahead and remember TEST1 for our storage needs. Now, create a new shared queue.  </p>
-<p>34) We will start with defining our streaming queue like so.  </p>
-<p>35) Under the Storage settings, we must specify our Coupling facility structure name of choice. This is where we will put in TEST1. That is the only additional setting you will need to make for the streaming queue. Press finish.</p>
-<p>36) Now, we will define our base queue following the same process of creating a shared queue. Here, however, we will specify a streaming queue to point to like so. </p>
-<p>37) Now, we have defined two shared queues. You should see both in the shared queues list under QSGA.  </p>
-<p>38) Let’s test them out! Right click the base queue and put a test message on the base queue. </p>
-<p>39) Once put, you should see the message duplicated on the streaming queue. </p>
-<p>40) When you navigate to the individual queue managers’ queues, you should see both the shared queues and their messages available to both ZQS1 and ZQS2.</p>
-<p>LAB FINISHED!</p>
+<h1 id="implementing-basic-authentication-using-saf-for-the-mq-web-console">Implementing basic authentication using SAF for the MQ Web Console</h1>
+<h4 id="audience-level"><strong>Audience level</strong></h4>
+<p>Some knowledge of MQ, z/OS, Liberty</p>
+<h4 id="skillset"><strong>Skillset</strong></h4>
+<p>MQ Administration, z/OS systems programming</p>
+<h3 id="overview-of-exercise"><strong>Overview of exercise</strong></h3>
+<p>I. Generate tokens</p>
+<p>II. Add and connect keyrings</p>
+<p>III. Edit the mqwebuser.xml</p>
+<h3 id="exercise"><strong>Exercise</strong></h3>
+<h4 id="i-generate-certificates">I. Generate certificates</h4>
+<p>1. Create a certificate authority (CA) certificate, which will be used to sign the server certificate. For example, enter the following RACF command:</p>
+<p><div class="highlight"><pre><span></span><code>RACDCERT GENCERT -
+  CERTAUTH -
+  SUBJECTSDN(CN(&#39;MQ CA&#39;) -
+    O(&#39;IBM&#39;) -
+    OU(&#39;MQ&#39;)) -
+  SIZE(2048) -
+  WITHLABEL(&#39;mqwebCertauth&#39;)
+  ```
+
+2\. Create a server certificate, signed with the CA certificate created in step 1, by entering the following command:
+</code></pre></div>
+RACDCERT ID(mqwebUserId) GENCERT -
+  SUBJECTSDN(CN('hostname') -
+   O('IBM') -
+   OU('MQ')) -
+   SIZE(2048) -
+   SIGNWITH (CERTAUTH LABEL('SYSPROG')) -
+  WITHLABEL('mqwebServerCert')
+  ```</p>
+<p>where mqwebUserId is the mqweb server started task user ID, and hostname is the host name of the mqweb server.</p>
+<h4 id="ii-add-and-connect-keyrings">II. Add and connect keyrings</h4>
+<p>1. Create a key ring using the following command:</p>
+<div class="highlight"><pre><span></span><code>RACDCERT ID(SYSPROG) ADDRING(MQW942.KeyRing) 
+</code></pre></div>
+<p>2. Connect the CA certificate and server certificate to a SAF key ring by entering the following commands:</p>
+<div class="highlight"><pre><span></span><code>RACDCERT ID(SYSPROG) CONNECT(RING(MQW942.KeyRing) LABEL(&#39;mqwebCertauth&#39;) CERTAUTH)
+RACDCERT ID(SYSPROG) CONNECT(RING(MQW942.KeyRing) LABEL(&#39;mqwebServerCert&#39;))
+</code></pre></div>
+<p>3. Validate everything looks good with the following command:</p>
+<blockquote>
+<p>racdcert id(SYSPROG) listring(MQW942.KeyRing)</p>
+</blockquote>
+<p><img alt="key ring" src="../assets/safkeyring/saf1.png" /></p>
+<p>4. FTP the exported CA certificate in binary to your workstation, and import it into your browser as a certificate authority certificate.</p>
+<div class="highlight"><pre><span></span><code>sftp user1@zos
+cd //’USER1’
+ls /+mode=text
+mget USER1.MQ.CERT.MQWEBCA
+keytool –import –v –trustcacerts –alias “MQ CA” –file USER1.MQ.CERT.MQWEBCA –keystore USER1.jks
+</code></pre></div>
+<h4 id="edit-the-mqwebuserxml">Edit the mqwebuser.xml</h4>
+<p>1. Edit the file WLP_user_directory/servers/mqweb/mqwebuser.xml, where WLP_user_directory is the directory that was specified when the crtmqweb script ran to create the mqweb server definition.</p>
+<p>2. Make the following changes to configure the mqweb server to use a RACF key ring:</p>
+<p><sslDefault sslRef="mqDefaultSSLConfig"/></p>
+<p>3. Add to the mqwebuser.xml the following lines:</p>
+<div class="highlight"><pre><span></span><code>&lt;keyStore id=&quot;defaultKeyStore&quot; filebased=&quot;false&quot;
+          location=&quot;safkeyring://mqwebUserId/keyring&quot;
+          password=&quot;password&quot; readOnly=&quot;true&quot; type=&quot;JCERACFKS&quot; /&gt;
+&lt;ssl id=&quot;thisSSLConfig&quot; keyStoreRef=&quot;defaultKeyStore&quot; sslProtocol=&quot;TLSv1.2&quot;
+          serverKeyAlias=&quot;mqwebServerCert&quot; clientAuthenticationSupported=&quot;true&quot; /&gt;
+&lt;sslDefault sslRef=&quot;thisSSLConfig&quot;/&gt;
+</code></pre></div>
+<p>where:
+mqwebUserId is the mqweb server started task user ID.
+keyring is the name of the RACF key ring.
+mqwebServerCert is the label of the mqweb server certificate.</p>
+<p>4. Restart the mqweb server by stopping and restarting the mqweb server started task.</p>
 
 
 

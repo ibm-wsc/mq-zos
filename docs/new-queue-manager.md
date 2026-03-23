@@ -9,12 +9,19 @@ Every time a new release of IBM MQ for z/OS is installed, you have the opportuni
 To start a new queue manager, JCL procedures need to be copied to a system JCL procedure library and the new queue manager subsystem needs to be defined to MVS. 
 
 ### Overview of exercise
+
 What needs to be done here: 
+
 I.	Copy and tailor the sample JCL. Each of these members comes pre-canned in the IBM MQ installation. What your task is as an administrator is to customize these for your specific need.
+
 II.	Run jobs to create the bootstrap data sets and log data sets
+
 III.	Add MSTR and CHIN to SYS1.PROCLIB, the started task library
+
 IV.	Dynamically add MQ subsystem to MVS
+
 V.	Define subsystem security
+
 VI.	Start the queue manager and channel initiator
 
 ### Lab begin
@@ -31,11 +38,11 @@ VI.	Start the queue manager and channel initiator
 
 5.	QMEDIT is a REXX EXEC that will help us customize our sample code efficiently. We want to name it QMEDIT under our ZQS3 dataset as well. Press enter and you should see in the top right corner, ‘QMEDIT copied’.
  
-6.	Now, from the ISPF main screen, if we enter ‘=3.4’ into the command line and Press enter. We should be able to navigate to our newly created dataset. Copy the below screen and Press enter.
+6.	Now, from the ISPF main screen, if we enter ‘=3.4’ into the command line and Press enter. We should be able to navigate to our newly created dataset. Copy the below screen and press enter.
  
-7.	Press enter
+7.	Press enter.
 
-8.	Browse the dataset by entering a ‘b’ to the left of the dataset name and Press enter. 
+8.	Browse the dataset by entering a ‘b’ to the left of the dataset name and press enter. 
  
 9.	We will need to customize the following members of the dataset to effectively create a new queue manager:
 
@@ -53,13 +60,13 @@ VI.	Start the queue manager and channel initiator
  
 11.	Once inside QMEDIT, look through the code and see what the code is customizing. Since this was last used for ZQS2, you will see ZQS2 mentioned a lot. We need to change that.
 
-a.	Enter the command ‘C ‘ZQS2’ ‘ZQS3’ ALL’ on the command line and Press enter. 
+a.	Enter the command ‘C ‘ZQS2’ ‘ZQS3’ ALL’ on the command line and press enter. 
 
-b.	Enter the command ‘C ‘MQ933CD’ ‘MQ941CD’ ALL on the command line and Press enter.
+b.	Enter the command ‘C ‘MQ933CD’ ‘MQ941CD’ ALL on the command line and press enter.
 
-c.	Enter the command ‘C ‘1424’ ‘1425’ ALL’ on the command line and Press enter so there isn’t a port number overlap with ZQS2.
+c.	Enter the command ‘C ‘1424’ ‘1425’ ALL’ on the command line and press enter so there isn’t a port number overlap with ZQS2.
 
-12.	By entering the above commands, we’re customizing the REXX exec to the data sets of this particular z/OS environment
+12.	By entering the above commands, we’re customizing the REXX exec to the data sets of this particular z/OS environment.
  
 13.	Now, our REXX exec should be ready to use because it has the correct version of MQ specified, our desired queue manager name, our desired storage areas, and English. Each of those things need to be specified from the original sample code.
 
@@ -137,9 +144,9 @@ f.	CSQ4ZPRM
 
 30.	Repeat this for CSQ4PAGE to set up the page sets for the new queue manager. 
  
-31.	Last, submit CSQ4ZPRM using the same process as CSQ4BSDS and CSQ4PAGE
+31.	Last, submit CSQ4ZPRM using the same process as CSQ4BSDS and CSQ4PAGE.
 
-32.	When you return to the main ISPF menu, use option 3.4 to navigate to all the ZQS3 libraries
+32.	When you return to the main ISPF menu, use option 3.4 to navigate to all the ZQS3 libraries.
  
 33.	Once you Press enter, you should now see boot strap data set and page set files set up along with our original ZQS3.SCSQPROC data set. If you do not see the new data sets, something has failed in your JCL and you will need to debug. We recommend comparing the BSDS and PAGE JCL to the JCL of a working queue manager, for example, ZQS1.
 
@@ -163,7 +170,7 @@ III. Add MSTR and CHIN to SYS1.PROCLIB, the started task library
 
 40.	Execute command to dynamically define MQ subsystem: 
 
-a.	SETSSI ADD,S=ZQS3,I=CSQ3INI,P='CSQ3EPX,ZQS3,S'
+```SETSSI ADD,S=ZQS3,I=CSQ3INI,P='CSQ3EPX,ZQS3,S'```
  
 > NOTE! None of these dynamic commands will last through an IPL of the system. To make these changes concrete, you will need to modify the LPALST##, IEFSSN## and PROG## members of the LPAR’s SYS1.PARMLIB data set.
 
@@ -213,26 +220,26 @@ c.	Start up the listener with the command: ZQS3 start listener TRPTYPE(TCP) Port
  
 • Looking to permanently make updates to your LPALST## member?
 
-    o	Add code like this:
+o	Add code like this:
     
-    •	Looking to permanently make updates to your IEFSSN## member?
+•	Looking to permanently make updates to your IEFSSN## member?
 
-    a.	Add code like this:
+ a.	Add code like this:
     
     •	Looking to permanently make updates to your PROG## member?
 
     o	Add code like this:
     
-    • Need to dynamically APF authorize your MQ load libraries?
+• Need to dynamically APF authorize your MQ load libraries?
 
-        ```SETPROG APF,ADD,DSNAME=MQ941CD.SCSQANLE ,SMS```   
+    ```SETPROG APF,ADD,DSNAME=MQ941CD.SCSQANLE ,SMS```   
 
-        ```SETPROG APF,ADD,DSNAME=MQ941CD.SCSQSNLE ,SMS```
+    ```SETPROG APF,ADD,DSNAME=MQ941CD.SCSQSNLE ,SMS```
 
-    • Need to dynamically add some modules to the LPA (link pack area) of z/OS?
+• Need to dynamically add some modules to the LPA (link pack area) of z/OS?
 
-        ```SETPROG LPA,ADD,MODNAME=(CSQ3EPX,CSQ3INI),DSNAME=MQ941CD.SCSQLINK```
+    ```SETPROG LPA,ADD,MODNAME=(CSQ3EPX,CSQ3INI),DSNAME=MQ941CD.SCSQLINK```
 
-        ```SETPROG LPA,ADD,MODNAME=(CSQ3ECMX),DSNAME=MQ941CD.SCSQSNLE```
+    ```SETPROG LPA,ADD,MODNAME=(CSQ3ECMX),DSNAME=MQ941CD.SCSQSNLE```
 
 

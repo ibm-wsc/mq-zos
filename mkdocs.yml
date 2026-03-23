@@ -12,6 +12,7 @@ nav:
   - Logging: logging.md
   - MP1B Lab: mp1b.md
   - Queue Manager Upgrade Lab: qm_upgrade.md
+  - Queue Sharing Best Practices: qsg_bp.md
   - Queue Statistics Lab: queue-statistics.md
   - Streaming Queues Lab: streaming-queues.md
   - Security Lab: securitylab.md
@@ -89,4 +90,7 @@ extra_css:
   - "stylesheets/extra.css"
 
 copyright: |
-  &copy; 2025 IBM
+  &copy; 2026 IBM
+
+# plugins:
+#   - with-pdf

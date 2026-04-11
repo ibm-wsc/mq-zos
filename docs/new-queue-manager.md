@@ -5,7 +5,7 @@ Some knowledge of MQ or z/OS
 z/OS Systems Programming, MQ Administration
 
 ### Background
-Every time a new release of IBM MQ for z/OS is installed, you have the opportunity to create or migrate a new queue manager with the latest capabilities of the IBM MQ release. We will go through the process of creating a new queue manager with IBM MQ for z/OS 9.4.1. IBM MQ for z/OS has been installed on the environment before the lab, so that will installation process will not be in scope of today’s lab. 
+Every time a new release of IBM MQ for z/OS is installed, you have the opportunity to create or migrate a new queue manager with the latest capabilities of the IBM MQ release. We will go through the process of creating a new queue manager with IBM MQ for z/OS 9.4.2. IBM MQ for z/OS has been installed on the environment before the lab, so that will installation process will not be in scope of today’s lab. 
 To start a new queue manager, JCL procedures need to be copied to a system JCL procedure library and the new queue manager subsystem needs to be defined to MVS. 
 
 ### Overview of exercise
@@ -14,22 +14,33 @@ What needs to be done here:
 
 I.	Copy and tailor the sample JCL. Each of these members comes pre-canned in the IBM MQ installation. What your task is as an administrator is to customize these for your specific need.
 
+
 II.	Run jobs to create the bootstrap data sets and log data sets
+
 
 III.	Add MSTR and CHIN to SYS1.PROCLIB, the started task library
 
+
 IV.	Dynamically add MQ subsystem to MVS
+
 
 V.	Define subsystem security
 
+
 VI.	Start the queue manager and channel initiator
+
 
 ### Lab begin
 
 #### I. Copy and tailor the sample JCL
 
-1.	We will start with copying the members from the IBM MQ code installation. All the IBM MQ installation will be under the high level qualifier MQ941CD. We are only interested in the sample code here, under SCSQPROC. (*) specifies we want all the members in the SCSQPROC dataset. Go to option =3.3.
- 
+1.	We will start with copying the members from the IBM MQ code installation. All the IBM MQ installation will be under the high level qualifier MQ942CD. We are only interested in the sample code here, under SCSQPROC. (*) specifies we want all the members in the SCSQPROC dataset. Go to option =3.3.
+
+```
+MQ942CD.SCSQPROC(*)
+Option ===> C
+ ```
+
 2.	We are making a new queue manager called ZQS3, so we want the new dataset to be referenceable by the high-level qualifier ZQS3. Press enter.
  
 3.	Type a ‘1’ next to option 1. We want the new dataset to have the attribute of MQ941CD.SCSQPROC. Press enter. 
@@ -60,11 +71,23 @@ VI.	Start the queue manager and channel initiator
  
 11.	Once inside QMEDIT, look through the code and see what the code is customizing. Since this was last used for ZQS2, you will see ZQS2 mentioned a lot. We need to change that.
 
-a.	Enter the command ‘C ‘ZQS2’ ‘ZQS3’ ALL’ on the command line and press enter. 
+a.	Enter the command 
 
-b.	Enter the command ‘C ‘MQ933CD’ ‘MQ941CD’ ALL on the command line and press enter.
+```C ‘ZQS2’ ‘ZQS3’ ALL```
 
-c.	Enter the command ‘C ‘1424’ ‘1425’ ALL’ on the command line and press enter so there isn’t a port number overlap with ZQS2.
+on the command line and press enter. 
+
+b.	Enter the command 
+
+```C ‘MQ933CD’ ‘MQ941CD' ALL```
+
+ on the command line and press enter.
+
+c.	Enter the command 
+
+C ‘1424’ ‘1425’ ALL
+
+on the command line and press enter so there isn’t a port number overlap with ZQS2.
 
 12.	By entering the above commands, we’re customizing the REXX exec to the data sets of this particular z/OS environment.
  
@@ -74,7 +97,7 @@ c.	Enter the command ‘C ‘1424’ ‘1425’ ALL’ on the command line and p
 
 ```===> ALTLIB ACTIVATE APPLICATION(EXEC) DA('ZQS3.SCSQPROC')```
  
-15.	Press enter. With ALTLIB, a user or ISPF application can easily activate and deactivate CLIST and REXX exec libraries as the need arises. We are activating the REXX exec library of QMEDIT here to enable customization.
+15.	Press enter. With ALTLIB, a user or ISPF application can easily activate and deactivate CLIST and REXX exec libraries as the need arises. We are activating the REXX exec library of QMEDIT here to automate customization.
 
 16.	From the ISPF main menu, navigate back to the ZQS3.SCSQPROC members via option 3.4.
 
@@ -124,9 +147,9 @@ f.	CSQ4ZPRM
 
 23.	F3 to save the changes. We have to customize the storage here to be appropriate for this z/OS image.
 
-24.	Next, we’re going to modify CSQ4ZPRM. Use QMEDIT like normal, then enter the command: c ‘++HLQ.USERAUTH++’ ‘ZQS1.USERAUTH’ ALL
+24.	Next, we’re going to modify CSQ4ZPRM. Enter the command: c ‘++HLQ.USERAUTH++’ ‘ZQS1.USERAUTH’ ALL
 
-25.	Last, modify CSQ4CHIN using ‘e’. Use QMEDIT like normal, then we are going to make one more additional customization on CSQ4CHIN. Once inside CSQ4CHIN, enter the command ‘f user exit library’. This will find the appropriate JCL.
+25.	Last, modify CSQ4CHIN using ‘e’. Once inside CSQ4CHIN, enter the command ‘f user exit library’. This will find the appropriate JCL.
  
 26.	We want to comment the lines 94 and 119 out. Insert a “*” in the front of the line so that the asterisk lines up with the asterisk on the line below. It should look like this: 
 

@@ -59,8 +59,8 @@ theme:
       toggle:
         icon: material/toggle-switch
         name: Switch to light mode
-features:
-  - content.tabs.link
+  features:
+    - content.tabs.link
 markdown_extensions:
   - pymdownx.highlight
   - pymdownx.superfences

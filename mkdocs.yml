@@ -27,7 +27,7 @@ nav:
 
 
 # Project Information
-site_url: 'https://github.com/ibm-wsc/mq-zos/'
+site_url: 'https://ibm-wsc.github.io/mq-zos/'
 site_description: IBM MQ for z/OS
 site_author: IBM Z WSC
 
@@ -60,7 +60,7 @@ theme:
         icon: material/toggle-switch
         name: Switch to light mode
 features:
-- content.tabs.link
+  - content.tabs.link
 markdown_extensions:
   - pymdownx.highlight
   - pymdownx.superfences

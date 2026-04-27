@@ -41,13 +41,13 @@ MQ942CD.SCSQPROC(*)
 Option ===> C
  ```
 
-2.	We are making a new queue manager called ZQS3, so we want the new dataset to be referenceable by the high-level qualifier ZQS3. Press enter.
+2.	We are making a new queue manager called ZQSX, so we want the new dataset to be referenceable by the high-level qualifier ZQSX. Press enter.
  
 3.	Type a ‘1’ next to option 1. We want the new dataset to have the attribute of MQ941CD.SCSQPROC. Press enter. 
  
-4.	In the top right corner, you should see z/OS confirm that 113 members have been copied to the new dataset you created ZQS3.SCSQPROC. Great! We just need one more thing before we can customize. We are going to steal it from already-existing queue manager ZQS2 in this instance. 
+4.	In the top right corner, you should see z/OS confirm that 113 members have been copied to the new dataset you created ZQSX.SCSQPROC. Great! We just need one more thing before we can customize. We are going to steal it from already-existing queue manager ZQS2 in this instance. 
 
-5.	QMEDIT is a REXX EXEC that will help us customize our sample code efficiently. We want to name it QMEDIT under our ZQS3 dataset as well. Press enter and you should see in the top right corner, ‘QMEDIT copied’.
+5.	QMEDIT is a REXX EXEC that will help us customize our sample code efficiently. We want to name it QMEDIT under our ZQSX dataset as well. Press enter and you should see in the top right corner, ‘QMEDIT copied’.
  
 6.	Now, from the ISPF main screen, if we enter ‘=3.4’ into the command line and Press enter. We should be able to navigate to our newly created dataset. Copy the below screen and press enter.
  
@@ -67,13 +67,13 @@ Option ===> C
     | CSQ4PAGE	| Creates page sets for QM storage |
     | CSQ4ZPRM	| Creates the queue manager initiation attributes |
 
-10.	Instead of manually customizing each of these, we will use our QMEDIT to help us customize quickly. Use ‘F8’ to navigate down to QMEDIT from the list of members in ZQS3.SCSQPROC. Place a ‘e’ to the left of QMEDIT and Press enter.
+10.	Instead of manually customizing each of these, we will use our QMEDIT to help us customize quickly. Use ‘F8’ to navigate down to QMEDIT from the list of members in ZQSX.SCSQPROC. Place a ‘e’ to the left of QMEDIT and Press enter.
  
 11.	Once inside QMEDIT, look through the code and see what the code is customizing. Since this was last used for ZQS2, you will see ZQS2 mentioned a lot. We need to change that.
 
 a.	Enter the command 
 
-```C ‘ZQS2’ ‘ZQS3’ ALL```
+```C ‘ZQS2’ ‘ZQSX’ ALL```
 
 on the command line and press enter. 
 
@@ -95,11 +95,11 @@ on the command line and press enter so there isn’t a port number overlap with 
 
 14.	We need to activate the QMEDIT code to be able to go through our relevant members and customize them quickly. Use F3, return to the ISPF main menu and enter option 6. Enter this command:
 
-```===> ALTLIB ACTIVATE APPLICATION(EXEC) DA('ZQS3.SCSQPROC')```
+```===> ALTLIB ACTIVATE APPLICATION(EXEC) DA('ZQSX.SCSQPROC')```
  
 15.	Press enter. With ALTLIB, a user or ISPF application can easily activate and deactivate CLIST and REXX exec libraries as the need arises. We are activating the REXX exec library of QMEDIT here to automate customization.
 
-16.	From the ISPF main menu, navigate back to the ZQS3.SCSQPROC members via option 3.4.
+16.	From the ISPF main menu, navigate back to the ZQSX.SCSQPROC members via option 3.4.
 
 17.	Starting with CSQ4BSDS, we will customize:
 
@@ -123,7 +123,7 @@ g.	CSQ4ZPRM
 
 19.	You should notice the changes by looking through CSQ4BSDS, using F7 and F8 to navigate up and down the JCL code. Enter F3 to return to the member list and save your changes to CSQ4BSDS.
 
-20.	Now, navigate back to the ZQS3.SCSQPROC list. Repeat this process for:
+20.	Now, navigate back to the ZQSX.SCSQPROC list. Repeat this process for:
 
 a.	CSQ4CHIN
 
@@ -169,19 +169,19 @@ f.	CSQ4ZPRM
  
 31.	Last, submit CSQ4ZPRM using the same process as CSQ4BSDS and CSQ4PAGE.
 
-32.	When you return to the main ISPF menu, use option 3.4 to navigate to all the ZQS3 libraries.
+32.	When you return to the main ISPF menu, use option 3.4 to navigate to all the ZQSX libraries.
  
-33.	Once you Press enter, you should now see boot strap data set and page set files set up along with our original ZQS3.SCSQPROC data set. If you do not see the new data sets, something has failed in your JCL and you will need to debug. We recommend comparing the BSDS and PAGE JCL to the JCL of a working queue manager, for example, ZQS1.
+33.	Once you Press enter, you should now see boot strap data set and page set files set up along with our original ZQSX.SCSQPROC data set. If you do not see the new data sets, something has failed in your JCL and you will need to debug. We recommend comparing the BSDS and PAGE JCL to the JCL of a working queue manager, for example, ZQS1.
 
 III. Add MSTR and CHIN to SYS1.PROCLIB, the started task library
 
-34.	Now, we have to edit SYS1.PROCLIB. Navigate to SYS1.PROCLIB using 3.4 on the ISPF menu. SYS1.PROCLIB needs to contain two members for ZQS3, ZQS3MSTR and ZQS3CHIN. We can add these two members by copying our CSQ4MSTR and CSQ4CHIN and renaming them.
+34.	Now, we have to edit SYS1.PROCLIB. Navigate to SYS1.PROCLIB using 3.4 on the ISPF menu. SYS1.PROCLIB needs to contain two members for ZQSX, ZQSXMSTR and ZQSXCHIN. We can add these two members by copying our CSQ4MSTR and CSQ4CHIN and renaming them.
 
-35.	From the ISPF main menu, go to 3.3. Here, specify that you would like to copy from ‘ZQS3.SCSQPROC(CSQ4MSTR)’ to ‘SYS1.PROCLIB(ZQS3MSTR)’. This will create a copy of your edited member for SYS1.PROCLIB and it will also rename the member to ZQS3MSTR.
+35.	From the ISPF main menu, go to 3.3. Here, specify that you would like to copy from ‘ZQSX.SCSQPROC(CSQ4MSTR)’ to ‘SYS1.PROCLIB(ZQSXMSTR)’. This will create a copy of your edited member for SYS1.PROCLIB and it will also rename the member to ZQSXMSTR.
  
-36.	Repeat this copying process for CSQ4CHIN i.e. ‘ZQS3.SCSQPROC(CSQ4CHIN)’ to ‘SYS1.PROCLIB(ZQS3CHIN)’.
+36.	Repeat this copying process for CSQ4CHIN i.e. ‘ZQSX.SCSQPROC(CSQ4CHIN)’ to ‘SYS1.PROCLIB(ZQSXCHIN)’.
 
-37.	Now, if you navigate to SYS1.PROCLIB using option 3.4, you should see the members ZQS3MSTR and ZQS3CHIN listed as members.
+37.	Now, if you navigate to SYS1.PROCLIB using option 3.4, you should see the members ZQSXMSTR and ZQSXCHIN listed as members.
  
 #### IV. Dynamically add MQ subsystem to MVS
 
@@ -193,7 +193,7 @@ III. Add MSTR and CHIN to SYS1.PROCLIB, the started task library
 
 40.	Execute command to dynamically define MQ subsystem: 
 
-```SETSSI ADD,S=ZQS3,I=CSQ3INI,P='CSQ3EPX,ZQS3,S'```
+```SETSSI ADD,S=ZQSX,I=CSQ3INI,P='CSQ3EPX,ZQSX,S'```
  
 > NOTE! None of these dynamic commands will last through an IPL of the system. To make these changes concrete, you will need to modify the LPALST##, IEFSSN## and PROG## members of the LPAR’s SYS1.PARMLIB data set.
 
@@ -203,7 +203,7 @@ III. Add MSTR and CHIN to SYS1.PROCLIB, the started task library
 
 a.	Turn off security by entering this command: 
 
-```RDEFINE MQADMIN ZQS3.NO.SUBSYS.SECURITY```
+```RDEFINE MQADMIN ZQSX.NO.SUBSYS.SECURITY```
  
 NOTE! Never turn off security outside of workshop lab environments.
 
@@ -213,11 +213,11 @@ NOTE! Never turn off security outside of workshop lab environments.
 
 43.	Return to the SDSF command window and input the commands into the MVS command line:
 
-a.	Start up our queue manager ZQS3 with the command: ZQS3 START QMGR
+a.	Start up our queue manager ZQSX with the command: ZQSX START QMGR
 
-b.	Start up the channel initiator with the command: ZQS3 START CHINIT
+b.	Start up the channel initiator with the command: ZQSX START CHINIT
 
-c.	Start up the listener with the command: ZQS3 start listener TRPTYPE(TCP) Port(1425)
+c.	Start up the listener with the command: ZQSX start listener TRPTYPE(TCP) Port(1425)
 
 44.	To verify that your queue manager has been set up, you can navigate to MQ Explorer and test the connection. You will use the port number you specified in the REXX exec.
 
@@ -227,7 +227,7 @@ c.	Start up the listener with the command: ZQS3 start listener TRPTYPE(TCP) Port
 
 • REXX EXEC is not included with the base product – describe ++ variables 
 
-• Make an error when executing your SETSSI command? Use SETSSI DELETE,S=ZQS3,FORCE to roll back your command.
+• Make an error when executing your SETSSI command? Use SETSSI DELETE,S=ZQSX,FORCE to roll back your command.
 
 • Check APF authorized libraries by entering the command /DISPLAY PROG,APF from the SDSF command input then going to the log. 
 

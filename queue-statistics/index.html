@@ -1,0 +1,1447 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="IBM MQ for z/OS">
+      
+      
+        <meta name="author" content="IBM Z WSC">
+      
+      
+        <link rel="canonical" href="https://ibm-wsc.github.io/mq-zos/queue-statistics/">
+      
+      
+        <link rel="prev" href="../qsg_bp/">
+      
+      
+        <link rel="next" href="../streaming-queues/">
+      
+      
+      <link rel="icon" href="../assets/wsc-logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.23">
+    
+    
+      
+        <title>Queue Statistics Lab - IBM MQ for z/OS</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.84d31ad4.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,300i,400,400i,700,700i%7CIBM+Plex+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"IBM Plex Sans";--md-code-font:"IBM Plex Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#evaluating-queue-performance-with-queue-statistics" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="IBM MQ for z/OS" class="md-header__button md-logo" aria-label="IBM MQ for z/OS" data-md-component="logo">
+      
+  <img src="../assets/wsc-logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            IBM MQ for z/OS
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Queue Statistics Lab
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ibm-wsc/mq-zos" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="IBM MQ for z/OS" class="md-nav__button md-logo" aria-label="IBM MQ for z/OS" data-md-component="logo">
+      
+  <img src="../assets/wsc-logo.png" alt="logo">
+
+    </a>
+    IBM MQ for z/OS
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ibm-wsc/mq-zos" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../saf-console/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Basic SAF Authentication for MQ Console
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../saf-keyrings/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuring SAF Key Rings for MQ Console
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../certificates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Certificate Management Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../new-queue-manager/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuring a New Queue Manager Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../connectivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Connectivity to Lab Environment
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../comparing-offloading/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Comparing Offloading Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kafka-bindings/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kafka via Bindings Mode Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kafka-client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kafka via Client Connections Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../logging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Logging
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mp1b/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MP1B Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../qm_upgrade/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Queue Manager Upgrade Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../qsg_bp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Queue Sharing Best Practices
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Queue Statistics Lab
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Queue Statistics Lab
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#audience-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      Audience level
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#skillset" class="md-nav__link">
+    <span class="md-ellipsis">
+      Skillset
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      Background
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview-of-exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview of exercise
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercise
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercise">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#i-set-up-the-local-queue-mp1btester" class="md-nav__link">
+    <span class="md-ellipsis">
+      I. Set up the local queue MP1B.TESTER
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ii-make-sure-settings-are-in-place-to-record-smf-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      II. Make sure settings are in place to record SMF data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iii-run-jcl-to-record-our-smf-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      III. Run JCL to record our SMF data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iv-navigate-the-smf-data-output-to-find-performance-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      IV. Navigate the SMF data output to find performance problems
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v-interpret-the-findings" class="md-nav__link">
+    <span class="md-ellipsis">
+      V. Interpret the findings
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../streaming-queues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Streaming Queues Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../securitylab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Security Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../triggering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Triggering Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../archive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Archived Materials
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_19" >
+        
+          
+          <label class="md-nav__link" for="__nav_19" id="__nav_19_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    MQSMF Blog
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_19_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_19">
+            <span class="md-nav__icon md-icon"></span>
+            MQSMF Blog
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Blog/CF%20calls%20Generated%20by%20an%20MQGET%20Query/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CF Calls Generated by an MQGET Query
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Blog/MultipleQSGAndViews/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Multiple QSG And Views
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Blog/SMF%20data%20gathering%20suggestions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SMF Data Gathering Suggestions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Blog/Symptoms%20that%20led%20to%20PD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Symptoms that led to problem determination
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Blog/Task%20record%20information/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Task Record Information
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#audience-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      Audience level
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#skillset" class="md-nav__link">
+    <span class="md-ellipsis">
+      Skillset
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      Background
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview-of-exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview of exercise
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercise
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercise">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#i-set-up-the-local-queue-mp1btester" class="md-nav__link">
+    <span class="md-ellipsis">
+      I. Set up the local queue MP1B.TESTER
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ii-make-sure-settings-are-in-place-to-record-smf-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      II. Make sure settings are in place to record SMF data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iii-run-jcl-to-record-our-smf-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      III. Run JCL to record our SMF data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iv-navigate-the-smf-data-output-to-find-performance-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      IV. Navigate the SMF data output to find performance problems
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v-interpret-the-findings" class="md-nav__link">
+    <span class="md-ellipsis">
+      V. Interpret the findings
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="evaluating-queue-performance-with-queue-statistics">Evaluating queue performance with queue statistics</h1>
+<h4 id="audience-level"><strong>Audience level</strong></h4>
+<p>Some knowledge of MQ or z/OS </p>
+<h4 id="skillset"><strong>Skillset</strong></h4>
+<p>MQ Administration, z/OS systems programming</p>
+<h4 id="background"><strong>Background</strong></h4>
+<p>Queue statistics was introduced into the IBM MQ for z/OS product in continuous delivery version 9.3.3. This lab is a modification of the MP1B performance lab to demonstrate how to access per-queue statistics data. Queue statistics fields are well-documented at the following link: <a href="https://www.ibm.com/docs/en/ibm-mq/9.3?topic=statistics-queue-data-records-version-933-release">Link</a></p>
+<p>For this lab, we will be using MP1B to produce a performance report. MP1B is a utility provided by IBM to analyze your IBM MQ environment’s performance. MP1B shows you your SMF performance data and allows you to roll it off platform to CSV files for further analysis.</p>
+<p>MP1B is installable at <a href="https://www.ibm.com/support/fixcentral/swg/selectFixes?parent=ibm~WebSphere&amp;product=ibm/WebSphere/WebSphere+MQ&amp;release=9.3.2.0&amp;platform=z/OS&amp;function=fixId&amp;fixids=mp1b*">Link</a></p>
+<p>Out of the box, it contains:</p>
+<p><em>MQCMD</em> – a program to display queue statistics and channel status over time</p>
+<p><em>MQSMF</em> – a program for interpreting your own statistics data, including queue statistics</p>
+<p><em>OEMPUT</em> - a program to put/get messages in high quantities, useful for testing throughput</p>
+<h3 id="overview-of-exercise"><strong>Overview of exercise</strong></h3>
+<p>I.  Set up the local queue MP1B.TESTER</p>
+<p>II. Make sure settings are in place to record SMF data </p>
+<p>III.    Run JCL to record our SMF data </p>
+<p>IV. Navigate the SMF data output to find performance problems </p>
+<p>V.  Interpret the performance problem</p>
+<h3 id="exercise"><strong>Exercise</strong></h3>
+<h4 id="i-set-up-the-local-queue-mp1btester">I. Set up the local queue MP1B.TESTER</h4>
+<ol>
+<li>
+<p>MP1B has been installed on this environment, and you can find it by searching for the directory ZQS1.MP1B.JCL in the =3.4 data set search bar.</p>
+<p><img alt="Picture of z/OS data set search" src="../assets/mp1b-1.png" title="Picture of z/OS data set search" /></p>
+</li>
+<li>
+<p>Now, outside of z/OS, open up MQ Explorer on your Windows Desktop. The icon should look like this:</p>
+<p><img alt="Picture of MQ Explorer icon" src="../assets/mp1b-2.png" title="MQ Explorer icon" /></p>
+</li>
+<li>
+<p>Once you’ve opened MQ Explorer, you should see a left-hand menu bar like below. Right click on the ZQS1 queue manager and hit ‘Connect’.</p>
+<p><img alt="Picture of MQ Explorer active queue managers" src="../assets/mp1b-3.png" title="Picture of MQ Explorer active queue managers" /></p>
+</li>
+<li>
+<p>By clicking on the arrow to the left of ZQS1, a dropdown list of MQ objects will appear. Right click on the ‘Queues’ folder and construct a new local queue called MP1B.TESTER.</p>
+<p><img alt="Picture of creating new queue on MQ Explorer" src="../assets/mp1b-4.png" title="Picture of creating new queue on MQ Explorer" /></p>
+</li>
+<li>
+<p>Create a queue on your queue manager using MQ Explorer. The queue should have the following properties: </p>
+<p><img alt="Display of queue properties" src="../assets/mp1b-5.png" title="Display of queue properties" /></p>
+</li>
+</ol>
+<blockquote>
+<p>Why make the queue shareable? Great question! Shareable queues tend to come in handy in a test environment, so that developers can browse the queues.</p>
+</blockquote>
+<ol>
+<li>Now that we have our queue defined, head back to z/OS. </li>
+</ol>
+<h4 id="ii-make-sure-settings-are-in-place-to-record-smf-data">II.    Make sure settings are in place to record SMF data</h4>
+<ol>
+<li>
+<p>Now, we will enter a series of MVS commands to adjust the settings of the queue manager to prepare it for the collection of SMF data. To do this, navigate to the ISPF main menu</p>
+</li>
+<li>
+<p>Once in the ISPF main menu, enter ‘d’ in the command line and hit enter</p>
+</li>
+<li>
+<p>Once in SDSF, place a / in the command input line and hit enter</p>
+</li>
+<li>
+<p>A MVS command prompt like this should pop up:</p>
+<p><img alt="Display of MVS command prompt" src="../assets/mp1b-6.png" title="Display of MVS command prompt" /></p>
+</li>
+<li>
+<p>Enter the following commands here, one at a time. Each command will take you out of the System Command Extension window, so you will have to use the / command to return to the correct window for executing commands.</p>
+<div class="highlight"><pre><span></span><code>ZQS1 SET SYSTEM STATIME(1.00)
+</code></pre></div>
+<p>To change the statistics time interval to 1 minute</p>
+<div class="highlight"><pre><span></span><code>DISPLAY SMF
+</code></pre></div>
+<p>This tells us where our SMF data will be stored</p>
+<div class="highlight"><pre><span></span><code>ZQS1 ALTER QMGR STATCHL(MEDIUM)
+</code></pre></div>
+<p>This tells z/OS we want to enable channel statistics to be collected at a moderate ratio of data collection</p>
+<div class="highlight"><pre><span></span><code>ZQS1 ALTER QMGR MONQ(MEDIUM)
+</code></pre></div>
+<p>This tells z/OS to turn on monitoring for the queue manager’s queues at a moderate ratio of data collection</p>
+<div class="highlight"><pre><span></span><code>ZQS1 ALTER QMGR MONCHL(MEDIUM)
+</code></pre></div>
+<p>This tells z/OS to turn on monitoring for the queue manager’s channels at a moderate ratio of data collection</p>
+<div class="highlight"><pre><span></span><code>ZQS1 START TRACE(STAT) CLASS(1,2,4,5)
+</code></pre></div>
+</li>
+</ol>
+<blockquote>
+<p>Class 5 data corresponds to QSTATISTICS.</p>
+</blockquote>
+<ol>
+<li>Now all the settings should be in place for our queue manager. Head back to ZQS1.MP1B.JCL using 3.4 from the main ISPF menu. </li>
+</ol>
+<h4 id="iii-run-jcl-to-record-our-smf-data">III.    Run JCL to record our SMF data</h4>
+<ol>
+<li>
+<p>We will use OEMPUT to load messages into MP1B.TESTER. In the directory ZQS1.MP1B.JCL, place an ‘e’ to the left of the OEMPUT member. </p>
+<div class="highlight"><pre><span></span><code>    //************************************************
+//*                                               
+//  SET QM=ZQS1                                   
+//  SET Q=MP1B.TESTER                       
+//S1   EXEC PGM=OEMPUT,REGION=0M,                 
+//  PARM=(&#39;-M&amp;QM -tm1 -Q&amp;Q -fileDD:MSGIN -P  &#39;)   
+//SYSIN  DD *                                     
+/*                                                
+//STEPLIB  DD DISP=SHR,DSN=ZQS1.MP1B.LOAD         
+//         DD DISP=SHR,DSN=MQ940CD.SCSQLOAD       
+//         DD DISP=SHR,DSN=MQ940CD.SCSQAUTH       
+//         DD DISP=SHR,DSN=MQ940CD.SCSQANLE       
+//SYSPRINT DD SYSOUT=*                            
+//MSGIN    DD DISP=SHR,DSN=ZQS1.MQ.JCL(MSGS)      
+//                                                
+</code></pre></div>
+</li>
+<li>
+<p>Make sure that your queue manager and queue names are correct in lines 46 and 47.</p>
+</li>
+<li>
+<p>Once in OEMPUT, type ‘submit’ on the command line and hit enter to load persistent messages into the queue manager.</p>
+<p>I won’t summarize the whole JCL, but pay attention to this particular line:  </p>
+<p><code>PARM=('-M&amp;QM -n1000 -Q&amp;Q -crlf -fileDD:MSGIN')</code></p>
+<p>Lets break it down:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>'-M&amp;QM</td>
+<td>Queue manager name</td>
+</tr>
+<tr>
+<td>-tm3</td>
+<td>Send messages for 3 minutes</td>
+</tr>
+<tr>
+<td>-Q&amp;Q</td>
+<td>The queue name</td>
+</tr>
+<tr>
+<td>-crlf</td>
+<td>Each line in the input message file is used in sequence as message data</td>
+</tr>
+<tr>
+<td>-fileDD:MSGIN</td>
+<td>Use the MSGIN file as input</td>
+</tr>
+<tr>
+<td>-P</td>
+<td>Use persistent messages</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>If you look at your MQ Explorer, you should now see that your queue is populated with lots of messages! </p>
+<p><img alt="MQ Explorer display of message depth on queue" src="../assets/mp1b-8.png" title="MQ Explorer display of message depth on queue" /></p>
+</li>
+<li>
+<p>Back in ZQS1.MP1B.JCL, navigate to the SMFDUMP member. Once inside, modify the date to be accurate. If you are completing this lab on 12/10/2025, the date will be 2025344. Additionally adjust the START parameter to reflect the appropriate hh:MM. Your JCL should look something like:
+    <div class="highlight"><pre><span></span><code>//SYSIN  DD *                                          
+LSNAME(IFASMF.DEFAULT,OPTIONS(DUMP))                 
+OUTDD(DUMPOUT,TYPE(115,116),START(1230),END(2200))   
+DATE(2025344,2025344)     
+</code></pre></div></p>
+</li>
+</ol>
+<blockquote>
+<p>This is a date in the Julian format.</p>
+</blockquote>
+<ol>
+<li>
+<p>Enter ‘submit’ on the command line to execute SMFDUMP JCL. The SMFDUMP JCL starts with deleting old tasks, then outputs it in a specified location, in our case, ZQS1.QUEUE.MQSMF.SHRSTRMx.</p>
+</li>
+<li>
+<p>You can check that the SMFDUMP is processing by navigating to your job using SDSF. Access SDSF using =D from the ISPF menu.</p>
+</li>
+<li>Once in SDSF, select ST from the menu and hit ‘enter’</li>
+<li>Type in ‘prefix ZQS1*’. This will show you a list of all jobs submitted that start with ZQS1. Remember, we define our job names at the top left of each JCL file.  </li>
+<li>Here, you put a ‘?’ mark besides the jobname. Hit enter, then a screen with a SYSPRINT menu option should pop up. Next to SYSPRINT, put a ‘s’ and hit enter.</li>
+<li>
+<p>Enter ‘bottom’ on the command line and you should see a screen like below, indicating that records are being written. You can also confirm this by looking in the output for the SUMMARY ACTIVITY REPORT.</p>
+<p><img alt="Picture of SMFDUMP Output: SUMMARY ACTIVITY REPORT" src="../assets/mp1b-10.png" title="SUMMARY ACTIVITY REPORT" /></p>
+</li>
+<li>
+<p>You will have to submit one final job MQSMFP in ZQS1.MP1B.JCL. This job will give us some formatted information about the SMF data. Type ‘submit’ and hit enter.</p>
+<div class="highlight"><pre><span></span><code>//****************************************************************
+//*                                                               
+//S1 EXEC PGM=MQSMF,REGION=0M                                     
+//STEPLIB  DD DISP=SHR,DSN=ZQS1.MP1B.LOAD                         
+//SMFIN    DD DISP=SHR,DSN=ZQS1.QUEUE.MQSMF.SHRSTRM6              
+//SYSIN    DD *                                                   
+DETAIL 5                                                         
+SMF_Interval_time 900                                            
+/*                                                                
+//SYSPRINT DD SYSOUT=*,DCB=(LRECL=200)                            
+//SYSOUT   DD SYSOUT=*,DCB=(RECFM=VB,LRECL=200,BLKSIZE=27998)     
+//SYSERR   DD SYSOUT=*                                            
+//ADAP     DD SYSOUT=*                                            
+//ADAPCSV  DD SYSOUT=*                                            
+//BUFF     DD SYSOUT=*,DCB=(LRECL=200)                            
+//BUFFIO   DD SYSOUT=*,DCB=(LRECL=200)                            
+//BUFFCSV  DD SYSOUT=*,DCB=(LRECL=200)                            
+//CF       DD SYSOUT=*                                            
+//CFCSV    DD SYSOUT=*                                            
+//CHINIT   DD SYSOUT=*                                            
+</code></pre></div>
+<h4 id="iv-navigate-the-smf-data-output-to-find-performance-problems">IV.    Navigate the SMF data output to find performance problems</h4>
+</li>
+<li>
+<p>Now, navigate to the SDSF output for the submitted job. We will be able to see the SMF output in useful categories that can also be exported as CSV files.</p>
+<p><img alt="Picture of QSTATS Output" src="../assets/qstats1.png" /></p>
+</li>
+<li>
+<p>Navigate to the QSTATS statistics by putting a ‘s’ next to it and hitting enter. Once inside QSTATS, on the command line, enter:</p>
+<p>f MP1B.TESTER</p>
+</li>
+<li>
+<p>Voila, you should now see detailed information about the queue we set up, including the storage. </p>
+</li>
+</ol>
+<p><img alt="Picture of QSTATS output" src="../assets/qstats2.png" /></p>
+<h4 id="v-interpret-the-findings">V. Interpret the findings</h4>
+<p>While we just went through QSTATS output, take some time to explore the other outputs we get with queue statistics. </p>
+<p><strong>QALL</strong>
+<div class="highlight"><pre><span></span><code>Queue data summarised by queue                                                 
+          0 Open name                                  TEAM1.STREAM.BASE       
+          0 Queue type:  QLocal                        TEAM1.STREAM.BASE       
+          0 Page set ID                        4       TEAM1.STREAM.BASE       
+          0 Buffer pool                        3       TEAM1.STREAM.BASE       
+          0 Put count                      51057       TEAM1.STREAM.BASE       
+          0 Put avg elapsed time            1171 uS    TEAM1.STREAM.BASE       
+          0 Put avg CPU time                  47 uS    TEAM1.STREAM.BASE       
+          0 Put + put1 valid count         51057       TEAM1.STREAM.BASE       
+          0 Inq count                          1       TEAM1.STREAM.BASE       
+          0 Inq avg elapsed time              14 uS    TEAM1.STREAM.BASE       
+          0 Inq avg CPU time                  14 uS    TEAM1.STREAM.BASE       
+          0 Total queue elapsed time    59803352 uS    TEAM1.STREAM.BASE       
+          0 Total queue CPU used         2406244 uS    TEAM1.STREAM.BASE    
+</code></pre></div>
+<strong>QSTAT</strong></p>
+<div class="highlight"><pre><span></span><code>Queue statistics                                                                
+
+MQS1,ZQS1,2025/02/24,09:00:06,VRM:940,                                          
+  From 2025/02/24,08:59:05 to 2025/02/24,09:00:05, duration   60 seconds.       
+
+MQS1,ZQS1,2025/02/24,09:00:06,VRM:940,                                          
+Queue Name.................................SYSTEM.PROTECTION.POLICY.QUEUE       
+Disposition................................Private                              
+Pageset ID.................................Unallocated                          
+Bufferpool ID..............................Unallocated                          
+Current Depth..............................0                                    
+Open Output Count..........................0                                    
+Open Input Count...........................0                                    
+QTIME Short................................0                                    
+QTIME Long.................................0                                    
+Last Put Time..............................                                     
+Last Get Time..............................                                     
+Uncommitted Changes........................No                                   
+</code></pre></div>
+<p><strong>QPUTSCSV</strong> provides all data relevant to putting messages onto the queue.
+<div class="highlight"><pre><span></span><code>Queue,Puts,Put1s,TotBytes,MaxMsgSz,MinMsgSz      
+TEAM1.STREAM.BASE,51057,0,40845600,800,800    
+</code></pre></div></p>
+<p><strong>QGETSCSV</strong> provides all data relevant to getting messages from the queue.
+<strong>QSTATCSV</strong> provides all data related to handles, API calls other miscellaneous items.</p>
+<div class="highlight"><pre><span></span><code>z/OS,QM,Date,Time,Queue,Disp,PSID,BPID,QSG,CF,Dpth,OPPROC,IPPROC,QTIMES,QTIMEL,L
+cLow,IPProcHigh,IPProcLow,MQOPENs,MQCLOSEs,MQINQs,MQSETs,ExpiredMsgs,RecType    
+MQS1,ZQS1,2025/02/24,09:00:06,SYSTEM.PROTECTION.POLICY.QUEUE,Private,Unallocated
+0,Full                                                                          
+MQS1,ZQS1,2025/02/24,09:00:06,QCPY.INPUT,Private,Unallocated,Unallocated,,,0,0,0
+MQS1,ZQS1,2025/02/24,09:00:06,SYSTEM.JMS.ADMIN.QUEUE,Private,Unallocated,Unalloc
+MQS1,ZQS1,2025/02/24,09:00:06,TEAM1.STREAM.BASE,Private,4,3,,,66370,0,0,0,0,2025
+,0,0,0,0,0,Full                                                                 
+MQS1,ZQS1,2025/02/24,09:00:06,CICS01.INITQ,Private,Unallocated,Unallocated,,,0,0
+MQS1,ZQS1,2025/02/24,09:00:06,SYSTEM.JMS.ND.SUBSCRIBER.QUEUE,Private,Unallocated
+0,Full                                                                          
+MQS1,ZQS1,2025/02/24,09:00:06,SYSTEM.JMS.ND.CC.SUBSCRIBER.QUEUE,Private,Unalloca
+,0,0,Full                                                                       
+MQS1,ZQS1,2025/02/24,09:00:06,QCPY.SHARED.CONTROL,Shared,,,QSGA,TEST2       ,0,0
+MQS1,ZQS1,2025/02/24,09:00:06,QCPY.CONTROL,Private,Unallocated,Unallocated,,,0,0
+MQS1,ZQS1,2025/02/24,09:00:06,MSGSELECT.SHAREDQ,Shared,,,QSGA,TEST2       ,1,0,0
+MQS1,ZQS1,2025/02/24,09:00:06,ANSIBLE.DEMO.QUEUE,Private,Unallocated,Unallocated
+MQS1,ZQS1,2025/02/24,09:00:06,SYSTEM.DURABLE.SUBSCRIBER.QUEUE,Private,2,1,,,2,0,
+</code></pre></div>
+<p><strong>QSUML</strong> data is a summary of the queue usage over time, for local queues.</p>
+<div class="highlight"><pre><span></span><code>Queue tree                                                                      
+Date,Time,Qmgr,Queue,Count,PS,BP,&quot;Put MB&quot;,&quot;Get MB&quot;,!,ValidPut,ValidGet,getpsn,Ma
+2025/02/24,11:00:00, G  ,TEAM1.STREAM.BASE                               ,   2, 
+</code></pre></div>
+<p><strong>QSUMS</strong> data is a summary of the queue usage over time, for shared queues.</p>
+<div class="highlight"><pre><span></span><code>Queue tree                                                                      
+Date,Time,Qmgr,Queue,Count,Structure,&quot;Put MB&quot;,&quot;Get MB&quot;,!,ValidPut,ValidGet,MaxQD
+</code></pre></div>
+<p>LAB FINISHED!</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; 2026 IBM
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

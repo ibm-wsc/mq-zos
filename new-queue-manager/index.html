@@ -1,0 +1,1461 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="IBM MQ for z/OS">
+      
+      
+        <meta name="author" content="IBM Z WSC">
+      
+      
+        <link rel="canonical" href="https://ibm-wsc.github.io/mq-zos/new-queue-manager/">
+      
+      
+        <link rel="prev" href="../certificates/">
+      
+      
+        <link rel="next" href="../connectivity/">
+      
+      
+      <link rel="icon" href="../assets/wsc-logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.23">
+    
+    
+      
+        <title>Configuring a New Queue Manager Lab - IBM MQ for z/OS</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.84d31ad4.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,300i,400,400i,700,700i%7CIBM+Plex+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"IBM Plex Sans";--md-code-font:"IBM Plex Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#customizing-a-new-queue-manager-on-ibm-mq-for-zos" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="IBM MQ for z/OS" class="md-header__button md-logo" aria-label="IBM MQ for z/OS" data-md-component="logo">
+      
+  <img src="../assets/wsc-logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            IBM MQ for z/OS
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Configuring a New Queue Manager Lab
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ibm-wsc/mq-zos" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="IBM MQ for z/OS" class="md-nav__button md-logo" aria-label="IBM MQ for z/OS" data-md-component="logo">
+      
+  <img src="../assets/wsc-logo.png" alt="logo">
+
+    </a>
+    IBM MQ for z/OS
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ibm-wsc/mq-zos" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../saf-console/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Basic SAF Authentication for MQ Console
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../saf-keyrings/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuring SAF Key Rings for MQ Console
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../certificates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Certificate Management Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Configuring a New Queue Manager Lab
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuring a New Queue Manager Lab
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#audience-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      Audience level
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#skillset" class="md-nav__link">
+    <span class="md-ellipsis">
+      Skillset
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      Background
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview-of-exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview of exercise
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-begin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab begin
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab begin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#i-copy-and-tailor-the-sample-jcl" class="md-nav__link">
+    <span class="md-ellipsis">
+      I. Copy and tailor the sample JCL
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ii-run-jobs-to-create-the-bootstrap-data-sets-and-log-data-sets" class="md-nav__link">
+    <span class="md-ellipsis">
+      II. Run jobs to create the bootstrap data sets and log data sets
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iv-dynamically-add-mq-subsystem-to-mvs" class="md-nav__link">
+    <span class="md-ellipsis">
+      IV. Dynamically add MQ subsystem to MVS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v-define-subsystem-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      V. Define subsystem security
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vi-starting-your-queue-manager-and-channel-initiator" class="md-nav__link">
+    <span class="md-ellipsis">
+      VI. Starting your queue manager and channel initiator
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Appendix:
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../connectivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Connectivity to Lab Environment
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../comparing-offloading/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Comparing Offloading Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kafka-bindings/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kafka via Bindings Mode Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kafka-client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kafka via Client Connections Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../logging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Logging
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mp1b/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MP1B Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../qm_upgrade/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Queue Manager Upgrade Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../qsg_bp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Queue Sharing Best Practices
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../queue-statistics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Queue Statistics Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../streaming-queues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Streaming Queues Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../securitylab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Security Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../triggering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Triggering Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../archive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Archived Materials
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_19" >
+        
+          
+          <label class="md-nav__link" for="__nav_19" id="__nav_19_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    MQSMF Blog
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_19_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_19">
+            <span class="md-nav__icon md-icon"></span>
+            MQSMF Blog
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Blog/CF%20calls%20Generated%20by%20an%20MQGET%20Query/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CF Calls Generated by an MQGET Query
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Blog/MultipleQSGAndViews/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Multiple QSG And Views
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Blog/SMF%20data%20gathering%20suggestions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SMF Data Gathering Suggestions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Blog/Symptoms%20that%20led%20to%20PD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Symptoms that led to problem determination
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Blog/Task%20record%20information/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Task Record Information
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#audience-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      Audience level
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#skillset" class="md-nav__link">
+    <span class="md-ellipsis">
+      Skillset
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      Background
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview-of-exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview of exercise
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-begin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab begin
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab begin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#i-copy-and-tailor-the-sample-jcl" class="md-nav__link">
+    <span class="md-ellipsis">
+      I. Copy and tailor the sample JCL
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ii-run-jobs-to-create-the-bootstrap-data-sets-and-log-data-sets" class="md-nav__link">
+    <span class="md-ellipsis">
+      II. Run jobs to create the bootstrap data sets and log data sets
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iv-dynamically-add-mq-subsystem-to-mvs" class="md-nav__link">
+    <span class="md-ellipsis">
+      IV. Dynamically add MQ subsystem to MVS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v-define-subsystem-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      V. Define subsystem security
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vi-starting-your-queue-manager-and-channel-initiator" class="md-nav__link">
+    <span class="md-ellipsis">
+      VI. Starting your queue manager and channel initiator
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Appendix:
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="customizing-a-new-queue-manager-on-ibm-mq-for-zos">Customizing a new queue manager on IBM MQ for z/OS</h1>
+<h3 id="audience-level">Audience level</h3>
+<p>Some knowledge of MQ or z/OS </p>
+<h3 id="skillset">Skillset</h3>
+<p>z/OS Systems Programming, MQ Administration</p>
+<h3 id="background">Background</h3>
+<p>Every time a new release of IBM MQ for z/OS is installed, you have the opportunity to create or migrate a new queue manager with the latest capabilities of the IBM MQ release. We will go through the process of creating a new queue manager with IBM MQ for z/OS 9.4.2. IBM MQ for z/OS has been installed on the environment before the lab, so that will installation process will not be in scope of today’s lab. 
+To start a new queue manager, JCL procedures need to be copied to a system JCL procedure library and the new queue manager subsystem needs to be defined to MVS. </p>
+<h3 id="overview-of-exercise">Overview of exercise</h3>
+<p>What needs to be done here: </p>
+<p>I.  Copy and tailor the sample JCL. Each of these members comes pre-canned in the IBM MQ installation. What your task is as an administrator is to customize these for your specific need.</p>
+<p>II. Run jobs to create the bootstrap data sets and log data sets</p>
+<p>III.    Add MSTR and CHIN to SYS1.PROCLIB, the started task library</p>
+<p>IV. Dynamically add MQ subsystem to MVS</p>
+<p>V.  Define subsystem security</p>
+<p>VI. Start the queue manager and channel initiator</p>
+<h3 id="lab-begin">Lab begin</h3>
+<h4 id="i-copy-and-tailor-the-sample-jcl">I. Copy and tailor the sample JCL</h4>
+<ol>
+<li>We will start with copying the members from the IBM MQ code installation. All the IBM MQ installation will be under the high level qualifier MQ942CD. We are only interested in the sample code here, under SCSQPROC. (*) specifies we want all the members in the SCSQPROC dataset. Go to option =3.3.</li>
+</ol>
+<p><code>MQ942CD.SCSQPROC(*)
+Option ===&gt; C</code></p>
+<ol>
+<li>
+<p>We are making a new queue manager called ZQSX, so we want the new dataset to be referenceable by the high-level qualifier ZQSX. Press enter.</p>
+</li>
+<li>
+<p>Type a ‘1’ next to option 1. We want the new dataset to have the attribute of MQ941CD.SCSQPROC. Press enter. </p>
+</li>
+<li>
+<p>In the top right corner, you should see z/OS confirm that 113 members have been copied to the new dataset you created ZQSX.SCSQPROC. Great! We just need one more thing before we can customize. We are going to steal it from already-existing queue manager ZQS2 in this instance. </p>
+</li>
+<li>
+<p>QMEDIT is a REXX EXEC that will help us customize our sample code efficiently. We want to name it QMEDIT under our ZQSX dataset as well. Press enter and you should see in the top right corner, ‘QMEDIT copied’.</p>
+</li>
+<li>
+<p>Now, from the ISPF main screen, if we enter ‘=3.4’ into the command line and Press enter. We should be able to navigate to our newly created dataset. Copy the below screen and press enter.</p>
+</li>
+<li>
+<p>Press enter.</p>
+</li>
+<li>
+<p>Browse the dataset by entering a ‘b’ to the left of the dataset name and press enter. </p>
+</li>
+<li>
+<p>We will need to customize the following members of the dataset to effectively create a new queue manager:</p>
+<table>
+<thead>
+<tr>
+<th>JCL job</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CSQ4BSDS</td>
+<td>Creates bootstrap data sets</td>
+</tr>
+<tr>
+<td>CSQ4CHIN</td>
+<td>Sample Channel Initiator JCL procedure</td>
+</tr>
+<tr>
+<td>CSQ4MSTR</td>
+<td>Sample Queue Manager JCL procedure</td>
+</tr>
+<tr>
+<td>CSQ4INPX</td>
+<td>Sample commands related to the channel initiator</td>
+</tr>
+<tr>
+<td>CSQ4INYG</td>
+<td>Commands to define objects that are normally required</td>
+</tr>
+<tr>
+<td>CSQ4PAGE</td>
+<td>Creates page sets for QM storage</td>
+</tr>
+<tr>
+<td>CSQ4ZPRM</td>
+<td>Creates the queue manager initiation attributes</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>Instead of manually customizing each of these, we will use our QMEDIT to help us customize quickly. Use ‘F8’ to navigate down to QMEDIT from the list of members in ZQSX.SCSQPROC. Place a ‘e’ to the left of QMEDIT and Press enter.</p>
+</li>
+<li>
+<p>Once inside QMEDIT, look through the code and see what the code is customizing. Since this was last used for ZQS2, you will see ZQS2 mentioned a lot. We need to change that.</p>
+</li>
+</ol>
+<p>a.  Enter the command </p>
+<p><code>C ‘ZQS2’ ‘ZQSX’ ALL</code></p>
+<p>on the command line and press enter. </p>
+<p>b.  Enter the command </p>
+<p><code>C ‘MQ933CD’ ‘MQ941CD' ALL</code></p>
+<p>on the command line and press enter.</p>
+<p>c.  Enter the command </p>
+<p>C ‘1424’ ‘1425’ ALL</p>
+<p>on the command line and press enter so there isn’t a port number overlap with ZQS2.</p>
+<ol>
+<li>
+<p>By entering the above commands, we’re customizing the REXX exec to the data sets of this particular z/OS environment.</p>
+</li>
+<li>
+<p>Now, our REXX exec should be ready to use because it has the correct version of MQ specified, our desired queue manager name, our desired storage areas, and English. Each of those things need to be specified from the original sample code.</p>
+</li>
+<li>
+<p>We need to activate the QMEDIT code to be able to go through our relevant members and customize them quickly. Use F3, return to the ISPF main menu and enter option 6. Enter this command:</p>
+</li>
+</ol>
+<p><code>===&gt; ALTLIB ACTIVATE APPLICATION(EXEC) DA('ZQSX.SCSQPROC')</code></p>
+<ol>
+<li>
+<p>Press enter. With ALTLIB, a user or ISPF application can easily activate and deactivate CLIST and REXX exec libraries as the need arises. We are activating the REXX exec library of QMEDIT here to automate customization.</p>
+</li>
+<li>
+<p>From the ISPF main menu, navigate back to the ZQSX.SCSQPROC members via option 3.4.</p>
+</li>
+<li>
+<p>Starting with CSQ4BSDS, we will customize:</p>
+</li>
+</ol>
+<p>a.  CSQ4BSDS</p>
+<p>b.  CSQ4CHIN</p>
+<p>c.  CSQ4MSTR</p>
+<p>d.  CSQ4INPX</p>
+<p>e.  CSQ4INYG</p>
+<p>f.  CSQ4PAGE</p>
+<p>g.  CSQ4ZPRM</p>
+<ol>
+<li>Enter an ‘e’ next to CSQ4BSDS and Press enter from the member list. Once inside CSQ4BSDS, enter QMEDIT on the command input line and Press enter.</li>
+</ol>
+<blockquote>
+<p>NOTE: You must execute QMEDIT in the same session as you executed the ALTLIB command from. Otherwise, you will get the error message ‘QMEDIT not found’.</p>
+</blockquote>
+<ol>
+<li>
+<p>You should notice the changes by looking through CSQ4BSDS, using F7 and F8 to navigate up and down the JCL code. Enter F3 to return to the member list and save your changes to CSQ4BSDS.</p>
+</li>
+<li>
+<p>Now, navigate back to the ZQSX.SCSQPROC list. Repeat this process for:</p>
+</li>
+</ol>
+<p>a.  CSQ4CHIN</p>
+<p>b.  CSQ4MSTR</p>
+<p>c.  CSQ4INPX</p>
+<p>d.  CSQ4INYG</p>
+<p>e.  CSQ4PAGE</p>
+<p>f.  CSQ4ZPRM</p>
+<ol>
+<li>We are going to make an additional customization on CSQ4PAGE. Navigate to the member using ‘e’ to the left of the member. Once inside, enter the following commands on the command line at the bottom and Press enter. </li>
+</ol>
+<p><code>c 'VOL=SER' 'STORCLAS' all</code></p>
+<p><code>c 'VOLUMES' 'STORCLAS' all</code></p>
+<ol>
+<li>
+<p>We’re using system managed storage devices now instead of volumes, as is the standard on z/OS now</p>
+</li>
+<li>
+<p>F3 to save the changes. We have to customize the storage here to be appropriate for this z/OS image.</p>
+</li>
+<li>
+<p>Next, we’re going to modify CSQ4ZPRM. Enter the command: c ‘++HLQ.USERAUTH++’ ‘ZQS1.USERAUTH’ ALL</p>
+</li>
+<li>
+<p>Last, modify CSQ4CHIN using ‘e’. Once inside CSQ4CHIN, enter the command ‘f user exit library’. This will find the appropriate JCL.</p>
+</li>
+<li>
+<p>We want to comment the lines 94 and 119 out. Insert a “*” in the front of the line so that the asterisk lines up with the asterisk on the line below. It should look like this: </p>
+</li>
+</ol>
+<p><code>000094 //*          DD DSN=++CSFQUAL++.SCSSFMOD0,DISP=SHR</code></p>
+<p><code>000119 //* CSQXLIB  DD DSN=++EXITLIB++.DISP=SHR</code></p>
+<ol>
+<li>
+<p>F3 out of CSQ4CHIN to save your changes and return to the member list.</p>
+</li>
+<li>
+<p>You can enter the command ‘SORT CHANGED’ from the member list panel to ensure you customized all the essential members</p>
+</li>
+</ol>
+<h4 id="ii-run-jobs-to-create-the-bootstrap-data-sets-and-log-data-sets">II. Run jobs to create the bootstrap data sets and log data sets</h4>
+<ol>
+<li>
+<p>Now, your customization is complete. Enter ‘e’ next to CSQ4BSDS and input ‘SUBMIT’ on the command line. This will create our bootstrap data sets for the new queue manager. </p>
+</li>
+<li>
+<p>Repeat this for CSQ4PAGE to set up the page sets for the new queue manager. </p>
+</li>
+<li>
+<p>Last, submit CSQ4ZPRM using the same process as CSQ4BSDS and CSQ4PAGE.</p>
+</li>
+<li>
+<p>When you return to the main ISPF menu, use option 3.4 to navigate to all the ZQSX libraries.</p>
+</li>
+<li>
+<p>Once you Press enter, you should now see boot strap data set and page set files set up along with our original ZQSX.SCSQPROC data set. If you do not see the new data sets, something has failed in your JCL and you will need to debug. We recommend comparing the BSDS and PAGE JCL to the JCL of a working queue manager, for example, ZQS1.</p>
+</li>
+</ol>
+<p>III. Add MSTR and CHIN to SYS1.PROCLIB, the started task library</p>
+<ol>
+<li>
+<p>Now, we have to edit SYS1.PROCLIB. Navigate to SYS1.PROCLIB using 3.4 on the ISPF menu. SYS1.PROCLIB needs to contain two members for ZQSX, ZQSXMSTR and ZQSXCHIN. We can add these two members by copying our CSQ4MSTR and CSQ4CHIN and renaming them.</p>
+</li>
+<li>
+<p>From the ISPF main menu, go to 3.3. Here, specify that you would like to copy from ‘ZQSX.SCSQPROC(CSQ4MSTR)’ to ‘SYS1.PROCLIB(ZQSXMSTR)’. This will create a copy of your edited member for SYS1.PROCLIB and it will also rename the member to ZQSXMSTR.</p>
+</li>
+<li>
+<p>Repeat this copying process for CSQ4CHIN i.e. ‘ZQSX.SCSQPROC(CSQ4CHIN)’ to ‘SYS1.PROCLIB(ZQSXCHIN)’.</p>
+</li>
+<li>
+<p>Now, if you navigate to SYS1.PROCLIB using option 3.4, you should see the members ZQSXMSTR and ZQSXCHIN listed as members.</p>
+</li>
+</ol>
+<h4 id="iv-dynamically-add-mq-subsystem-to-mvs">IV. Dynamically add MQ subsystem to MVS</h4>
+<ol>
+<li>
+<p>Now, all the setup is complete, so we just have to start up the queue manager!</p>
+</li>
+<li>
+<p>The next few commands will all be entered in the MVS command area. Navigate there by entering ‘D’ in the ISPF menu command line to navigate to SDSF. Once in SDSF, enter a slash in your command input and Press enter like so:</p>
+</li>
+</ol>
+<p><img alt="SDSF command input" src="../assets/newQM/newqmX.png" /></p>
+<ol>
+<li>Execute command to dynamically define MQ subsystem: </li>
+</ol>
+<p><code>SETSSI ADD,S=ZQSX,I=CSQ3INI,P='CSQ3EPX,ZQSX,S'</code></p>
+<blockquote>
+<p>NOTE! None of these dynamic commands will last through an IPL of the system. To make these changes concrete, you will need to modify the LPALST##, IEFSSN## and PROG## members of the LPAR’s SYS1.PARMLIB data set.</p>
+</blockquote>
+<h4 id="v-define-subsystem-security">V. Define subsystem security</h4>
+<ol>
+<li>F3 back to the main menu, out of SDSF, enter option 6 from the main menu. Here, you will find a TSO command input window:</li>
+</ol>
+<p>a.  Turn off security by entering this command: </p>
+<p><code>RDEFINE MQADMIN ZQSX.NO.SUBSYS.SECURITY</code></p>
+<p>NOTE! Never turn off security outside of workshop lab environments.</p>
+<ol>
+<li>You will see an output like this, indicating this has already been done for you, but this enables you to see how we did it. Obviously, you will not be disabling security in any of your environments, just in our test environment.  </li>
+</ol>
+<h4 id="vi-starting-your-queue-manager-and-channel-initiator">VI. Starting your queue manager and channel initiator</h4>
+<ol>
+<li>Return to the SDSF command window and input the commands into the MVS command line:</li>
+</ol>
+<p>a.  Start up our queue manager ZQSX with the command: ZQSX START QMGR</p>
+<p>b.  Start up the channel initiator with the command: ZQSX START CHINIT</p>
+<p>c.  Start up the listener with the command: ZQSX start listener TRPTYPE(TCP) Port(1425)</p>
+<ol>
+<li>
+<p>To verify that your queue manager has been set up, you can navigate to MQ Explorer and test the connection. You will use the port number you specified in the REXX exec.</p>
+</li>
+<li>
+<p>Congrats! You have created a queue manager from scratch! Lab COMPLETE!</p>
+</li>
+</ol>
+<h3 id="appendix">Appendix:</h3>
+<p>• REXX EXEC is not included with the base product – describe ++ variables </p>
+<p>• Make an error when executing your SETSSI command? Use SETSSI DELETE,S=ZQSX,FORCE to roll back your command.</p>
+<p>• Check APF authorized libraries by entering the command /DISPLAY PROG,APF from the SDSF command input then going to the log. </p>
+<div class="highlight"><pre><span></span><code>APF authorized libraries must be:
+
+    o   MQ941CD.SCSQANLE
+
+    o   MQ941CD.SCSQAUTH
+
+    o   MQ941CD.SCSQMVR1
+</code></pre></div>
+<blockquote>
+<p>NOTE: You may see several LPALST## PROG##, and IEFSSN## members. You want to use the ones specified in the SYS1.PARMLIB(IEASYS##). You can find the IEASYS## member by entering the command /D IPLINFO from the SDSF command input. It will show a screen like this:</p>
+</blockquote>
+<p>• Looking to permanently make updates to your LPALST## member?</p>
+<p>o   Add code like this:</p>
+<p>•   Looking to permanently make updates to your IEFSSN## member?</p>
+<p>a. Add code like this:</p>
+<div class="highlight"><pre><span></span><code>•   Looking to permanently make updates to your PROG## member?
+
+o   Add code like this:
+</code></pre></div>
+<p>• Need to dynamically APF authorize your MQ load libraries?</p>
+<div class="highlight"><pre><span></span><code>```SETPROG APF,ADD,DSNAME=MQ941CD.SCSQANLE ,SMS```
+
+```SETPROG APF,ADD,DSNAME=MQ941CD.SCSQSNLE ,SMS```
+</code></pre></div>
+<p>• Need to dynamically add some modules to the LPA (link pack area) of z/OS?</p>
+<div class="highlight"><pre><span></span><code>```SETPROG LPA,ADD,MODNAME=(CSQ3EPX,CSQ3INI),DSNAME=MQ941CD.SCSQLINK```
+
+```SETPROG LPA,ADD,MODNAME=(CSQ3ECMX),DSNAME=MQ941CD.SCSQSNLE```
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; 2026 IBM
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

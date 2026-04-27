@@ -1,8 +1,0 @@
-OPERATOR: "NOPROMPT"  
-TIMEZONE: "W.05.00.00"
-STPMODE: "YES"          
-STPZONE: "YES"          
-ETRMODE: "YES"        
-ETRZONE: "YES"          
-ETRDELTA: "10"   
-ACCURACY: "0"        

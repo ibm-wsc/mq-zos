@@ -15,6 +15,10 @@
         <link rel="canonical" href="https://ibm-wsc.github.io/mq-zos/newqmdev/">
       
       
+        <link rel="prev" href="../certificates/">
+      
+      
+        <link rel="next" href="../connectivity/">
       
       
       <link rel="icon" href="../assets/wsc-logo.png">
@@ -22,7 +26,7 @@
     
     
       
-        <title>Customizing a New Queue Manager on IBM MQ for z/OS - IBM MQ for z/OS</title>
+        <title>Configuring a New Queue Manager Lab - IBM MQ for z/OS</title>
       
     
     
@@ -111,7 +115,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Customizing a New Queue Manager on IBM MQ for z/OS
+              Configuring a New Queue Manager Lab
             
           </span>
         </div>
@@ -341,10 +345,32 @@
       
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../new-queue-manager/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Configuring a New Queue Manager Lab
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -355,6 +381,209 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#audience-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      Audience level
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#skillset" class="md-nav__link">
+    <span class="md-ellipsis">
+      Skillset
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      Background
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-create-a-queue-manager-from-scratch" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why create a queue manager from scratch?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview-of-the-exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview of the exercise
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Overview of the exercise">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#i-copy-and-tailor-mq-sample-jcl" class="md-nav__link">
+    <span class="md-ellipsis">
+      I. Copy and tailor MQ sample JCL
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ii-run-jobs-to-create-the-bootstrap-data-sets-and-page-sets" class="md-nav__link">
+    <span class="md-ellipsis">
+      II. Run jobs to create the bootstrap data sets and page sets
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iii-add-mstr-and-chin-procedures-to-sys1proclib" class="md-nav__link">
+    <span class="md-ellipsis">
+      III. Add MSTR and CHIN procedures to SYS1.PROCLIB
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iv-dynamically-add-the-mq-subsystem-to-mvs" class="md-nav__link">
+    <span class="md-ellipsis">
+      IV. Dynamically add the MQ subsystem to MVS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v-define-subsystem-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      V. Define subsystem security
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vi-start-the-queue-manager-and-channel-initiator" class="md-nav__link">
+    <span class="md-ellipsis">
+      VI. Start the queue manager and channel initiator
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab instructions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab instructions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#i-copy-and-tailor-the-sample-jcl" class="md-nav__link">
+    <span class="md-ellipsis">
+      I. Copy and tailor the sample JCL
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ii-run-jobs-to-create-the-bootstrap-data-sets-and-page-sets_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      II. Run jobs to create the bootstrap data sets and page sets
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iii-add-mstr-and-chin-to-sys1proclib-the-started-task-library" class="md-nav__link">
+    <span class="md-ellipsis">
+      III. Add MSTR and CHIN to SYS1.PROCLIB, the started task library
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iv-dynamically-add-mq-subsystem-to-mvs" class="md-nav__link">
+    <span class="md-ellipsis">
+      IV. Dynamically add MQ subsystem to MVS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v-define-subsystem-security_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      V. Define subsystem security
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vi-start-the-queue-manager-and-channel-initiator_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      VI. Start the queue manager and channel initiator
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Appendix
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 

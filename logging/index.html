@@ -348,7 +348,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../new-queue-manager/" class="md-nav__link">
+      <a href="../newqmdev/" class="md-nav__link">
         
   
   
@@ -1238,7 +1238,7 @@
 <ol>
 <li>In the <code>TEAMXX.MQPERF.LOG.JCL</code> PDS, where <code>TEAMXX</code> is your assigned team ID, select the <code>DEFQLOG</code> member. This job defines the queues that are used later in the lab.</li>
 </ol>
-<p><img alt="Queue definition job" src="../image-13.png" /></p>
+<p><img alt="Queue definition job" src="../assets/logging/image-13.png" /></p>
 <ol>
 <li>Use a global change command to replace the <code>++...++</code> variables as described in the JCL comments:</li>
 </ol>
@@ -1271,12 +1271,12 @@ CHANGE 20     TO YOUR TEAM NUMBER
 <p>Select the job and use the question mark to display the list of output files.</p>
 </li>
 </ol>
-<p><img alt="SDSF output list" src="../image-14.png" /></p>
+<p><img alt="SDSF output list" src="../assets/logging/image-14.png" /></p>
 <ol>
 <li>Open the relevant output. Confirm that the queues were actually created successfully. This is important because, in some cases, the job can end with return code zero even though the queue definitions were not applied as expected.</li>
 </ol>
 <p>The output should look similar to this:</p>
-<p><img alt="Successful queue definition output" src="../image-15.png" /></p>
+<p><img alt="Successful queue definition output" src="../assets/logging/image-15.png" /></p>
 <h4 id="ii-put-a-persistent-message">II. Put a persistent message</h4>
 <ol>
 <li>
@@ -1310,7 +1310,7 @@ CHANGE MQ910  TO THE MQ HIGH LEVEL QUALIFIER
 <p>Review the output in <code>SDSF.ST</code>. The <code>SYSPRINT</code> output should look similar to the following example:</p>
 </li>
 </ol>
-<p><img alt="LOGPUT output" src="../image-16.png" /></p>
+<p><img alt="LOGPUT output" src="../assets/logging/image-16.png" /></p>
 <ol>
 <li>
 <p>Open MQ Explorer. If you do not yet see queue managers such as <code>QML1</code> or <code>QML2</code>, use the appendix at the end of this lab to add them.</p>
@@ -1322,15 +1322,15 @@ CHANGE MQ910  TO THE MQ HIGH LEVEL QUALIFIER
 <p>Right-click the message and select <strong>Properties</strong>. This should open a panel like the following:</p>
 </li>
 </ol>
-<p><img alt="Message properties" src="../image-17.png" /></p>
+<p><img alt="Message properties" src="../assets/logging/image-17.png" /></p>
 <ol>
 <li>Select the <strong>Identifiers</strong> tab and view the message ID.</li>
 </ol>
-<p><img alt="Message ID part 1" src="../image-18.png" /></p>
+<p><img alt="Message ID part 1" src="../assets/logging/image-18.png" /></p>
 <ol>
 <li>Scroll to the right to display the remaining message identifier bytes.</li>
 </ol>
-<p><img alt="Message ID part 2" src="../image-19.png" /></p>
+<p><img alt="Message ID part 2" src="../assets/logging/image-19.png" /></p>
 <ol>
 <li>Close the panel.</li>
 </ol>
@@ -1352,7 +1352,7 @@ CHANGE MQ910  TO THE MQ HIGH LEVEL QUALIFIER
 <ol>
 <li>Review the output in <code>SDSF.ST</code>. The <code>SYSPRINT</code> output should look similar to the following example:</li>
 </ol>
-<p><img alt="LOGGET output" src="../image-20.png" /></p>
+<p><img alt="LOGGET output" src="../assets/logging/image-20.png" /></p>
 <ol>
 <li>
 <p>Confirm that the total number of messages retrieved is <code>1</code>. Return to MQ Explorer and verify that the current queue depth is now <code>0</code>.</p>
@@ -1374,7 +1374,7 @@ CHANGE MQ910  TO THE MQ HIGH LEVEL QUALIFIER
 </li>
 </ol>
 <p>a. In MQ Explorer, display the storage classes. It should look similar to the following:</p>
-<p><img alt="Storage classes" src="../image-21.png" /></p>
+<p><img alt="Storage classes" src="../assets/logging/image-21.png" /></p>
 <p>b. Match the name of the storage class used by your queue to the page set ID. In the example shown in the original lab, the page set associated with <code>STGCLS09</code> is <code>51</code>.</p>
 <p>c. Replace all instances of <code>++PAGESET++</code> with the page set ID you identified.</p>
 <ol>
@@ -1383,11 +1383,11 @@ CHANGE MQ910  TO THE MQ HIGH LEVEL QUALIFIER
 <div class="highlight"><pre><span></span><code>PREFIX QML*
 </code></pre></div>
 <p>The output should look similar to the following example:</p>
-<p><img alt="SDSF DA panel" src="../image-22.png" /></p>
+<p><img alt="SDSF DA panel" src="../assets/logging/image-22.png" /></p>
 <ol>
 <li>Expand the MSTR output for your queue manager and select the <code>JESMSGLG</code> output. The results should look similar to the following:</li>
 </ol>
-<p><img alt="JESMSGLG output" src="../image-23.png" /></p>
+<p><img alt="JESMSGLG output" src="../assets/logging/image-23.png" /></p>
 <ol>
 <li>
 <p>Navigate to the bottom of the output by using the <code>BOT</code> command.</p>
@@ -1401,7 +1401,7 @@ CHANGE MQ910  TO THE MQ HIGH LEVEL QUALIFIER
 <ol>
 <li>At the end of the display log report, identify the current active log. An example is shown below:</li>
 </ol>
-<p><img alt="Display log output" src="../image-24.png" /></p>
+<p><img alt="Display log output" src="../assets/logging/image-24.png" /></p>
 <ol>
 <li>Use the last node of the current log name to replace the <code>++LOGNAME++</code> variable. In the example shown, that value is <code>DS001</code>.</li>
 </ol>
@@ -1423,14 +1423,14 @@ CHANGE MQ910  TO THE MQ HIGH LEVEL QUALIFIER
 <p>The beginning of the output should look similar to the following:</p>
 </li>
 </ol>
-<p><img alt="CSQ1LOGP output start" src="../image-25.png" /></p>
+<p><img alt="CSQ1LOGP output start" src="../assets/logging/image-25.png" /></p>
 <blockquote>
 <p>Note: In the <strong>SEARCH CRITERIA</strong> section, the page set is displayed in hexadecimal.</p>
 </blockquote>
 <ol>
 <li>Scroll through the output and confirm that you can see the message data, similar to the following example:</li>
 </ol>
-<p><img alt="Extracted message data" src="../image-26.png" /></p>
+<p><img alt="Extracted message data" src="../assets/logging/image-26.png" /></p>
 <h4 id="vi-replay-the-message">VI. Replay the message</h4>
 <ol>
 <li>
@@ -1443,7 +1443,7 @@ CHANGE MQ910  TO THE MQ HIGH LEVEL QUALIFIER
 <p>Review the <code>SYSPRINT</code> output. It should describe the replay actions taken and should look similar to the following:</p>
 </li>
 </ol>
-<p><img alt="CSQ4LOGS output" src="../image-27.png" /></p>
+<p><img alt="CSQ4LOGS output" src="../assets/logging/image-27.png" /></p>
 <ol>
 <li>
 <p>Return to MQ Explorer and verify that the queue depth is back to <code>1</code>.</p>
@@ -1496,15 +1496,15 @@ CHANGE MQ910  TO THE MQ HIGH LEVEL QUALIFIER
 <ol>
 <li>Right-click the <strong>Queue Managers</strong> folder and select <strong>Add Remote Queue Manager</strong>.</li>
 </ol>
-<p><img alt="Add remote queue manager" src="../image-28.png" /></p>
+<p><img alt="Add remote queue manager" src="../assets/logging/image-28.png" /></p>
 <ol>
 <li>Enter <code>QML1</code> and select <strong>Connect directly</strong>. Then click <strong>Next</strong>.</li>
 </ol>
-<p><img alt="Add QML1" src="../image-29.png" /></p>
+<p><img alt="Add QML1" src="../assets/logging/image-29.png" /></p>
 <ol>
 <li>Enter <code>mpx1</code> for the host name or IP address and <code>1417</code> as the port number. Then click <strong>Finish</strong>.</li>
 </ol>
-<p><img alt="QML1 connection details" src="../image-30.png" /></p>
+<p><img alt="QML1 connection details" src="../assets/logging/image-30.png" /></p>
 <ol>
 <li>
 <p>Repeat the steps for <code>QML2</code>, using <code>mpx2</code> as the host name and <code>1418</code> as the port.</p>
@@ -1513,7 +1513,7 @@ CHANGE MQ910  TO THE MQ HIGH LEVEL QUALIFIER
 <p>The queue manager list should now include both z/OS queue managers used for this lab.</p>
 </li>
 </ol>
-<p><img alt="Queue manager list" src="../image-31.png" /></p>
+<p><img alt="Queue manager list" src="assets/logging/assets/logging/image-31.png" /></p>
 
 
 

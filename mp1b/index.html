@@ -348,7 +348,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../new-queue-manager/" class="md-nav__link">
+      <a href="../newqmdev/" class="md-nav__link">
         
   
   
@@ -1201,23 +1201,23 @@
 <ol>
 <li>MP1B has already been installed in this environment. You can find it by searching for the data set <code>ZQS1.MP1B.JCL</code> in ISPF option <code>3.4</code>.</li>
 </ol>
-<p><img alt="Picture of z/OS data set search" src="../assets/mp1b-1.png" title="Picture of z/OS data set search" /></p>
+<p><img alt="Picture of z/OS data set search" src="../assets/mp1b/mp1b-1.png" title="Picture of z/OS data set search" /></p>
 <ol>
 <li>Open MQ Explorer on your Windows desktop.</li>
 </ol>
-<p><img alt="Picture of MQ Explorer icon" src="../assets/mp1b-2.png" title="MQ Explorer icon" /></p>
+<p><img alt="Picture of MQ Explorer icon" src="../assets/mp1b/mp1b-2.png" title="MQ Explorer icon" /></p>
 <ol>
 <li>In MQ Explorer, right-click the <code>ZQS1</code> queue manager and select <strong>Connect</strong>.</li>
 </ol>
-<p><img alt="Picture of MQ Explorer active queue managers" src="../assets/mp1b-3.png" title="Picture of MQ Explorer active queue managers" /></p>
+<p><img alt="Picture of MQ Explorer active queue managers" src="../assets/mp1b/mp1b-3.png" title="Picture of MQ Explorer active queue managers" /></p>
 <ol>
 <li>Expand <code>ZQS1</code>, right-click the <strong>Queues</strong> folder, and create a new local queue called <code>MP1B.TESTER</code>.</li>
 </ol>
-<p><img alt="Picture of creating new queue on MQ Explorer" src="../assets/mp1b-4.png" title="Picture of creating new queue on MQ Explorer" /></p>
+<p><img alt="Picture of creating new queue on MQ Explorer" src="../assets/mp1b/mp1b-4.png" title="Picture of creating new queue on MQ Explorer" /></p>
 <ol>
 <li>Create the queue with the properties shown in the following example:</li>
 </ol>
-<p><img alt="Display of queue properties" src="../assets/mp1b-5.png" title="Display of queue properties" /></p>
+<p><img alt="Display of queue properties" src="../assets/mp1b/mp1b-5.png" title="Display of queue properties" /></p>
 <blockquote>
 <p>Why make the queue shareable? In a lab environment, shareable queues are convenient because multiple users or tools can browse them.</p>
 </blockquote>
@@ -1239,7 +1239,7 @@
 <p>A command prompt like the following should appear:</p>
 </li>
 </ol>
-<p><img alt="Display of MVS command prompt" src="../assets/mp1b-6.png" title="Display of MVS command prompt" /></p>
+<p><img alt="Display of MVS command prompt" src="../assets/mp1b/mp1b-6.png" title="Display of MVS command prompt" /></p>
 <ol>
 <li>Enter the following commands one at a time. After each command, you may need to reopen the system command extension window with <code>/</code>.</li>
 </ol>
@@ -1283,7 +1283,7 @@
 <p>Open the <code>OEMPUT</code> member by entering <code>E</code> next to it.</p>
 </li>
 </ol>
-<p><img alt="Screenshot of OEMPUT JCL" src="../assets/mp1b-7.png" title="Screenshot of OEMPUT JCL" /></p>
+<p><img alt="Screenshot of OEMPUT JCL" src="../assets/mp1b/mp1b-7.png" title="Screenshot of OEMPUT JCL" /></p>
 <ol>
 <li>
 <p>Verify that the queue manager name and queue name are correct in the member.</p>
@@ -1335,11 +1335,11 @@
 <ol>
 <li>In MQ Explorer, you should now see that <code>MP1B.TESTER</code> is populated with many messages.</li>
 </ol>
-<p><img alt="MQ Explorer display of message depth on queue" src="../assets/mp1b-8.png" title="MQ Explorer display of message depth on queue" /></p>
+<p><img alt="MQ Explorer display of message depth on queue" src="../assets/mp1b/mp1b-8.png" title="MQ Explorer display of message depth on queue" /></p>
 <ol>
 <li>Back in <code>ZQS1.MP1B.JCL</code>, open the <code>SMFDUMP</code> member and submit it. This job deletes old output if needed and then writes the relevant SMF data to the target data set, which in this environment is <code>ZQS1.QUEUE.MQSMF.SHRSTRM2</code>.</li>
 </ol>
-<p><img alt="SMFDUMP JCL" src="../assets/mp1b-9.png" title="SMFDUMP JCL" /></p>
+<p><img alt="SMFDUMP JCL" src="../assets/mp1b/mp1b-9.png" title="SMFDUMP JCL" /></p>
 <ol>
 <li>
 <p>To confirm that <code>SMFDUMP</code> is processing, use SDSF. From ISPF, enter <code>=D</code>.</p>
@@ -1362,7 +1362,7 @@
 <p>Enter <code>BOTTOM</code> on the command line. You should see output similar to the following, indicating that records are being written. You can also confirm this by locating the <strong>SUMMARY ACTIVITY REPORT</strong>.</p>
 </li>
 </ol>
-<p><img alt="Picture of SMFDUMP Output: SUMMARY ACTIVITY REPORT" src="../assets/mp1b-10.png" title="SUMMARY ACTIVITY REPORT" /></p>
+<p><img alt="Picture of SMFDUMP Output: SUMMARY ACTIVITY REPORT" src="../assets/mp1b/mp1b-10.png" title="SUMMARY ACTIVITY REPORT" /></p>
 <h4 id="iv-format-and-review-the-smf-data">IV. Format and review the SMF data</h4>
 <ol>
 <li>
@@ -1375,11 +1375,11 @@
 <p>Submit <code>MQSMFP</code>.</p>
 </li>
 </ol>
-<p><img alt="Picture of MQSMFP JCL" src="../assets/mp1b-11.png" /></p>
+<p><img alt="Picture of MQSMFP JCL" src="../assets/mp1b/mp1b-11.png" /></p>
 <ol>
 <li>Navigate to the SDSF output for the submitted job. This output presents the SMF data in useful categories and can also be used to generate CSV-style output for later analysis.</li>
 </ol>
-<p><img alt="Picture of MQSMFP Output" src="../assets/mp1b-12.png" /></p>
+<p><img alt="Picture of MQSMFP Output" src="../assets/mp1b/mp1b-12.png" /></p>
 <ol>
 <li>
 <p>Select the <strong>LOG statistics</strong> section by placing an <code>S</code> next to it and pressing Enter.</p>
@@ -1388,7 +1388,7 @@
 <p>Scroll until you see a screen similar to the following:</p>
 </li>
 </ol>
-<p><img alt="Picture of Checkpoint count" src="../assets/mp1b-13.png" /></p>
+<p><img alt="Picture of Checkpoint count" src="../assets/mp1b/mp1b-13.png" /></p>
 <ol>
 <li>
 <p>Review the <code>LLCheckpoints</code> value. In the lab example, it is <code>1564</code>. For such a short interval, that is extremely high. In a more typical interval, you would expect the value to be zero or a small single-digit number.</p>
@@ -1401,7 +1401,7 @@
 <ol>
 <li>The <code>LOGLOAD</code> parameter specifies how many log records are written between checkpoints.</li>
 </ol>
-<p><img alt="Picture of logging schematic" src="../assets/mp1b-14.png" /></p>
+<p><img alt="Picture of logging schematic" src="../assets/mp1b/mp1b-14.png" /></p>
 <ol>
 <li>
 <p>In the diagram above, the <code>LOGLOAD</code> interval is shown by the blue brackets. In a real environment, a value as low as the one shown in the illustration would be unrealistically small.</p>

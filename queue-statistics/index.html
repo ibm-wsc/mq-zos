@@ -348,7 +348,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../new-queue-manager/" class="md-nav__link">
+      <a href="../newqmdev/" class="md-nav__link">
         
   
   
@@ -1112,23 +1112,23 @@
 <ol>
 <li>
 <p>MP1B has been installed on this environment, and you can find it by searching for the directory ZQS1.MP1B.JCL in the =3.4 data set search bar.</p>
-<p><img alt="Picture of z/OS data set search" src="../assets/mp1b-1.png" title="Picture of z/OS data set search" /></p>
+<p><img alt="Picture of z/OS data set search" src="assets/mp1b-1.png" title="Picture of z/OS data set search" /></p>
 </li>
 <li>
 <p>Now, outside of z/OS, open up MQ Explorer on your Windows Desktop. The icon should look like this:</p>
-<p><img alt="Picture of MQ Explorer icon" src="../assets/mp1b-2.png" title="MQ Explorer icon" /></p>
+<p><img alt="Picture of MQ Explorer icon" src="assets/mp1b-2.png" title="MQ Explorer icon" /></p>
 </li>
 <li>
 <p>Once you’ve opened MQ Explorer, you should see a left-hand menu bar like below. Right click on the ZQS1 queue manager and hit ‘Connect’.</p>
-<p><img alt="Picture of MQ Explorer active queue managers" src="../assets/mp1b-3.png" title="Picture of MQ Explorer active queue managers" /></p>
+<p><img alt="Picture of MQ Explorer active queue managers" src="assets/mp1b-3.png" title="Picture of MQ Explorer active queue managers" /></p>
 </li>
 <li>
 <p>By clicking on the arrow to the left of ZQS1, a dropdown list of MQ objects will appear. Right click on the ‘Queues’ folder and construct a new local queue called MP1B.TESTER.</p>
-<p><img alt="Picture of creating new queue on MQ Explorer" src="../assets/mp1b-4.png" title="Picture of creating new queue on MQ Explorer" /></p>
+<p><img alt="Picture of creating new queue on MQ Explorer" src="assets/mp1b-4.png" title="Picture of creating new queue on MQ Explorer" /></p>
 </li>
 <li>
 <p>Create a queue on your queue manager using MQ Explorer. The queue should have the following properties: </p>
-<p><img alt="Display of queue properties" src="../assets/mp1b-5.png" title="Display of queue properties" /></p>
+<p><img alt="Display of queue properties" src="assets/mp1b-5.png" title="Display of queue properties" /></p>
 </li>
 </ol>
 <blockquote>
@@ -1150,7 +1150,7 @@
 </li>
 <li>
 <p>A MVS command prompt like this should pop up:</p>
-<p><img alt="Display of MVS command prompt" src="../assets/mp1b-6.png" title="Display of MVS command prompt" /></p>
+<p><img alt="Display of MVS command prompt" src="assets/mp1b-6.png" title="Display of MVS command prompt" /></p>
 </li>
 <li>
 <p>Enter the following commands here, one at a time. Each command will take you out of the System Command Extension window, so you will have to use the / command to return to the correct window for executing commands.</p>
@@ -1245,7 +1245,7 @@
 </li>
 <li>
 <p>If you look at your MQ Explorer, you should now see that your queue is populated with lots of messages! </p>
-<p><img alt="MQ Explorer display of message depth on queue" src="../assets/mp1b-8.png" title="MQ Explorer display of message depth on queue" /></p>
+<p><img alt="MQ Explorer display of message depth on queue" src="assets/mp1b-8.png" title="MQ Explorer display of message depth on queue" /></p>
 </li>
 <li>
 <p>Back in ZQS1.MP1B.JCL, navigate to the SMFDUMP member. Once inside, modify the date to be accurate. If you are completing this lab on 12/10/2025, the date will be 2025344. Additionally adjust the START parameter to reflect the appropriate hh:MM. Your JCL should look something like:
@@ -1271,7 +1271,7 @@ DATE(2025344,2025344)
 <li>Here, you put a ‘?’ mark besides the jobname. Hit enter, then a screen with a SYSPRINT menu option should pop up. Next to SYSPRINT, put a ‘s’ and hit enter.</li>
 <li>
 <p>Enter ‘bottom’ on the command line and you should see a screen like below, indicating that records are being written. You can also confirm this by looking in the output for the SUMMARY ACTIVITY REPORT.</p>
-<p><img alt="Picture of SMFDUMP Output: SUMMARY ACTIVITY REPORT" src="../assets/mp1b-10.png" title="SUMMARY ACTIVITY REPORT" /></p>
+<p><img alt="Picture of SMFDUMP Output: SUMMARY ACTIVITY REPORT" src="assets/mp1b-10.png" title="SUMMARY ACTIVITY REPORT" /></p>
 </li>
 <li>
 <p>You will have to submit one final job MQSMFP in ZQS1.MP1B.JCL. This job will give us some formatted information about the SMF data. Type ‘submit’ and hit enter.</p>

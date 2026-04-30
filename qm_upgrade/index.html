@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#customizing-a-new-queue-manager-on-ibm-mq-for-zos" class="md-skip">
+        <a href="#upgrading-a-queue-manager-on-ibm-mq-for-zos" class="md-skip">
           Skip to content
         </a>
       
@@ -348,7 +348,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../new-queue-manager/" class="md-nav__link">
+      <a href="../newqmdev/" class="md-nav__link">
         
   
   
@@ -579,9 +579,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#overview-of-exercise" class="md-nav__link">
+  <a href="#overview-of-the-exercise" class="md-nav__link">
     <span class="md-ellipsis">
-      Overview of exercise
+      Overview of the exercise
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
     </span>
   </a>
   
@@ -598,18 +607,45 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#i-stop-queue-manager" class="md-nav__link">
+  <a href="#i-stop-the-queue-manager" class="md-nav__link">
     <span class="md-ellipsis">
-      I. Stop queue manager
+      I. Stop the queue manager
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#ii-optional-re-bind-queue-sharing-group" class="md-nav__link">
+  <a href="#ii-optional-rebind-queue-sharing-group-objects" class="md-nav__link">
     <span class="md-ellipsis">
-      II. OPTIONAL: Re-bind queue sharing group
+      II. Optional: rebind queue sharing group objects
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iii-update-mstr-and-chin-started-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      III. Update MSTR and CHIN started tasks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iv-update-early-code-and-product-libraries" class="md-nav__link">
+    <span class="md-ellipsis">
+      IV. Update early code and product libraries
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v-restart-and-validate-the-queue-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      V. Restart and validate the queue manager
     </span>
   </a>
   
@@ -617,6 +653,42 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#validation-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      Validation checklist
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rollback-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rollback considerations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
   
 </li>
       
@@ -974,9 +1046,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#overview-of-exercise" class="md-nav__link">
+  <a href="#overview-of-the-exercise" class="md-nav__link">
     <span class="md-ellipsis">
-      Overview of exercise
+      Overview of the exercise
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
     </span>
   </a>
   
@@ -993,18 +1074,45 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#i-stop-queue-manager" class="md-nav__link">
+  <a href="#i-stop-the-queue-manager" class="md-nav__link">
     <span class="md-ellipsis">
-      I. Stop queue manager
+      I. Stop the queue manager
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#ii-optional-re-bind-queue-sharing-group" class="md-nav__link">
+  <a href="#ii-optional-rebind-queue-sharing-group-objects" class="md-nav__link">
     <span class="md-ellipsis">
-      II. OPTIONAL: Re-bind queue sharing group
+      II. Optional: rebind queue sharing group objects
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iii-update-mstr-and-chin-started-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      III. Update MSTR and CHIN started tasks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iv-update-early-code-and-product-libraries" class="md-nav__link">
+    <span class="md-ellipsis">
+      IV. Update early code and product libraries
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v-restart-and-validate-the-queue-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      V. Restart and validate the queue manager
     </span>
   </a>
   
@@ -1012,6 +1120,42 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#validation-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      Validation checklist
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rollback-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rollback considerations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
   
 </li>
       
@@ -1034,27 +1178,215 @@
   
 
 
-<h1 id="customizing-a-new-queue-manager-on-ibm-mq-for-zos">Customizing a new queue manager on IBM MQ for z/OS</h1>
+<h1 id="upgrading-a-queue-manager-on-ibm-mq-for-zos">Upgrading a Queue Manager on IBM MQ for z/OS</h1>
 <h3 id="audience-level">Audience level</h3>
-<p>Some knowledge of MQ or z/OS </p>
+<p>Some knowledge of MQ or z/OS</p>
 <h3 id="skillset">Skillset</h3>
 <p>z/OS Systems Programming, MQ Administration</p>
 <h3 id="background">Background</h3>
-<p>This lab walks users through how to upgrade queue managers on z/OS. This lab assumes the SMP/E work has already been done to install the product. In this lab, we will use MQ v.9.4.2 as an example. As such, our high level qualifier is MQ942CD.</p>
-<h3 id="overview-of-exercise">Overview of exercise</h3>
-<p>What needs to be done here: 
-I. Stop queue manager
-II. OPTIONAL: Re-bind queue sharing group 
-III. Adjust MSTR and CHIN started tasks
-III. Update early code
-IV. Restart queue manager</p>
+<p>This lab walks through the high-level steps required to upgrade an existing IBM MQ for z/OS queue manager to a newer product level after the SMP/E installation work has already been completed.</p>
+<p>In this example, the target release is IBM MQ 9.4.2 CD, so the product high-level qualifier used in the examples is <code>MQ942CD</code>.</p>
+<p>This lab focuses on the queue manager upgrade activities themselves. It does not cover SMP/E installation, system-wide product deployment, or broader release planning activities.</p>
+<h3 id="overview-of-the-exercise">Overview of the exercise</h3>
+<p>In this lab, you will:</p>
+<p>I. Stop the queue manager</p>
+<p>II. Optionally rebind the queue sharing group environment</p>
+<p>III. Update the queue manager started task procedures</p>
+<p>IV. Update early code and product libraries where needed</p>
+<p>V. Restart and validate the queue manager</p>
+<h3 id="prerequisites">Prerequisites</h3>
+<p>Before you begin, make sure the following are available:</p>
+<ul>
+<li>The new IBM MQ for z/OS code has already been installed with SMP/E</li>
+<li>You know the high-level qualifier for the new release, for example <code>MQ942CD</code></li>
+<li>You know the queue manager name you are upgrading, for example <code>ZQS1</code></li>
+<li>You have authority to stop and start the queue manager and channel initiator</li>
+<li>You have authority to update <code>SYS1.PROCLIB</code> or the procedure library used by the queue manager</li>
+<li>You know which PARMLIB members, APF definitions, and LPA definitions are active in your environment</li>
+<li>You have a rollback plan in case the queue manager fails to start after the update</li>
+<li>If the queue manager is part of a queue sharing group, you understand whether any Db2 bind or rebind work is required in your environment</li>
+</ul>
+<blockquote>
+<p>Note: This lab uses <code>ZQS1</code> as an example queue manager name and <code>MQ942CD</code> as an example MQ high-level qualifier. Replace those values with the ones used in your environment.</p>
+</blockquote>
 <h3 id="lab-begin">Lab begin</h3>
-<h4 id="i-stop-queue-manager">I. Stop queue manager</h4>
-<p>1. From the ISPF main menu, type 'SDSF' and press Enter. System Display and Search Facility (SDSF) is a utility that allows you to monitor, control, and view the output of jobs in the system.</p>
-<p>2. On the SDSF menu, type '/' and press Enter to access the MVS command line via the System Command Extension.</p>
-<p>3. On the command line, type 'ZQS1 STOP CHINIT'</p>
-<p>4. Next, type 'ZQS1 STOP QMGR'</p>
-<h4 id="ii-optional-re-bind-queue-sharing-group">II. OPTIONAL: Re-bind queue sharing group</h4>
+<h4 id="i-stop-the-queue-manager">I. Stop the queue manager</h4>
+<ol>
+<li>
+<p>From the ISPF main menu, enter <code>SDSF</code> and press Enter.</p>
+</li>
+<li>
+<p>In SDSF, enter <code>/</code> and press Enter to access the MVS command line through the System Command Extension.</p>
+</li>
+<li>
+<p>Stop the channel initiator:</p>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code>ZQS1 STOP CHINIT
+</code></pre></div>
+<ol>
+<li>Stop the queue manager:</li>
+</ol>
+<div class="highlight"><pre><span></span><code>ZQS1 STOP QMGR
+</code></pre></div>
+<ol>
+<li>Confirm in SDSF or the queue manager logs that both address spaces have stopped cleanly before proceeding.</li>
+</ol>
+<h4 id="ii-optional-rebind-queue-sharing-group-objects">II. Optional: rebind queue sharing group objects</h4>
+<ol>
+<li>
+<p>If the queue manager is part of a queue sharing group, review whether any Db2 packages or plans need to be rebound for the new MQ release.</p>
+</li>
+<li>
+<p>Follow your site's documented queue sharing group upgrade procedure for any required bind or rebind activities.</p>
+</li>
+<li>
+<p>If your environment does not require this step, continue to the next section.</p>
+</li>
+</ol>
+<blockquote>
+<p>Note: This step is environment-dependent. Some labs may not require any queue sharing group rebind activity at all.</p>
+</blockquote>
+<h4 id="iii-update-mstr-and-chin-started-tasks">III. Update MSTR and CHIN started tasks</h4>
+<ol>
+<li>
+<p>Locate the started task procedures used by the queue manager, typically in <code>SYS1.PROCLIB</code> or a site-specific procedure library.</p>
+</li>
+<li>
+<p>Find the queue manager <code>MSTR</code> and <code>CHIN</code> procedures. For <code>ZQS1</code>, these are commonly named:</p>
+</li>
+<li>
+<p><code>ZQS1MSTR</code></p>
+</li>
+<li>
+<p><code>ZQS1CHIN</code></p>
+</li>
+<li>
+<p>Edit the <code>MSTR</code> procedure and update the MQ library references so that they point to the new release libraries, for example changing older MQ libraries to <code>MQ942CD...</code> libraries.</p>
+</li>
+<li>
+<p>Edit the <code>CHIN</code> procedure and make the same update to the MQ library references.</p>
+</li>
+<li>
+<p>Review the procedures carefully for references such as:</p>
+</li>
+<li>load libraries</li>
+<li>language environment libraries</li>
+<li>SSL or security-related libraries</li>
+<li>exit libraries</li>
+<li>
+<p>any site-specific overrides</p>
+</li>
+<li>
+<p>Save the updated procedures.</p>
+</li>
+</ol>
+<blockquote>
+<p>Note: If you use a site-specific started task library instead of <code>SYS1.PROCLIB</code>, update the procedures there instead.</p>
+</blockquote>
+<h4 id="iv-update-early-code-and-product-libraries">IV. Update early code and product libraries</h4>
+<ol>
+<li>
+<p>Review whether the new MQ release libraries are correctly APF-authorized.</p>
+</li>
+<li>
+<p>Review whether any MQ modules in the LPA or LPALST need to be updated for the new release.</p>
+</li>
+<li>
+<p>Review whether the subsystem definition for the queue manager still points to the correct initialization routines and load libraries.</p>
+</li>
+<li>
+<p>If your environment uses dynamic definitions, verify that the required MQ modules are available from the new release libraries.</p>
+</li>
+<li>
+<p>If your environment uses static definitions in <code>SYS1.PARMLIB</code>, review the relevant members, such as:</p>
+</li>
+<li><code>LPALSTxx</code></li>
+<li><code>PROGxx</code></li>
+<li>
+<p><code>IEFSSNxx</code></p>
+</li>
+<li>
+<p>Confirm that the active definitions used at IPL time are the ones you expect for the upgraded release.</p>
+</li>
+</ol>
+<blockquote>
+<p>Note: The exact updates required here depend heavily on how your z/OS environment is configured. In some labs, this work may already have been completed as part of the product installation setup.</p>
+</blockquote>
+<h4 id="v-restart-and-validate-the-queue-manager">V. Restart and validate the queue manager</h4>
+<ol>
+<li>Start the queue manager <code>MSTR</code> address space. For example:</li>
+</ol>
+<div class="highlight"><pre><span></span><code>/START ZQS1MSTR
+</code></pre></div>
+<ol>
+<li>After the queue manager initializes successfully, start the channel initiator:</li>
+</ol>
+<div class="highlight"><pre><span></span><code>/START ZQS1CHIN
+</code></pre></div>
+<ol>
+<li>
+<p>Review the JES log, MSTR job log, and CHIN job log for startup messages.</p>
+</li>
+<li>
+<p>Confirm that the queue manager starts successfully on the new release.</p>
+</li>
+<li>
+<p>Use MQ commands to validate that the queue manager is responding normally. For example, verify that basic display commands work and that queue manager attributes can be queried.</p>
+</li>
+<li>
+<p>If client connectivity is used in your environment, confirm that MQ Explorer or another client can still connect successfully.</p>
+</li>
+<li>
+<p>If channels are used in your environment, confirm that the channel initiator is healthy and that expected channels can start.</p>
+</li>
+<li>
+<p>If the queue manager is part of a queue sharing group, verify that it rejoins the group correctly.</p>
+</li>
+</ol>
+<h3 id="validation-checklist">Validation checklist</h3>
+<p>Before considering the upgrade complete, verify the following:</p>
+<ul>
+<li>The old queue manager and channel initiator were stopped cleanly</li>
+<li>The <code>MSTR</code> and <code>CHIN</code> procedures were updated to reference the new MQ release libraries</li>
+<li>Any required APF, LPA, or subsystem updates were reviewed and applied</li>
+<li>The queue manager started successfully on the new release</li>
+<li>The channel initiator started successfully</li>
+<li>Basic MQ administration commands work as expected</li>
+<li>Client or channel connectivity still works if applicable</li>
+<li>Queue sharing group behavior is normal if applicable</li>
+</ul>
+<h3 id="troubleshooting">Troubleshooting</h3>
+<p>If the queue manager does not start correctly after the update, check the following:</p>
+<ul>
+<li>The <code>MSTR</code> and <code>CHIN</code> procedures reference the correct new release libraries</li>
+<li>Required MQ libraries are APF-authorized</li>
+<li>Any LPA or LPALST changes for early code were made correctly</li>
+<li>The subsystem definition still points to the correct MQ initialization routines</li>
+<li>Exit libraries and LE libraries are still available and correctly referenced</li>
+<li>The queue manager was stopped cleanly before the upgrade</li>
+<li>Any queue sharing group bind or rebind work required by your environment was completed</li>
+<li>Site-specific security, SSL, or exit configuration was not accidentally changed</li>
+</ul>
+<p>Common symptoms and causes:</p>
+<ul>
+<li><code>MSTR</code> fails immediately at startup: wrong load library references, missing APF authorization, or missing early code updates</li>
+<li><code>CHIN</code> fails to start: incorrect procedure changes, missing channel-related libraries, or unresolved security or exit library references</li>
+<li>Queue manager starts but clients cannot connect: listener, channel, security, or TLS configuration needs review</li>
+<li>Queue sharing group problems after startup: required Db2 or QSG-specific post-upgrade tasks may be incomplete</li>
+</ul>
+<h3 id="rollback-considerations">Rollback considerations</h3>
+<p>If the queue manager does not start successfully on the new release and you need to back out the change:</p>
+<ol>
+<li>Stop any partially started address spaces.</li>
+<li>Restore the previous <code>MSTR</code> and <code>CHIN</code> procedures.</li>
+<li>Restore any earlier APF, LPA, or subsystem definitions if they were changed.</li>
+<li>Restart the queue manager using the previous release libraries.</li>
+<li>Review logs and correct the upgrade issue before attempting the upgrade again.</li>
+</ol>
+<h3 id="summary">Summary</h3>
+<p>In this lab, you stopped an existing queue manager, updated its runtime procedures to point to a newer IBM MQ for z/OS release, reviewed any early code dependencies, restarted the queue manager, and validated the upgrade.</p>
+<p>This is the core operational workflow for a queue manager upgrade after the product installation work has already been completed.</p>
 
 
 

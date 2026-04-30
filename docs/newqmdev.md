@@ -45,26 +45,26 @@ Once the supporting data sets, procedures, subsystem definition, and security ar
 
 #### I. Copy and tailor the sample JCL
 
-1. Copy the sample members from the IBM MQ installation library. In this environment, the MQ installation uses the high-level qualifier `MQ942CD`. You only need the sample members in `SCSQPROC`. From ISPF option `3.3`, copy all members from:
+1\. Copy the sample members from the IBM MQ installation library. In this environment, the MQ installation uses the high-level qualifier `MQ942CD`. You only need the sample members in `SCSQPROC`. From ISPF option `3.3`, copy all members from:
 
    ```
    MQ942CD.SCSQPROC(*)
    Option ===> C
    ```
 
-2. Use `ZQSX` as the high-level qualifier for the new queue manager library so the copied library becomes `ZQSX.SCSQPROC`.
+2\. Use `ZQSX` as the high-level qualifier for the new queue manager library so the copied library becomes `ZQSX.SCSQPROC`.
 
-3. Type `1` next to option 1 so the new data set is allocated using the attributes of `MQ942CD.SCSQPROC`, then press Enter.
+3\. Type `1` next to option 1 so the new data set is allocated using the attributes of `MQ942CD.SCSQPROC`, then press Enter.
 
-4. Confirm that the members were copied successfully. You should see a message indicating that 113 members were copied into `ZQSX.SCSQPROC`.
+4\. Confirm that the members were copied successfully. You should see a message indicating that 113 members were copied into `ZQSX.SCSQPROC`.
 
-5. From the ISPF main screen, enter `=3.4` on the command line and navigate to the newly created data set.
+5\. From the ISPF main screen, enter `=3.4` on the command line and navigate to the newly created data set.
 
    ![ISPF 3.4 data set list utility with ZQSX.SCSQPROC](assets/newQMdev/new0.png)
 
-6. Press Enter, then browse the library by entering `B` next to the data set name.
+6\. Press Enter, then browse the library by entering `B` next to the data set name.
 
-7. The following members must be customized to create a basic queue manager:
+7\. The following members must be customized to create a basic queue manager:
 
    | JCL member | Description |
    | --- | --- |
@@ -76,7 +76,7 @@ Once the supporting data sets, procedures, subsystem definition, and security ar
    | `CSQ4PAGE` | Creates page sets |
    | `CSQ4ZPRM` | Creates queue manager initiation attributes |
 
-8. Locate and edit `QMEDIT`. Review the REXX EXEC to understand what it customizes. Because it was last used for `ZQS2`, you will see `ZQS2` and older installation values throughout the member.
+8\. Locate and edit `QMEDIT`. Review the REXX EXEC to understand what it customizes. Because it was last used for `ZQS2`, you will see `ZQS2` and older installation values throughout the member.
 
    The REXX EXEC allows you to make repeated substitutions across the sample members. For example:
 
@@ -125,7 +125,7 @@ Once the supporting data sets, procedures, subsystem definition, and security ar
    "change '++NAME++'      'QMGRZPRM' all"
    ```
 
-9. Update the values in `QMEDIT` by issuing these ISPF change commands:
+9\. Update the values in `QMEDIT` by issuing these ISPF change commands:
 
    a. Replace the existing queue manager qualifier:
    ```text
@@ -142,19 +142,19 @@ Once the supporting data sets, procedures, subsystem definition, and security ar
    C '1424' '1425' ALL
    ```
 
-10. These updates tailor the REXX EXEC for this z/OS environment by setting the correct installation qualifier, queue manager name, and listener port.
+10\. These updates tailor the REXX EXEC for this z/OS environment by setting the correct installation qualifier, queue manager name, and listener port.
 
-11. To activate `QMEDIT`, press `F3`, return to the ISPF main menu, select option `6`, and enter:
+11\. To activate `QMEDIT`, press `F3`, return to the ISPF main menu, select option `6`, and enter:
 
    ```text
    ALTLIB ACTIVATE APPLICATION(EXEC) DA('ZQSX.SCSQPROC')
    ```
 
-12. Press Enter. `ALTLIB` activates the REXX EXEC library so that `QMEDIT` can be run against the members you need to customize.
+12\. Press Enter. `ALTLIB` activates the REXX EXEC library so that `QMEDIT` can be run against the members you need to customize.
 
-13. Return to `ZQSX.SCSQPROC` through ISPF option `3.4`.
+13\. Return to `ZQSX.SCSQPROC` through ISPF option `3.4`.
 
-14. Starting with `CSQ4BSDS`, edit each of the following members and run `QMEDIT` from the command line inside the member:
+14\. Starting with `CSQ4BSDS`, edit each of the following members and run `QMEDIT` from the command line inside the member:
 
    - `CSQ4BSDS`
    - `CSQ4CHIN`
@@ -164,13 +164,13 @@ Once the supporting data sets, procedures, subsystem definition, and security ar
    - `CSQ4PAGE`
    - `CSQ4ZPRM`
 
-15. After you run `QMEDIT` in `CSQ4BSDS`, browse through the JCL using `F7` and `F8` to confirm the changes, then press `F3` to save and return to the member list.
+15\. After you run `QMEDIT` in `CSQ4BSDS`, browse through the JCL using `F7` and `F8` to confirm the changes, then press `F3` to save and return to the member list.
 
    > NOTE: You must execute `QMEDIT` in the same session in which you ran the `ALTLIB` command. Otherwise, you will receive the message `QMEDIT not found`.
 
-16. Repeat the same process for the remaining members.
+16\. Repeat the same process for the remaining members.
 
-17. Make an additional customization to `CSQ4PAGE`. Edit the member and issue the following commands:
+17\. Make an additional customization to `CSQ4PAGE`. Edit the member and issue the following commands:
 
    ```text
    C 'VOL=SER' 'STORCLAS' ALL
@@ -182,17 +182,17 @@ Once the supporting data sets, procedures, subsystem definition, and security ar
 
    This changes the sample JCL from explicit volume usage to system-managed storage, which is the preferred approach in this environment.
 
-18. Save `CSQ4PAGE` with `F3`.
+18\. Save `CSQ4PAGE` with `F3`.
 
-19. Edit `CSQ4ZPRM` and issue the following command:
+19\. Edit `CSQ4ZPRM` and issue the following command:
 
    ```text
    C '++HLQ.USERAUTH++' 'ZQS1.USERAUTH' ALL
    ```
 
-20. Edit `CSQ4CHIN`, then enter `F USER EXIT LIBRARY` on the command line to locate the user exit library definitions.
+20\. Edit `CSQ4CHIN`, then enter `F USER EXIT LIBRARY` on the command line to locate the user exit library definitions.
 
-21. Comment out lines 94 and 119 by placing `*` in the first column so they look like this:
+21\. Comment out lines 94 and 119 by placing `*` in the first column so they look like this:
 
    ```text
    000094 //*          DD DSN=++CSFQUAL++.SCSSFMOD0,DISP=SHR
@@ -202,40 +202,40 @@ Once the supporting data sets, procedures, subsystem definition, and security ar
    000119 //* CSQXLIB  DD DSN=++EXITLIB++.DISP=SHR
    ```
 
-22. Press `F3` to save `CSQ4CHIN` and return to the member list.
+22\. Press `F3` to save `CSQ4CHIN` and return to the member list.
 
-23. Optionally, use `SORT CHANGED` from the member list panel to confirm which members were updated.
+23\. Optionally, use `SORT CHANGED` from the member list panel to confirm which members were updated.
 
 #### II. Run jobs to create the bootstrap data sets and page sets
 
-24. Submit `CSQ4BSDS`. This creates the bootstrap data sets for the new queue manager.
+24\. Submit `CSQ4BSDS`. This creates the bootstrap data sets for the new queue manager.
 
-25. Submit `CSQ4PAGE`. This creates the page sets for the queue manager.
+25\. Submit `CSQ4PAGE`. This creates the page sets for the queue manager.
 
-26. Submit `CSQ4ZPRM`. This creates the queue manager initiation attributes.
+26\. Submit `CSQ4ZPRM`. This creates the queue manager initiation attributes.
 
-27. Return to the ISPF main menu and use option `3.4` to view all `ZQSX` libraries.
+27\. Return to the ISPF main menu and use option `3.4` to view all `ZQSX` libraries.
 
-28. Confirm that the new bootstrap and page set data sets now exist alongside `ZQSX.SCSQPROC`. If they do not, review the job output and compare your JCL with a known working queue manager such as `ZQS1`.
+28\. Confirm that the new bootstrap and page set data sets now exist alongside `ZQSX.SCSQPROC`. If they do not, review the job output and compare your JCL with a known working queue manager such as `ZQS1`.
 
 #### III. Add MSTR and CHIN to SYS1.PROCLIB, the started task library
 
-29. Navigate to `SYS1.PROCLIB` using ISPF option `3.4`. You need two members for `ZQSX`: `ZQSXMSTR` and `ZQSXCHIN`.
+29\. Navigate to `SYS1.PROCLIB` using ISPF option `3.4`. You need two members for `ZQSX`: `ZQSXMSTR` and `ZQSXCHIN`.
 
-30. From the ISPF main menu, go to option `3.3` and copy:
+30\. From the ISPF main menu, go to option `3.3` and copy:
 
    - `ZQSX.SCSQPROC(CSQ4MSTR)` to `SYS1.PROCLIB(ZQSXMSTR)`
    - `ZQSX.SCSQPROC(CSQ4CHIN)` to `SYS1.PROCLIB(ZQSXCHIN)`
 
-31. Return to `SYS1.PROCLIB` and verify that both `ZQSXMSTR` and `ZQSXCHIN` exist.
+31\. Return to `SYS1.PROCLIB` and verify that both `ZQSXMSTR` and `ZQSXCHIN` exist.
 
 #### IV. Dynamically add MQ subsystem to MVS
 
-32. Open SDSF by entering `D` on the ISPF command line. In SDSF, enter a slash (`/`) in the command input area and press Enter.
+32\. Open SDSF by entering `D` on the ISPF command line. In SDSF, enter a slash (`/`) in the command input area and press Enter.
 
    ![SDSF command input](assets/newQM/newqmX.png)
 
-33. Dynamically define the MQ subsystem:
+33\. Dynamically define the MQ subsystem:
 
    ```text
    SETSSI ADD,S=ZQSX,I=CSQ3INI,P='CSQ3EPX,ZQSX,S'
@@ -245,7 +245,7 @@ Once the supporting data sets, procedures, subsystem definition, and security ar
 
 #### V. Define subsystem security
 
-34. Return to the ISPF main menu, select option `6`, and use the TSO command line to enter:
+34\. Return to the ISPF main menu, select option `6`, and use the TSO command line to enter:
 
    ```text
    RDEFINE MQADMIN ZQSX.NO.SUBSYS.SECURITY
@@ -253,11 +253,11 @@ Once the supporting data sets, procedures, subsystem definition, and security ar
 
    > NOTE: Never disable subsystem security outside of a controlled lab or workshop environment.
 
-35. In this environment, the definition may already exist. The purpose of this step is to show how subsystem security was configured for the lab.
+35\. In this environment, the definition may already exist. The purpose of this step is to show how subsystem security was configured for the lab.
 
 #### VI. Start the queue manager and channel initiator
 
-36. Return to SDSF and enter the following commands from the MVS command line:
+36\. Return to SDSF and enter the following commands from the MVS command line:
 
    a. Start the queue manager:
    ```text
@@ -274,9 +274,9 @@ Once the supporting data sets, procedures, subsystem definition, and security ar
    ZQSX START LISTENER TRPTYPE(TCP) PORT(1425)
    ```
 
-37. To verify that the queue manager is working, connect to it using MQ Explorer and the listener port you configured in `QMEDIT`.
+37\. To verify that the queue manager is working, check in SDSF that ZQSXMSTR and ZQSXCHIN are actively running in address spaces. Alternatively, connect to the queue manager using MQ Explorer or the MQ Web Console.
 
-38. Congratulations. You have created a queue manager from scratch.
+38\. Congratulations. You have created a queue manager from scratch. 
 
 ### Appendix
 

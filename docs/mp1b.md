@@ -53,23 +53,23 @@ Before you begin, make sure the following are available:
 
 1. MP1B has already been installed in this environment. You can find it by searching for the data set `ZQS1.MP1B.JCL` in ISPF option `3.4`.
 
-   ![Picture of z/OS data set search](assets/mp1b-1.png "Picture of z/OS data set search")
+   ![Picture of z/OS data set search](assets/mp1b/mp1b-1.png "Picture of z/OS data set search")
 
 2. Open MQ Explorer on your Windows desktop.
 
-   ![Picture of MQ Explorer icon](assets/mp1b-2.png "MQ Explorer icon")
+   ![Picture of MQ Explorer icon](assets/mp1b/mp1b-2.png "MQ Explorer icon")
 
 3. In MQ Explorer, right-click the `ZQS1` queue manager and select **Connect**.
 
-   ![Picture of MQ Explorer active queue managers](assets/mp1b-3.png "Picture of MQ Explorer active queue managers")
+   ![Picture of MQ Explorer active queue managers](assets/mp1b/mp1b-3.png "Picture of MQ Explorer active queue managers")
 
 4. Expand `ZQS1`, right-click the **Queues** folder, and create a new local queue called `MP1B.TESTER`.
 
-   ![Picture of creating new queue on MQ Explorer](assets/mp1b-4.png "Picture of creating new queue on MQ Explorer")
+   ![Picture of creating new queue on MQ Explorer](assets/mp1b/mp1b-4.png "Picture of creating new queue on MQ Explorer")
 
 5. Create the queue with the properties shown in the following example:
 
-   ![Display of queue properties](assets/mp1b-5.png "Display of queue properties")
+   ![Display of queue properties](assets/mp1b/mp1b-5.png "Display of queue properties")
 
    > Why make the queue shareable? In a lab environment, shareable queues are convenient because multiple users or tools can browse them.
 
@@ -85,7 +85,7 @@ Before you begin, make sure the following are available:
 
 10. A command prompt like the following should appear:
 
-   ![Display of MVS command prompt](assets/mp1b-6.png "Display of MVS command prompt")
+   ![Display of MVS command prompt](assets/mp1b/mp1b-6.png "Display of MVS command prompt")
 
 11. Enter the following commands one at a time. After each command, you may need to reopen the system command extension window with `/`.
 
@@ -149,7 +149,7 @@ Before you begin, make sure the following are available:
 
 14. Open the `OEMPUT` member by entering `E` next to it.
 
-   ![Screenshot of OEMPUT JCL](assets/mp1b-7.png "Screenshot of OEMPUT JCL")
+   ![Screenshot of OEMPUT JCL](assets/mp1b/mp1b-7.png "Screenshot of OEMPUT JCL")
 
 15. Verify that the queue manager name and queue name are correct in the member.
 
@@ -174,11 +174,11 @@ Before you begin, make sure the following are available:
 
 18. In MQ Explorer, you should now see that `MP1B.TESTER` is populated with many messages.
 
-   ![MQ Explorer display of message depth on queue](assets/mp1b-8.png "MQ Explorer display of message depth on queue")
+   ![MQ Explorer display of message depth on queue](assets/mp1b/mp1b-8.png "MQ Explorer display of message depth on queue")
 
 19. Back in `ZQS1.MP1B.JCL`, open the `SMFDUMP` member and submit it. This job deletes old output if needed and then writes the relevant SMF data to the target data set, which in this environment is `ZQS1.QUEUE.MQSMF.SHRSTRM2`.
 
-   ![SMFDUMP JCL](assets/mp1b-9.png "SMFDUMP JCL")
+   ![SMFDUMP JCL](assets/mp1b/mp1b-9.png "SMFDUMP JCL")
 
 20. To confirm that `SMFDUMP` is processing, use SDSF. From ISPF, enter `=D`.
 
@@ -196,7 +196,7 @@ Before you begin, make sure the following are available:
 
 24. Enter `BOTTOM` on the command line. You should see output similar to the following, indicating that records are being written. You can also confirm this by locating the **SUMMARY ACTIVITY REPORT**.
 
-   ![Picture of SMFDUMP Output: SUMMARY ACTIVITY REPORT](assets/mp1b-10.png "SUMMARY ACTIVITY REPORT")
+   ![Picture of SMFDUMP Output: SUMMARY ACTIVITY REPORT](assets/mp1b/mp1b-10.png "SUMMARY ACTIVITY REPORT")
 
 #### IV. Format and review the SMF data
 
@@ -206,17 +206,17 @@ Before you begin, make sure the following are available:
 
 27. Submit `MQSMFP`.
 
-   ![Picture of MQSMFP JCL](assets/mp1b-11.png)
+   ![Picture of MQSMFP JCL](assets/mp1b/mp1b-11.png)
 
 28. Navigate to the SDSF output for the submitted job. This output presents the SMF data in useful categories and can also be used to generate CSV-style output for later analysis.
 
-   ![Picture of MQSMFP Output](assets/mp1b-12.png)
+   ![Picture of MQSMFP Output](assets/mp1b/mp1b-12.png)
 
 29. Select the **LOG statistics** section by placing an `S` next to it and pressing Enter.
 
 30. Scroll until you see a screen similar to the following:
 
-   ![Picture of Checkpoint count](assets/mp1b-13.png)
+   ![Picture of Checkpoint count](assets/mp1b/mp1b-13.png)
 
 31. Review the `LLCheckpoints` value. In the lab example, it is `1564`. For such a short interval, that is extremely high. In a more typical interval, you would expect the value to be zero or a small single-digit number.
 
@@ -226,7 +226,7 @@ Before you begin, make sure the following are available:
 
 33. The `LOGLOAD` parameter specifies how many log records are written between checkpoints.
 
-   ![Picture of logging schematic](assets/mp1b-14.png)
+   ![Picture of logging schematic](assets/mp1b/mp1b-14.png)
 
 34. In the diagram above, the `LOGLOAD` interval is shown by the blue brackets. In a real environment, a value as low as the one shown in the illustration would be unrealistically small.
 

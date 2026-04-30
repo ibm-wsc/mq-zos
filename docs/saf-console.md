@@ -1,285 +1,417 @@
-# Implementing basic authentication using SAF for the MQ Web Console
+# Implementing Basic Authentication Using SAF for the MQ Web Console
 
 #### **Audience level**
-Some knowledge of MQ, z/OS, Liberty
+Some knowledge of MQ, z/OS, and Liberty
 
 #### **Skillset**
 MQ Administration, z/OS systems programming
 
 #### **Background**
 
-Basic authentication necessitates the use of a username and password to access a resource. MQ Web Console has two methods of basic authentication: using the basic registry and using the SAF registry. This lab covers using the SAF registry. Today's security requirements have moved away from basic authentication towards the use of tokens and passkeys, so this lab should be used for learning purposes in sandbox or lab environments, not production environments. 
+Basic authentication uses a user ID and password to access a resource. The MQ Web Console supports two basic authentication approaches: the basic registry and the SAF registry. This lab covers the SAF registry approach.
 
-### **Overview of exercise**
+Modern production environments often prefer stronger authentication approaches such as tokens, passkeys, or enterprise single sign-on. For that reason, this lab should be treated as a learning exercise for sandbox or lab environments rather than a production deployment pattern.
 
-I. Copy over the zos_saf_registry.xml
+### **Overview of the exercise**
 
-II. Alter the server.xml
+In this lab, you will:
 
-III. Customize the zos_saf_registry.xml
+I. Copy `zos_saf_registry.xml`
 
-IV. Configure RACF
+II. Alter `server.xml`
 
-V. Run the angel process
+III. Customize `zos_saf_registry.xml`
 
-VI. Configure RACF for angel process
+IV. Configure RACF for the MQ Web Console SAF registry
 
-### **Exercise** 
+V. Start the Liberty angel process
 
-#### I.	Copy over the zos_saf_registry.xml
+VI. Configure RACF for the angel process
 
-1\. Type **tso omvs** in your command line from the main ISPF main menu
+VII. Restart and validate the MQ Web Console
 
-2\. Once in OMVS, type ls /usr/lpp/mqm/V9R4M2X/web/mq/samp/configuration. When you press Enter, you should see a list of the XML files in the directory, including basic_registry.xml.
+### Prerequisites
 
-3\. Change directories to /var/mqm/servers/mqweb, and then execute this command:
-```
-cp /usr/lpp/mqm/V9R4MX/web/mq/samp/configuration/zos_saf_registry.xml .
-```
-> Important: Do not miss the last . mark. It specifies you want the copy to be made to the directory you are currently in.
+Before you begin, make sure the following are available:
 
-4\. Enter exit in the command line to quit out of OMVS. Back out of the /MQS1/var/mqm/servers/mqweb directory, and then re-enter it. Now, you should see the zos_saf_registry file in the directory! Browse the zos_saf_registry.xml file using VA to look at what credentials users will be able to use for the MQ Console.
+- IBM MQ for z/OS with the MQ Web Console installed
+- Access to the `mqweb` server configuration directory
+- Authority to edit the Liberty configuration files
+- Authority to define and permit RACF resources in the `APPL`, `EJBROLE`, and `SERVER` classes
+- The user ID under which the MQ Web Console started task runs
+- The SAF profile prefix you intend to use, for example `MQW942`
+- The unauthenticated or pre-authentication user ID you intend to use, for example `MQGUEST`
+- Authority to start the Liberty angel started task and the MQ Web Console started task
 
-#### II. Alter the server.xml
+> Note: This lab uses `MQW942` as the profile prefix and `SYSPROG` as the started task user in examples. Replace those values with the ones used in your environment.
 
-1\. Navigate to the /var/mqm/servers/mqweb directory from option 3.4 in ISPF. In the mqweb directory, several XML files were created. You need to modify these files.
+### **Exercise**
 
-2\. Put an L to the left of the mqweb option to browse its contents. You should see several files. Notice the read-write permissions required here.
+#### I. Copy `zos_saf_registry.xml`
 
-3\. Type EA next to zos_saf_registry.xml to open the XML file in edit mode. An EDIT Entry Panel, like the one shown below, will be displayed. Press Enter twice to continue until you see the code in edit mode.
+1. From the ISPF main menu, enter:
 
-4\. Edit the server.xml file. Replace the line <include location="basic_registry.xml"/> with this line: <include location="zos_saf_registry.xml"/>. Save the XML file, and back out using F3.
+   ```text
+   tso omvs
+   ```
 
-#### III. Customize the zos_saf_registry.xml
+2. In OMVS, list the sample MQ Web Console configuration files:
 
-1\. Navigate to option 3.4 from the ISPF main menu
+   ```text
+   ls /usr/lpp/mqm/V9R4M2X/web/mq/samp/configuration
+   ```
 
-2\. Navigate to the configuration files for the web server from the Dslist search utility. For example:
+   You should see a list of XML files, including `zos_saf_registry.xml`.
 
-```                                                                       
-    Enter one or both of the parameters below:                             
-    Dsname Level . . . /var/mqm/servers/mqweb                           
-    Volume serial  . .       
-```
+3. Change to the `mqweb` server directory and copy the sample SAF registry file into it:
 
-3\. Using F8, scroll to the zos_saf_registry.xml file and using **ea**, enter edit asci mode to modify the XML file.
+   ```text
+   cd /var/mqm/servers/mqweb
+   cp /usr/lpp/mqm/V9R4M2X/web/mq/samp/configuration/zos_saf_registry.xml .
+   ```
 
-4\.  Modify the sample configuration to reflect these changes:
+   > Important: Do not miss the final `.`. It means the file is copied into the current directory.
 
-```
-<server>                                                                
-    <featureManager>                                                    
-        <feature>appSecurity-2.0</feature>                              
-        <feature>zosSecurity-1.0</feature>                              
-        <feature>basicAuthenticationMQ-1.0</feature>                    
-        <feature>apiDiscovery-1.0</feature>                             
-    </featureManager>                                                   
-                                                                         
-    <enterpriseApplication id="com.ibm.mq.console" />                   
-                                                                     
-    <enterpriseApplication id="com.ibm.mq.rest" />                      
-                                                                   
-    <safRegistry id="saf" />                                            
-    <safAuthorization id="saf" reportAuthorizationCheckDetails="true"/> 
-    <safCredentials unauthenticatedUser="MQGUEST" profilePrefix="MQW942" suppressAuthFailureMessages="false"/>    
-    <sslDefault sslRef="mqDefaultSSLConfig"/>     
-</server> 
-```
+4. Type `exit` to leave OMVS.
 
-> Note: You will notice we set the profilePrefix variable to MQW942 to correspond with the version of MQ we are running. You will notice we set the unauthenticatedUser to MQGUEST. Please note, the unauthenticatedUser is more like a pre-authenticated user. The purpose of this parameter is to get users to the login screen before checking their credentials.
+5. Return to the `mqweb` directory in ISPF and confirm that `zos_saf_registry.xml` is now present.
 
-7\. Back out of the zos_saf_registry.xml and enter the mqwebuser.xml in **ea** mode.
+#### II. Alter `server.xml`
 
-8\. Your mqwebuser.xml should look something like:
+6. Navigate to the `/var/mqm/servers/mqweb` directory from ISPF option `3.4`.
 
-```
-<server>                                                  
-    <featureManager>                                         
-        <feature>appSecurity-2.0</feature>                   
-    </featureManager>                                        
-    <webAppSecurity allowFailOverToBasicAuth="true"/>        
-    <webAppSecurity overrideHttpAuthMethod="BASIC"/>         
-    <variable name="httpsPort" value="9443"/>                
-    <variable name="httpHost" value="-1"/>                   
-    <httpEndpoint host="*" httpPort="-1" httpsPost="9443"    
-        id="defaultHttpEndpoint"/>                              
-    <sslDefault sslRef="mqDefaultSSLConfig"/>                
- </server>                                                  
-```
+7. List the contents of the directory and locate `server.xml` and `zos_saf_registry.xml`.
 
- > Note: You may opt to put the configuration for zos_saf_registry and mqwebuser in one file, but in our example we have both files separate to make it easier to switch between basic_registry and zos_saf_registry.
+8. Edit `server.xml`.
 
+9. Replace:
 
-#### IV. Configure RACF
+   ```xml
+   <include location="basic_registry.xml"/>
+   ```
 
-1\. Now that we have our profilePrefix specified, we need to complete the RACF set up. Navigate to the ISPF main menu, then to option 6 for accessing the TSO command line.
+   with:
 
-2\. In the command line enter **RDEFINE APPL profilePrefix UACC(NONE)** to define the mqweb server APPLID to RACF (In our case, this APPLID is MQW942).
+   ```xml
+   <include location="zos_saf_registry.xml"/>
+   ```
 
-3\. Enter the command **PERMIT profilePrefix CLASS(APPL) ACCESS(READ) ID(userID)** for each user that requires READ access to the MQWEB server. You must also grant access to the unauthenticatedUser you specified in the zos_saf_registry.xml. This access means they will be able to get to the login screen on a web browser.
+10. Save `server.xml` and exit.
 
-4\. Enter the command **SETROPTS RACLIST(APPL) REFRESH** to refresh RACF with these updates.
+#### III. Customize `zos_saf_registry.xml`
 
-5\. Next, we want to run the following commands to define the profiles in the EJBROLE class needed to give specific users access to the predefined security roles in the IBM MQ Console and REST API.
+11. Edit `zos_saf_registry.xml` in ASCII mode.
 
+12. Modify the sample configuration so it looks similar to the following:
 
-```
-    RDEFINE EJBROLE profilePrefix.com.ibm.mq.console.MQWebAdmin UACC(NONE)
+   ```xml
+   <server>
+       <featureManager>
+           <feature>appSecurity-2.0</feature>
+           <feature>zosSecurity-1.0</feature>
+           <feature>basicAuthenticationMQ-1.0</feature>
+           <feature>apiDiscovery-1.0</feature>
+       </featureManager>
 
-    RDEFINE EJBROLE profilePrefix.com.ibm.mq.console.MQWebAdminRO UACC(NONE)
+       <enterpriseApplication id="com.ibm.mq.console" />
 
-    RDEFINE EJBROLE profilePrefix.com.ibm.mq.console.MQWebUser UACC(NONE)
+       <enterpriseApplication id="com.ibm.mq.rest" />
 
-    RDEFINE EJBROLE profilePrefix.com.ibm.mq.rest.MQWebAdmin UACC(NONE)
+       <safRegistry id="saf" />
+       <safAuthorization id="saf" reportAuthorizationCheckDetails="true"/>
+       <safCredentials unauthenticatedUser="MQGUEST" profilePrefix="MQW942" suppressAuthFailureMessages="false"/>
+       <sslDefault sslRef="mqDefaultSSLConfig"/>
+   </server>
+   ```
 
-    RDEFINE EJBROLE profilePrefix.com.ibm.mq.rest.MQWebAdminRO UACC(NONE)
+13. Review the key values:
+   - `profilePrefix="MQW942"` identifies the RACF profile prefix used by Liberty and MQ Web
+   - `unauthenticatedUser="MQGUEST"` identifies the user used before full authentication occurs, allowing the login page to be presented
+   - `safAuthorization` enables SAF-based authorization for the web console and REST applications
 
-    RDEFINE EJBROLE profilePrefix.com.ibm.mq.rest.MQWebUser UACC(NONE)
+14. Save the file and exit.
 
-    RDEFINE EJBROLE profilePrefix.com.ibm.mq.rest.MFTWebAdmin UACC(NONE)
+15. Edit `mqwebuser.xml` in ASCII mode and make sure it contains a configuration similar to the following:
 
-    RDEFINE EJBROLE profilePrefix.com.ibm.mq.rest.MFTWebAdminRO UACC(NONE)
-```
+   ```xml
+   <server>
+       <featureManager>
+           <feature>appSecurity-2.0</feature>
+       </featureManager>
+       <webAppSecurity allowFailOverToBasicAuth="true"/>
+       <webAppSecurity overrideHttpAuthMethod="BASIC"/>
+       <variable name="httpsPort" value="9443"/>
+       <variable name="httpHost" value="-1"/>
+       <httpEndpoint host="*" httpPort="-1" httpsPort="9443"
+           id="defaultHttpEndpoint"/>
+       <sslDefault sslRef="mqDefaultSSLConfig"/>
+   </server>
+   ```
 
+16. Save `mqwebuser.xml` and exit.
 
-6\. Now we want to specify which users get permission for actually using the predefined security roles in the MQ Console. For example, an MQ administrator should get read access for the EJBROLE AND for the APPLID MQW942.
+> Note: Some sites choose to keep this configuration in a single file. In this lab, the configuration is kept separate to make it easier to switch between basic registry and SAF registry examples.
 
+#### IV. Configure RACF for the MQ Web Console SAF registry
 
-7\. Run this command as necessary for the appropriate roles and users:
+17. Return to the ISPF main menu and enter option `6` for the TSO command line.
 
+18. Define the application profile for the MQ Web Console using your SAF profile prefix. For example:
 
-`PERMIT profilePrefix.com.ibm.mq.rest.MQWebAdmin CLASS(EJBROLE) ACCESS(READ) ID(userID)`
+   ```text
+   RDEFINE APPL MQW942 UACC(NONE)
+   ```
 
+19. Permit access to users who need to reach the MQ Web login screen, including the unauthenticated user ID specified in `zos_saf_registry.xml`. For example:
 
-8\. Enter the command **SETROPTS RACLIST(APPL) REFRESH** to refresh RACF with these updates.
+   ```text
+   PERMIT MQW942 CLASS(APPL) ACCESS(READ) ID(MQGUEST)
+   PERMIT MQW942 CLASS(APPL) ACCESS(READ) ID(userID)
+   ```
 
-#### III. Run the angel process
+20. Refresh the `APPL` class:
 
-We will need an angel process run alongside our web server started task. What is that? The Liberty angel process is a started task that allows Liberty servers to use z/OS authorized services. Its long-lived and can be shared among your multiple Liberty servers.
+   ```text
+   SETROPTS RACLIST(APPL) REFRESH
+   ```
 
-1\. Navigate to SDSF from the ISPF main menu
+21. Define the `EJBROLE` profiles used for MQ Console and REST security roles:
 
-2\. In the command input line at the top of SDSF, enter the command: **/s mqangel** and press **enter**. For example, it should look like:
-    
-    COMMAND INPUT ===> /s mqangel 
+   ```text
+   RDEFINE EJBROLE MQW942.com.ibm.mq.console.MQWebAdmin UACC(NONE)
+   RDEFINE EJBROLE MQW942.com.ibm.mq.console.MQWebAdminRO UACC(NONE)
+   RDEFINE EJBROLE MQW942.com.ibm.mq.console.MQWebUser UACC(NONE)
+   RDEFINE EJBROLE MQW942.com.ibm.mq.rest.MQWebAdmin UACC(NONE)
+   RDEFINE EJBROLE MQW942.com.ibm.mq.rest.MQWebAdminRO UACC(NONE)
+   RDEFINE EJBROLE MQW942.com.ibm.mq.rest.MQWebUser UACC(NONE)
+   RDEFINE EJBROLE MQW942.com.ibm.mq.rest.MFTWebAdmin UACC(NONE)
+   RDEFINE EJBROLE MQW942.com.ibm.mq.rest.MFTWebAdminRO UACC(NONE)
+   ```
 
-3\. Now, if you navigate to DA under SDSF and set the prefix to MQ*, you should see the angel task running as the address space MQANGEL  
+22. Permit users to the appropriate roles. For example, to allow a user full administrative access to the REST API:
 
-4\. Now, return to the ISPF main menu. Navigate to option 3.4.
+   ```text
+   PERMIT MQW942.com.ibm.mq.rest.MQWebAdmin CLASS(EJBROLE) ACCESS(READ) ID(userID)
+   ```
 
-5\. Navigate to SYS1.PROCLIB
+23. Repeat the necessary `PERMIT` commands for the MQ Console and REST roles required by your users.
 
-6\. From the SYS1.PROCLIB partitioned data set, use the sort command to find MQWEBS. Type e to the left of the MQWEBS member to enter edit mode on the member.
+24. A simple role mapping summary is shown below:
 
-7\. In the JCL, you will notice //STENV and //ZTENV sections. //STENV is getting picked up by the program. ZTENV is not. In general, you can use the STDENV DD statement to specify a z/OS shell script that defines the parameters, environment variables, and other elements needed to start the Java virtual machine (JVM) for an IMS dependent region.
+   | Role | Typical use |
+   | --- | --- |
+   | `MQWebAdmin` | Full administrative access to the MQ Web Console or REST API |
+   | `MQWebAdminRO` | Read-only administrative access |
+   | `MQWebUser` | Basic user access with fewer administrative capabilities |
 
-8\. Make sure the line  IBM_JAVA_OPTIONS=-Dcom.ibm.ws.zos.core.angelName=MQANGEL is copied to be in the //STENV section of the JCL after the LIBPATH declaration.
+24. Refresh the relevant RACF class for these role definitions according to your site standards.
 
-9\. F3 to save and exit the MQWEBS JCL.
+> Note: If `EJBROLE` is RACLISTed in your environment, refresh that class after the updates. The original lab refreshed `APPL` a second time here, but in practice you should make sure the class containing the updated definitions is refreshed.
 
-#### V. Configure RACF for angel process
+#### V. Start the angel process
 
-At this point, if you try to restart the MQ web console, you will likely be blocked! This is because the web console is running with the userid SYSPROG. We need to give this userid access to the appropriate angel process resources on RACF.
+25. The Liberty angel process is a started task that allows Liberty servers to use z/OS authorized services. It is long-lived and can be shared by multiple Liberty servers.
 
-1\. From the ISPF main menu, return to option 6 TSO command line and run the following commands. For the Liberty JVM server to connect to an angel process, create a profile for the angel:
+26. Navigate to SDSF from the ISPF main menu.
 
-    RDEFINE SERVER BBG.ANGEL UACC(NONE) OWNER(SYSPROG)
-    PERMIT BBG.ANGEL CLASS(SERVER) ACCESS(READ) ID(SYSPROG)
+27. In the SDSF command input line, start the angel task:
 
+   ```text
+   /S MQANGEL
+   ```
 
-2\. Next, define a server profile for the named angel process, corresponding to our profilePrefix:
+28. In SDSF `DA`, set the prefix to `MQ*` and confirm that the `MQANGEL` address space is running.
 
-    RDEFINE SERVER BBG.ANGEL.MQW942 UACC(NONE) OWNER(SYSPROG)
-    PERMIT BBG.ANGEL.MQW942 CLASS(SERVER) ACCESS(READ) ID(SYSPROG)
+#### VI. Configure the MQ Web started task for angel usage
 
+29. Return to ISPF option `3.4` and navigate to the procedure library that contains the MQ Web started task, for example `SYS1.PROCLIB`.
 
-3\. Next, define a server profile for the security profilePrefix (MQW942)
+30. Locate the `MQWEBS` procedure and edit it.
 
-```
-RDEFINE SERVER BBG.SECPFX.MQW942 UACC(NONE)
-PERMIT BBG.SECPFX.MQW942 CLASS(SERVER) ACCESS(READ) ID(SYSPROG)
-```
+31. Review the `STDENV` section. Make sure the following Java option is present in the active environment section used by the started task:
 
-4\. Define a server profile for the authorized module BBGZSAFM
+   ```text
+   IBM_JAVA_OPTIONS=-Dcom.ibm.ws.zos.core.angelName=MQANGEL
+   ```
 
-```
-RDEFINE SERVER BBG.AUTHMOD.BBGZSAFM UACC(NONE) OWNER(SYSPROG)
-PERMIT BBG.AUTHMOD.BBGZSAFM CLASS(SERVER) ACCESS(READ) ID(SYSPROG)
-```
+32. Make sure it is placed in the active environment section, not in an unused or commented section.
 
-5\. Define a server profile for SAF authorized user registry services and SAF authorization services (SAFCRED)
+33. Save the procedure and exit.
 
-```
-RDEFINE SERVER BBG.AUTHMOD.BBGZSAFM.SAFCRED UACC(NONE)
-PERMIT BBG.AUTHMOD.BBGZSAFM.SAFCRED CLASS(SERVER) ACCESS(READ) ID(SYSPROG)
-```
+#### VII. Configure RACF for angel process access
 
-6\. Define a server profile and permit WLM services (ZOSWLM)
+34. If you now try to restart the MQ Web Console, it may fail because the started task user ID does not yet have access to the required Liberty angel resources. In the following examples, the MQ Web started task user is `SYSPROG`.
 
-```
-RDEFINE SERVER BBG.AUTHMOD.BBGZSAFM.ZOSWLM UACC(NONE)
-PERMIT BBG.AUTHMOD.BBGZSAFM.ZOSWLM CLASS(SERVER) ACCESS(READ) ID(SYSPROG)
-```
+35. From ISPF option `6`, define a profile for the angel and permit the started task user:
 
-7\. Define a server profile for RRS transaction services (TXRRS)
+   ```text
+   RDEFINE SERVER BBG.ANGEL UACC(NONE) OWNER(SYSPROG)
+   PERMIT BBG.ANGEL CLASS(SERVER) ACCESS(READ) ID(SYSPROG)
+   ```
 
-```
-RDEFINE SERVER BBG.AUTHMOD.BBGZSAFM.TXRRS UACC(NONE)
-PERMIT BBG.AUTHMOD.BBGZSAFM.TXRRS CLASS(SERVER) ACCESS(READ) ID(SYSPROG)
-```
+36. Define a server profile for the named angel process using the same profile prefix concept:
 
-8\. Define a server profile for SVCDUMP services (ZOSDUMP)
+   ```text
+   RDEFINE SERVER BBG.ANGEL.MQW942 UACC(NONE) OWNER(SYSPROG)
+   PERMIT BBG.ANGEL.MQW942 CLASS(SERVER) ACCESS(READ) ID(SYSPROG)
+   ```
 
-```
-RDEFINE SERVER BBG.AUTHMOD.BBGZSAFM.ZOSDUMP UACC(NONE)
-PERMIT BBG.AUTHMOD.BBGZSAFM.ZOSDUMP CLASS(SERVER) ACCESS(READ) ID(SYSPROG)
-```
+37. Define a server profile for the security prefix:
 
-9\. Define a server profile for server optimized local adapter services
+   ```text
+   RDEFINE SERVER BBG.SECPFX.MQW942 UACC(NONE)
+   PERMIT BBG.SECPFX.MQW942 CLASS(SERVER) ACCESS(READ) ID(SYSPROG)
+   ```
 
-```
-RDEFINE SERVER BBG.AUTHMOD.BBGZSAFM.WOLA UACC(NONE) OWNER(SYSPROG)
-PERMIT BBG.AUTHMOD.BBGZSAFM.WOLA CLASS(SERVER) ACCESS(READ) ID(SYSPROG)
-RDEFINE SERVER BBG.AUTHMOD.BBGZSAFM.LOCALCOM UACC(NONE) OWNER(SYSPROG)
-PERMIT BBG.AUTHMOD.BBGZSAFM.LOCALCOM CLASS(SERVER) ACCESS(READ) ID(SYSPROG)
-```
+38. Define a server profile for the authorized module `BBGZSAFM`:
 
-10\. Define a server profile for IFAUSAGE services (PRODMGR)
+   ```text
+   RDEFINE SERVER BBG.AUTHMOD.BBGZSAFM UACC(NONE) OWNER(SYSPROG)
+   PERMIT BBG.AUTHMOD.BBGZSAFM CLASS(SERVER) ACCESS(READ) ID(SYSPROG)
+   ```
 
-```
-RDEFINE SERVER BBG.AUTHMOD.BBGZSAFM.PRODMGR UACC(NONE) OWNER(SYSPROG)
-PERMIT BBG.AUTHMOD.BBGZSAFM.PRODMGR CLASS(SERVER) ACCESS(READ) ID(SYSPROG)
-```
+39. Define a server profile for SAF credential services:
 
-11\. Define a server profile for AsyncIO services (ZOSAIO)
+   ```text
+   RDEFINE SERVER BBG.AUTHMOD.BBGZSAFM.SAFCRED UACC(NONE)
+   PERMIT BBG.AUTHMOD.BBGZSAFM.SAFCRED CLASS(SERVER) ACCESS(READ) ID(SYSPROG)
+   ```
 
-```
-RDEFINE SERVER BBG.AUTHMOD.BBGZSAFM.ZOSAIO UACC(NONE) OWNER(SYSPROG)
-PERMIT BBG.AUTHMOD.BBGZSAFM.ZOSAIO CLASS(SERVER) ACCESS(READ) ID(SYSPROG)
-```
+40. Define a server profile for WLM services:
 
-12\. Define a server profile for the authorized client module BBGZSCFM
+   ```text
+   RDEFINE SERVER BBG.AUTHMOD.BBGZSAFM.ZOSWLM UACC(NONE)
+   PERMIT BBG.AUTHMOD.BBGZSAFM.ZOSWLM CLASS(SERVER) ACCESS(READ) ID(SYSPROG)
+   ```
 
-```
-RDEFINE SERVER BBG.AUTHMOD.BBGZSCFM UACC(NONE) OWNER(SYSPROG)
-PERMIT BBG.AUTHMOD.BBGZSCFM CLASS(SERVER) ACCESS(READ) ID(SYSPROG)
-```
+41. Define a server profile for RRS transaction services:
 
-13\. Define a server profile for the client optimized local adapter services:
+   ```text
+   RDEFINE SERVER BBG.AUTHMOD.BBGZSAFM.TXRRS UACC(NONE)
+   PERMIT BBG.AUTHMOD.BBGZSAFM.TXRRS CLASS(SERVER) ACCESS(READ) ID(SYSPROG)
+   ```
 
-```
-RDEFINE SERVER BBG.AUTHMOD.BBGZSCFM.WOLA UACC(NONE) OWNER(SYSPROG)
-PERMIT BBG.AUTHMOD.BBGZSCFM.WOLA CLASS(SERVER) ACCESS(READ) ID(SYSPROG)
-```
-14\. Finally, refresh the in-storage profiles
-```
-SETROPTS RACLIST(SERVER) REFRESH
-```
+42. Define a server profile for dump services:
 
-15\. Now, you should be set to restart the MQWEBS started task on SDSF and access the MQ Web Console using your RACF credentials in the login screen.
+   ```text
+   RDEFINE SERVER BBG.AUTHMOD.BBGZSAFM.ZOSDUMP UACC(NONE)
+   PERMIT BBG.AUTHMOD.BBGZSAFM.ZOSDUMP CLASS(SERVER) ACCESS(READ) ID(SYSPROG)
+   ```
 
-#### Appendix
+43. Define server profiles for local adapter services:
 
-More information about ANGEL RACF profiles: [IBM Documentation](https://www.ibm.com/docs/en/cics-ts/6.x?topic=SSJL4D_6.x/security/java/security_angel.htm)
+   ```text
+   RDEFINE SERVER BBG.AUTHMOD.BBGZSAFM.WOLA UACC(NONE) OWNER(SYSPROG)
+   PERMIT BBG.AUTHMOD.BBGZSAFM.WOLA CLASS(SERVER) ACCESS(READ) ID(SYSPROG)
 
+   RDEFINE SERVER BBG.AUTHMOD.BBGZSAFM.LOCALCOM UACC(NONE) OWNER(SYSPROG)
+   PERMIT BBG.AUTHMOD.BBGZSAFM.LOCALCOM CLASS(SERVER) ACCESS(READ) ID(SYSPROG)
+   ```
 
+44. Define a server profile for product management services:
+
+   ```text
+   RDEFINE SERVER BBG.AUTHMOD.BBGZSAFM.PRODMGR UACC(NONE) OWNER(SYSPROG)
+   PERMIT BBG.AUTHMOD.BBGZSAFM.PRODMGR CLASS(SERVER) ACCESS(READ) ID(SYSPROG)
+   ```
+
+45. Define a server profile for asynchronous I/O services:
+
+   ```text
+   RDEFINE SERVER BBG.AUTHMOD.BBGZSAFM.ZOSAIO UACC(NONE) OWNER(SYSPROG)
+   PERMIT BBG.AUTHMOD.BBGZSAFM.ZOSAIO CLASS(SERVER) ACCESS(READ) ID(SYSPROG)
+   ```
+
+46. Define a server profile for the authorized client module `BBGZSCFM`:
+
+   ```text
+   RDEFINE SERVER BBG.AUTHMOD.BBGZSCFM UACC(NONE) OWNER(SYSPROG)
+   PERMIT BBG.AUTHMOD.BBGZSCFM CLASS(SERVER) ACCESS(READ) ID(SYSPROG)
+   ```
+
+47. Define a server profile for the client optimized local adapter services:
+
+   ```text
+   RDEFINE SERVER BBG.AUTHMOD.BBGZSCFM.WOLA UACC(NONE) OWNER(SYSPROG)
+   PERMIT BBG.AUTHMOD.BBGZSCFM.WOLA CLASS(SERVER) ACCESS(READ) ID(SYSPROG)
+   ```
+
+48. Refresh the `SERVER` class:
+
+   ```text
+   SETROPTS RACLIST(SERVER) REFRESH
+   ```
+
+#### VIII. Restart and validate MQ Web
+
+49. Restart the MQ Web Console started task from SDSF.
+
+50. Open the MQ Web Console in a browser and confirm that the login screen appears.
+
+51. Sign in using a permitted RACF user ID and password.
+
+52. Confirm that the user can access the MQ Console or REST API functions allowed by the assigned `EJBROLE` profiles.
+
+### Validation checklist
+
+Before considering the lab complete, confirm the following:
+
+- `zos_saf_registry.xml` was copied into the `mqweb` server directory
+- `server.xml` includes `zos_saf_registry.xml`
+- `zos_saf_registry.xml` contains the correct `profilePrefix` and `unauthenticatedUser`
+- RACF `APPL` profiles were created and permitted correctly
+- RACF `EJBROLE` profiles were created and permitted correctly
+- `MQANGEL` is running
+- The `MQWEBS` started task environment includes the angel Java option
+- RACF `SERVER` profiles for angel access were defined and refreshed
+- The MQ Web Console starts successfully
+- A permitted RACF user can log in successfully
+
+### Troubleshooting
+
+If the MQ Web Console does not work as expected, check the following:
+
+- The sample file was copied from the correct MQ version directory
+- `server.xml` includes `zos_saf_registry.xml` and not `basic_registry.xml`
+- `mqwebuser.xml` contains a valid `httpsPort` attribute and valid XML syntax
+- The `profilePrefix` in the XML matches the RACF profile names you created
+- The `unauthenticatedUser` exists and has the required `APPL` access
+- The MQ Web started task user has access to the required `SERVER` class profiles
+- `MQANGEL` is running
+- The Java option for the angel process is in the active `STDENV` section
+- The correct RACF classes were refreshed after updates
+- The MQ Web started task was restarted after configuration changes
+
+Common symptoms and causes:
+
+- Login page does not appear: MQ Web did not start, XML is invalid, or HTTPS endpoint configuration is broken
+- Login page appears but authentication fails for all users: `APPL` profile, SAF registry, or `profilePrefix` configuration is wrong
+- Login works but authorization is wrong: `EJBROLE` definitions or `PERMIT` commands are incomplete
+- MQ Web fails after angel changes: `MQANGEL` is not running, `SERVER` profiles are missing, or the Liberty JVM option is not active
+- XML edit causes startup failure: the file was not edited in ASCII mode, or a syntax error was introduced
+
+### Cleanup or rollback
+
+If you want to back out the change and return to the basic registry example:
+
+1. Edit `server.xml` and replace:
+
+   ```xml
+   <include location="zos_saf_registry.xml"/>
+   ```
+
+   with:
+
+   ```xml
+   <include location="basic_registry.xml"/>
+   ```
+
+2. Remove or ignore the SAF registry XML file if it is no longer needed.
+
+3. Back out the RACF definitions according to your site's standards if they were created only for this lab.
+
+4. Restart the MQ Web Console.
+
+### Appendix
+
+More information about angel RACF profiles: [IBM Documentation](https://www.ibm.com/docs/en/cics-ts/6.x?topic=SSJL4D_6.x/security/java/security_angel.htm)

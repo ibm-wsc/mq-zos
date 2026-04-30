@@ -48,7 +48,7 @@ Before you begin, make sure you have the following:
 
 1. In the `TEAMXX.MQPERF.LOG.JCL` PDS, where `TEAMXX` is your assigned team ID, select the `DEFQLOG` member. This job defines the queues that are used later in the lab.
 
-   ![Queue definition job](image-13.png)
+   ![Queue definition job](assets/logging/image-13.png)
 
 2. Use a global change command to replace the `++...++` variables as described in the JCL comments:
 
@@ -78,13 +78,13 @@ Before you begin, make sure you have the following:
 
 6. Select the job and use the question mark to display the list of output files.
 
-   ![SDSF output list](image-14.png)
+   ![SDSF output list](assets/logging/image-14.png)
 
 7. Open the relevant output. Confirm that the queues were actually created successfully. This is important because, in some cases, the job can end with return code zero even though the queue definitions were not applied as expected.
 
    The output should look similar to this:
 
-   ![Successful queue definition output](image-15.png)
+   ![Successful queue definition output](assets/logging/image-15.png)
 
 #### II. Put a persistent message
 
@@ -114,7 +114,7 @@ Before you begin, make sure you have the following:
 
 12. Review the output in `SDSF.ST`. The `SYSPRINT` output should look similar to the following example:
 
-   ![LOGPUT output](image-16.png)
+   ![LOGPUT output](assets/logging/image-16.png)
 
 13. Open MQ Explorer. If you do not yet see queue managers such as `QML1` or `QML2`, use the appendix at the end of this lab to add them.
 
@@ -122,15 +122,15 @@ Before you begin, make sure you have the following:
 
 15. Right-click the message and select **Properties**. This should open a panel like the following:
 
-   ![Message properties](image-17.png)
+   ![Message properties](assets/logging/image-17.png)
 
 16. Select the **Identifiers** tab and view the message ID.
 
-   ![Message ID part 1](image-18.png)
+   ![Message ID part 1](assets/logging/image-18.png)
 
 17. Scroll to the right to display the remaining message identifier bytes.
 
-   ![Message ID part 2](image-19.png)
+   ![Message ID part 2](assets/logging/image-19.png)
 
 18. Close the panel.
 
@@ -146,7 +146,7 @@ Before you begin, make sure you have the following:
 
 22. Review the output in `SDSF.ST`. The `SYSPRINT` output should look similar to the following example:
 
-   ![LOGGET output](image-20.png)
+   ![LOGGET output](assets/logging/image-20.png)
 
 23. Confirm that the total number of messages retrieved is `1`. Return to MQ Explorer and verify that the current queue depth is now `0`.
 
@@ -162,7 +162,7 @@ Before you begin, make sure you have the following:
 
    a. In MQ Explorer, display the storage classes. It should look similar to the following:
 
-   ![Storage classes](image-21.png)
+   ![Storage classes](assets/logging/image-21.png)
 
    b. Match the name of the storage class used by your queue to the page set ID. In the example shown in the original lab, the page set associated with `STGCLS09` is `51`.
 
@@ -176,11 +176,11 @@ Before you begin, make sure you have the following:
 
    The output should look similar to the following example:
 
-   ![SDSF DA panel](image-22.png)
+   ![SDSF DA panel](assets/logging/image-22.png)
 
 29. Expand the MSTR output for your queue manager and select the `JESMSGLG` output. The results should look similar to the following:
 
-   ![JESMSGLG output](image-23.png)
+   ![JESMSGLG output](assets/logging/image-23.png)
 
 30. Navigate to the bottom of the output by using the `BOT` command.
 
@@ -192,7 +192,7 @@ Before you begin, make sure you have the following:
 
 32. At the end of the display log report, identify the current active log. An example is shown below:
 
-   ![Display log output](image-24.png)
+   ![Display log output](assets/logging/image-24.png)
 
 33. Use the last node of the current log name to replace the `++LOGNAME++` variable. In the example shown, that value is `DS001`.
 
@@ -208,13 +208,13 @@ Before you begin, make sure you have the following:
 
 37. The beginning of the output should look similar to the following:
 
-   ![CSQ1LOGP output start](image-25.png)
+   ![CSQ1LOGP output start](assets/logging/image-25.png)
 
    > Note: In the **SEARCH CRITERIA** section, the page set is displayed in hexadecimal.
 
 38. Scroll through the output and confirm that you can see the message data, similar to the following example:
 
-   ![Extracted message data](image-26.png)
+   ![Extracted message data](assets/logging/image-26.png)
 
 #### VI. Replay the message
 
@@ -224,7 +224,7 @@ Before you begin, make sure you have the following:
 
 41. Review the `SYSPRINT` output. It should describe the replay actions taken and should look similar to the following:
 
-   ![CSQ4LOGS output](image-27.png)
+   ![CSQ4LOGS output](assets/logging/image-27.png)
 
 42. Return to MQ Explorer and verify that the queue depth is back to `1`.
 
@@ -278,18 +278,18 @@ If your workshop environment provides cleanup JCL, use that instead of deleting 
 
 1. Right-click the **Queue Managers** folder and select **Add Remote Queue Manager**.
 
-   ![Add remote queue manager](image-28.png)
+   ![Add remote queue manager](assets/logging/image-28.png)
 
 2. Enter `QML1` and select **Connect directly**. Then click **Next**.
 
-   ![Add QML1](image-29.png)
+   ![Add QML1](assets/logging/image-29.png)
 
 3. Enter `mpx1` for the host name or IP address and `1417` as the port number. Then click **Finish**.
 
-   ![QML1 connection details](image-30.png)
+   ![QML1 connection details](assets/logging/image-30.png)
 
 4. Repeat the steps for `QML2`, using `mpx2` as the host name and `1418` as the port.
 
 5. The queue manager list should now include both z/OS queue managers used for this lab.
 
-   ![Queue manager list](image-31.png)
+   ![Queue manager list](assets/logging/assets/logging/image-31.png)

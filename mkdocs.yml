@@ -4,7 +4,7 @@ nav:
   - Basic SAF Authentication for MQ Console: saf-console.md
   - Configuring SAF Key Rings for MQ Console: saf-keyrings.md
   - Certificate Management Lab: certificates.md
-  - Configuring a New Queue Manager Lab: new-queue-manager.md
+  - Configuring a New Queue Manager Lab: newqmdev.md
   - Connectivity to Lab Environment: connectivity.md
   - Comparing Offloading Lab: comparing-offloading.md
   - Kafka via Bindings Mode Lab: kafka-bindings.md

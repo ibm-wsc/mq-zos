@@ -1,146 +1,168 @@
-# Configuring triggering on MQ for z/OS
+# Configuring Triggering on IBM MQ for z/OS
+
 #### Audience level
-Some knowledge of MQ, z/OS, CICS
+Some knowledge of MQ, z/OS, and CICS
+
 #### Skillset
 MQ Administration
 
 #### Background
 
-The purpose of this lab is to give you a hands-on introduction to triggering. Triggering can be used to:
+The purpose of this lab is to provide a hands-on introduction to MQ triggering. Triggering can be used to:
 
-- Automatically start a channel when messages arrive on its transmission queue.
-- Automatically start a CICS transaction to process messages on a queue.
+- Automatically start a channel when messages arrive on its transmission queue
+- Automatically start a CICS transaction to process messages on a queue
 
-This lab walks you through an example of the latter, using a simple example CICS program called QCOPY. The QCOPY program is executed from the QCPY transaction. When the necessary conditions are met, QCPY is triggered (or automatically started) to move messages from one queue to another in MQ, applying a message property to each message. 
+This lab demonstrates the second use case by using a simple example CICS program called `QCOPY`. The `QCOPY` program is executed from the `QCPY` transaction. When the required triggering conditions are met, `QCPY` is started automatically to move messages from one queue to another in MQ and apply a message property to each message.
 
-#### Lab Overview
+#### Lab overview
 
-I. Defining MQ Objects for Triggering
+This lab has three parts:
+
+I. Defining MQ objects for triggering
 
 II. Configuring CICS components
 
-III. Testing it all out
+III. Testing the solution
 
+In parts I and II, you will configure the MQ and CICS objects required for triggering. In part III, you will test the end-to-end flow.
 
-In part I and II of the lab, we will walk through the configuration for triggering, and in part III, we will validate it works. 
+By the end of this lab, you should understand how MQ triggering with CICS is configured so you can adapt the pattern to your own use cases.
 
-By the end of this lab, you should have an understanding of how triggering is configured, so you can implement it for our own use cases.
-
-The sample requires a currently supported version of IBM MQ and CICS. You can find the COBOL source code for the QCOPY program in ZQS1.COBOL.SOURCE if you are using the MQPLEX lab environment. If you need access to a lab sysplex, contact the Washington Systems Center or your IBM technical sales contact.
+This sample requires a currently supported version of IBM MQ and CICS. If you are using the MQPLEX lab environment, the COBOL source for the `QCOPY` program is available in `ZQS1.COBOL.SOURCE`. If you need access to a lab sysplex, contact the Worldwide Systems Center or your IBM technical sales contact.
 
 #### Procedure
 
-### I. Defining MQ Objects for Triggering
+### I. Defining MQ objects for triggering
 
-1.	Navigate to the MQ web console. You can also use MQ Explorer or MQSC commands via PCOMM.
+1. Navigate to the MQ web console. You can also use MQ Explorer or MQSC commands through PCOMM if preferred.
 
-1.	Create the 5 local queues below, using the pictures to guide which parameters to set.
+2. Create the following five local queues. Use the screenshots to guide the parameter settings.
 
-    *QCPY.CONTROL - This queue contains the message used to start the QCPY transaction. For QCPY, the message payload will contain, in comma delimited format: the number of messages to be copied, the source queue, the target queue*
-    ![Picture of QCPY.CONTROL parameters](TRIG1.png)
-    
-    *QCPY.INPUT - The source of the messages to be copied.*
-    ![Picture of QCPY.INPUT parameters](TRIG2.png)
+   **`QCPY.CONTROL`**
+   This queue contains the trigger message used to start the `QCPY` transaction. For `QCPY`, the message payload contains, in comma-delimited format, the number of messages to copy, the source queue, and the target queue.
+   ![Picture of QCPY.CONTROL parameters](assets/triggering/TRIG1.png)
 
-    *QCPY.OUTPUT – The target for the copied messages.*	
-    ![Picture of QCPY.OUTPUT parameters](TRIG2.png)
+   **`QCPY.INPUT`**
+   The source queue for the messages to be copied.
+   ![Picture of QCPY.INPUT parameters](assets/triggering/TRIG2.png)
 
-    *QCPY.STATUS – The queue which will hold the status messages, reporting on success or failure.*
-    ![Picture of QCPY.STATUS parameters](TRIG2.png)
+   **`QCPY.OUTPUT`**
+   The target queue for the copied messages.
+   ![Picture of QCPY.OUTPUT parameters](assets/triggering/TRIG2.png)
 
-    *CICS.INITQ - The initiation queue to connect CICS to MQ for triggering purposes*
-    ![Picture of CICS.INITQ parameters](image-11.png)
+   **`QCPY.STATUS`**
+   The queue that receives status messages indicating success or failure.
+   ![Picture of QCPY.STATUS parameters](assets/triggering/TRIG2.png)
 
-1. Next navigate to MQS1 PCOMM.
+   **`CICS.INITQ`**
+   The initiation queue used to connect CICS to MQ for triggering.
+   ![Picture of CICS.INITQ parameters](assets/triggering/image-11.png)
 
-1. Navigate to SDSF from the ISPF main menu.
+3. Next, navigate to the `MQS1` PCOMM session.
 
-1. Define a process using the MQSC command below on SDSF. A process is an MQ object that defines an application to the MQ Queue Manager. MQ will use the process definition to identify our CICS application, QCPY, to be started by a trigger monitor.
+4. From the ISPF main menu, navigate to SDSF.
 
-a.	Here, we’ll specify CICS as our application
+5. Define a process using the MQSC command shown in the screenshot below. A process is an MQ object that identifies an application to the queue manager. MQ uses the process definition to identify the CICS application, `QCPY`, that should be started by the trigger monitor.
 
-b.	'QCPY' is our application ID. This is the transaction name in CICS.
+   - Specify `CICS` as the application type
+   - Specify `QCPY` as the application ID; this is the CICS transaction name
+   - Use the environment data to identify the status queue, which reports the result of processing
 
-c.	Environment data is status queue which tells us what happen at the end of the process.
-
-*QCPY.PROCESS*
-![Picture of QCPY.PROCESS](image-7.png)
+   **`QCPY.PROCESS`**
+   ![Picture of QCPY.PROCESS](assets/triggering/image-7.png)
 
 ### II. Configuring CICS components
 
-1.	Now, ensure CICS is running. Test this via SDSF from the ISPF main menu.
+6. Ensure that CICS is running. You can verify this from SDSF.
 
-1.	Navigate to ‘da’ once in the SDSF menu to see active users.
+7. In SDSF, enter `DA` to display active address spaces.
 
-1.	Set the prefix to * so we can see all active users with the command ‘prefix *’. Then, using the F7 and F8 keys, navigate to see if CICS is running. You should see something like this:
+8. Set the prefix to `*` by entering:
 
-![Picture of SDSF CICS address space](image-12.png)
+   ```text
+   PREFIX *
+   ```
 
-1.	If there is no CICS region active, you will need to start the CICS region with command ‘start MQS1CICS’
+   Then use `F7` and `F8` to look for the active CICS region. You should see something similar to the following:
 
-1.	Once you've validated CICS is running, navigate to the CICS display by starting another MQS1 PCOMM session. From the main screen, use the MQS1CICS command and press enter.
+   ![Picture of SDSF CICS address space](assets/triggering/image-12.png)
 
-![MQS1 PCOMM login page](image-8.png)
+9. If no CICS region is active, start it with:
 
-1.	From the CICS main screen, hit tab once, then type in CKQC. This is the MQ CICS transaction CKQC. This transaction makes it possible to monitor and control the interface between MQ and CICS.
+   ```text
+   START MQS1CICS
+   ```
 
-1.	Currently, no one is listening, so we’ll need to add a listener to CICS01.INITQ. From z/OS CICS screen, navigate to CKQCM0 by typing in the command.
+10. Once you have confirmed that CICS is running, start another `MQS1` PCOMM session. From the main screen, enter `MQS1CICS` and press Enter.
 
-![CICS homepage](image-2.png)
+    ![MQS1 PCOMM login page](assets/triggering/image-8.png)
 
-1.	This screen should pop up. 
+11. From the CICS main screen, press Tab once and type `CKQC`. This is the MQ CICS transaction used to monitor and control the interface between MQ and CICS.
 
-![CKQC](image-3.png)
+12. If no trigger monitor is active, you will need to add a listener for `CICS.INITQ`. From the CICS screen, navigate to `CKQCM0` by typing the command.
 
-1.	Enter the tab or tab button with your cursor next to the Connection option. The following menu will pop up. Type in option 1 and press enter.
+    ![CICS homepage](assets/triggering/image-2.png)
 
-![CKQC option menu](image-4.png)
+13. The following screen should appear:
 
-1. Enter in your appropriate queue manager name and initiation queue name and press enter.
+    ![CKQC](assets/triggering/image-3.png)
 
-1. Press F12 to return to the main menu. Move your cursor next to CKTI option and press enter. The following menu will pop up. Type in option 1 and press enter.
+14. Move the cursor to the **Connection** option, then press Enter. When the menu appears, type option `1` and press Enter.
 
-1.	Enter in your appropriate queue queue name and press enter.
+    ![CKQC option menu](assets/triggering/image-4.png)
 
-![initiation queue name](image-5.png)
-    
-This step initiates the CKTI transaction, which is what controls the CICS trigger monitor.
+15. Enter the appropriate queue manager name and initiation queue name, then press Enter.
 
-![confirmation message](image-6.png)
+16. Press `F12` to return to the main menu. Move the cursor to the **CKTI** option and press Enter. When the menu appears, type option `1` and press Enter.
 
-1. F12 to escape. If you display your connection or CKTI using the menu options, you should see the appropriate initiation queue linked, similarly to the examples below. You will also now see that your CICS.INITQ in MQ has a open input count of 1.
+17. Enter the appropriate initiation queue name and press Enter.
 
-Connection display:
-![Connection display](image-10.png)
+    ![initiation queue name](assets/triggering/image-5.png)
 
-CKTI display:
-![CKTI display](image-9.png)
+    This step starts the `CKTI` transaction, which controls the CICS trigger monitor.
 
-### III. Testing it out
+    ![confirmation message](assets/triggering/image-6.png)
 
-1.	Now, we have all of our necessary objects (queues and process) configured, we have our connection between MQ and CICS configured, so we are all set to test out triggering. 
+18. Press `F12` to exit. If you display the connection or `CKTI` definition using the menu options, you should see the initiation queue associated correctly, similar to the examples below. You should also see that `CICS.INITQ` in MQ now has an open input count of `1`.
 
-1. Navigate to the web console. Once in the web console, navigate to the QCPY.INPUT queue. 
+    Connection display:
+    ![Connection display](assets/triggering/image-10.png)
 
-1. Place several test messages on the QCPY.INPUT queue. Place at least 5 messages on the queue. The message payload can be any text you'd like.
+    CKTI display:
+    ![CKTI display](assets/triggering/image-9.png)
 
-1. Now, put a test message on QCPY.CONTROL. The message MUST be in the format below: 
+### III. Testing the solution
 
-`
-2,QCPY.INPUT,QCPY.OUTPUT
-`
-where 2 is the number of messages you want to copy, QCPY.INPUT is the input queue, and QCPY.OUTPUT is the output queue.
- 
-This message requests that MQ copies 2 messages from QCPY.INPUT to QCPY.OUTPUT. After you submit this, check it worked by looking at the queue depths of QCPY.INPUT an QCPY.OUTPUT. QCPY.INPUT should have 2 less messages, QCPY.OUTPUT should have 2 more messages.
+19. At this point, the required MQ objects and CICS configuration should be in place, so you are ready to test the triggering flow.
 
-1. Next, look at the QCPY.STATUS messages. You should see a new message on the queue confirming the QCPY was successful:
+20. Return to the MQ web console and navigate to the `QCPY.INPUT` queue.
 
-`
-MESSAGES COPIED  =  000002 
-FROM QUEUE =       QCPY.INPUT
-TO QUEUE =         QCPY.OUTPUT
-`
+21. Put several test messages onto `QCPY.INPUT`. Add at least five messages. The message payload can contain any text.
 
-1.	Congratulations! You have successfully used a CICS application for triggering! To recap, we created all the necessary objects and ran an experiment to copy messages from our source queue to our target queue, seen below.
+22. Now put a control message onto `QCPY.CONTROL`. The message must be in the following format:
 
-![Picture of triggering process](assets/trigdiagram.png)
+   ```text
+   2,QCPY.INPUT,QCPY.OUTPUT
+   ```
+
+   In this example:
+   - `2` is the number of messages to copy
+   - `QCPY.INPUT` is the source queue
+   - `QCPY.OUTPUT` is the target queue
+
+   This message requests that MQ copy two messages from `QCPY.INPUT` to `QCPY.OUTPUT`.
+
+23. After submitting the control message, verify the result by checking the queue depths of `QCPY.INPUT` and `QCPY.OUTPUT`. `QCPY.INPUT` should have two fewer messages, and `QCPY.OUTPUT` should have two more messages.
+
+24. Next, look at the messages on `QCPY.STATUS`. You should see a status message confirming that `QCPY` completed successfully, for example:
+
+   ```text
+   MESSAGES COPIED  =  000002
+   FROM QUEUE =       QCPY.INPUT
+   TO QUEUE =         QCPY.OUTPUT
+   ```
+
+25. Congratulations. You have successfully used a CICS application with MQ triggering. In this lab, you created the necessary MQ objects, configured the MQ-to-CICS connection, and verified that triggered processing copied messages from a source queue to a target queue.
+
+   ![Picture of triggering process](assets/triggering/trigdiagram.png)

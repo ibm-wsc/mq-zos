@@ -34,7 +34,7 @@ VI.	Start the queue manager and channel initiator
 
 #### I. Copy and tailor the sample JCL
 
-1.	We will start with copying the members from the IBM MQ code installation. All the IBM MQ installation will be under the high level qualifier MQ942CD. We are only interested in the sample code here, under SCSQPROC. (*) specifies we want all the members in the SCSQPROC dataset. Go to option =3.3.
+1.	First, copy the sample members from the IBM MQ installation. All the IBM MQ installation will be under the high level qualifier MQ942CD. It is only necessary to copy the sample definitions under SCSQPROC. These samples are provided by the product to define MQ objects for various purposes. (*) specifies we want all the members in the SCSQPROC dataset. Go to option =3.3.
 
 ```
 MQ942CD.SCSQPROC(*)
@@ -85,23 +85,23 @@ b.	Enter the command
 
 c.	Enter the command 
 
-C ‘1424’ ‘1425’ ALL
+```C ‘1424’ ‘1425’ ALL```
 
 on the command line and press enter so there isn’t a port number overlap with ZQS2.
 
-12.	By entering the above commands, we’re customizing the REXX exec to the data sets of this particular z/OS environment.
+12\.	By entering the above commands, we’re customizing the REXX exec to the data sets of this particular z/OS environment.
  
-13.	Now, our REXX exec should be ready to use because it has the correct version of MQ specified, our desired queue manager name, our desired storage areas, and English. Each of those things need to be specified from the original sample code.
+13\.	Now, our REXX exec should be ready to use because it has the correct version of MQ specified, our desired queue manager name, our desired storage areas, and English. Each of those things need to be specified from the original sample code.
 
-14.	We need to activate the QMEDIT code to be able to go through our relevant members and customize them quickly. Use F3, return to the ISPF main menu and enter option 6. Enter this command:
+14\.	We need to activate the QMEDIT code to be able to go through our relevant members and customize them quickly. Use F3, return to the ISPF main menu and enter option 6. Enter this command:
 
 ```===> ALTLIB ACTIVATE APPLICATION(EXEC) DA('ZQSX.SCSQPROC')```
  
-15.	Press enter. With ALTLIB, a user or ISPF application can easily activate and deactivate CLIST and REXX exec libraries as the need arises. We are activating the REXX exec library of QMEDIT here to automate customization.
+15\.	Press enter. With ALTLIB, a user or ISPF application can easily activate and deactivate CLIST and REXX exec libraries as the need arises. We are activating the REXX exec library of QMEDIT here to automate customization.
 
-16.	From the ISPF main menu, navigate back to the ZQSX.SCSQPROC members via option 3.4.
+16\.	From the ISPF main menu, navigate back to the ZQSX.SCSQPROC members via option 3.4.
 
-17.	Starting with CSQ4BSDS, we will customize:
+17\.	Starting with CSQ4BSDS, we will customize:
 
 a.	CSQ4BSDS
 
@@ -173,7 +173,7 @@ f.	CSQ4ZPRM
  
 33.	Once you Press enter, you should now see boot strap data set and page set files set up along with our original ZQSX.SCSQPROC data set. If you do not see the new data sets, something has failed in your JCL and you will need to debug. We recommend comparing the BSDS and PAGE JCL to the JCL of a working queue manager, for example, ZQS1.
 
-III. Add MSTR and CHIN to SYS1.PROCLIB, the started task library
+#### III. Add MSTR and CHIN to SYS1.PROCLIB, the started task library
 
 34.	Now, we have to edit SYS1.PROCLIB. Navigate to SYS1.PROCLIB using 3.4 on the ISPF menu. SYS1.PROCLIB needs to contain two members for ZQSX, ZQSXMSTR and ZQSXCHIN. We can add these two members by copying our CSQ4MSTR and CSQ4CHIN and renaming them.
 
@@ -213,11 +213,17 @@ NOTE! Never turn off security outside of workshop lab environments.
 
 43.	Return to the SDSF command window and input the commands into the MVS command line:
 
-a.	Start up our queue manager ZQSX with the command: ZQSX START QMGR
+a.	Start up our queue manager ZQSX with the command: 
 
-b.	Start up the channel initiator with the command: ZQSX START CHINIT
+```ZQSX START QMGR```
 
-c.	Start up the listener with the command: ZQSX start listener TRPTYPE(TCP) Port(1425)
+b.	Start up the channel initiator with the command: 
+
+```ZQSX START CHINIT```
+
+c.	Start up the listener with the command: 
+
+```ZQSX start listener TRPTYPE(TCP) Port(1425)```
 
 44.	To verify that your queue manager has been set up, you can navigate to MQ Explorer and test the connection. You will use the port number you specified in the REXX exec.
 
@@ -231,28 +237,57 @@ c.	Start up the listener with the command: ZQSX start listener TRPTYPE(TCP) Port
 
 • Check APF authorized libraries by entering the command /DISPLAY PROG,APF from the SDSF command input then going to the log. 
 
-    APF authorized libraries must be:
+APF authorized libraries must be:
 
-        o	MQ941CD.SCSQANLE
+o	MQ941CD.SCSQANLE
 
-        o	MQ941CD.SCSQAUTH
+o	MQ941CD.SCSQAUTH
 
-        o	MQ941CD.SCSQMVR1
+o	MQ941CD.SCSQMVR1
 
- > NOTE: You may see several LPALST## PROG##, and IEFSSN## members. You want to use the ones specified in the SYS1.PARMLIB(IEASYS##). You can find the IEASYS## member by entering the command /D IPLINFO from the SDSF command input. It will show a screen like this:
+> NOTE: You may see several LPALST## PROG##, and IEFSSN## members. You want to use the ones specified in the SYS1.PARMLIB(IEASYS##). You can find the IEASYS## member by entering the command /D IPLINFO from the SDSF command input. It will show a screen like this:
  
+ ```
+  COMMAND INPUT ===>                                            S
+ RESPONSE=MQS1                                                  
+  IEE254I  09.34.43 IPLINFO DISPLAY 726                         
+   SYSTEM IPLED AT 09.55.40 ON 03/10/2026                       
+   RELEASE z/OS 03.02.00    LICENSE = z/OS                      
+   USED LOADMQ IN SYS0.IPLPARM ON 0A04C                         
+   ARCHLVL = 2   MTLSHARE = N                                   
+   VALIDATED BOOT: NO                                           
+   SOFTWARE INSTANCE UUID: bbb756c7-a3ea-40c4-b037-79a73b324536 
+   IEASYM LIST = XX                                             
+   IEASYS LIST = (00) (OP)                                      
+   IODF DEVICE: ORIGINAL(0A04C) CURRENT(0A04C)                  
+   IPL DEVICE: ORIGINAL(0A472) CURRENT(0A472) VOLUME(Z32RD1)    
+   VM CPID = z/VM    7.3.0                                      
+   VM UUID IS NOT PROVIDED                                      
+   VM NAME = MQS1                                               
+   VM EXT NAME IS NOT PROVIDED                                  
+   ```
+
+
 • Looking to permanently make updates to your LPALST## member?
 
 o	Add code like this:
     
 •	Looking to permanently make updates to your IEFSSN## member?
 
- a.	Add code like this:
+a.	Add code in the format of:
     
-    •	Looking to permanently make updates to your PROG## member?
+    ```
+    SUBSYS SUBNAME(ZQSX) INITRTN(CSQ3INI) INIPARM('CSQ3EPX,ZQSX,S')
+    ```
 
-    o	Add code like this:
+•	Looking to permanently make updates to your PROG## member?
+
+o	Add code in the format of:
     
+    ```
+    APF ADD DSNAME(MQ941CD.SCSQ****)            SMS
+    ```
+
 • Need to dynamically APF authorize your MQ load libraries?
 
     ```SETPROG APF,ADD,DSNAME=MQ941CD.SCSQANLE ,SMS```   

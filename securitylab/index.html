@@ -669,7 +669,7 @@
         <li class="md-nav__item">
   <a href="#exercise-objectives" class="md-nav__link">
     <span class="md-ellipsis">
-      Exercise Objectives
+      Exercise objectives
     </span>
   </a>
   
@@ -678,7 +678,7 @@
         <li class="md-nav__item">
   <a href="#important-notes" class="md-nav__link">
     <span class="md-ellipsis">
-      Important Notes
+      Important notes
     </span>
   </a>
   
@@ -687,17 +687,35 @@
         <li class="md-nav__item">
   <a href="#lab-begin" class="md-nav__link">
     <span class="md-ellipsis">
-      Lab Begin
+      Lab begin
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Lab Begin">
+    <nav class="md-nav" aria-label="Lab begin">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#i-enable-security-checking-on-queue-manager-zqs1" class="md-nav__link">
     <span class="md-ellipsis">
-      I. Enable Security Checking on queue manager ZQS1
+      I. Enable security checking on queue manager ZQS1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cleanup-or-rollback" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cleanup or rollback
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#additional-mqqueue-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional MQQUEUE examples
     </span>
   </a>
   
@@ -976,7 +994,7 @@
         <li class="md-nav__item">
   <a href="#exercise-objectives" class="md-nav__link">
     <span class="md-ellipsis">
-      Exercise Objectives
+      Exercise objectives
     </span>
   </a>
   
@@ -985,7 +1003,7 @@
         <li class="md-nav__item">
   <a href="#important-notes" class="md-nav__link">
     <span class="md-ellipsis">
-      Important Notes
+      Important notes
     </span>
   </a>
   
@@ -994,17 +1012,35 @@
         <li class="md-nav__item">
   <a href="#lab-begin" class="md-nav__link">
     <span class="md-ellipsis">
-      Lab Begin
+      Lab begin
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Lab Begin">
+    <nav class="md-nav" aria-label="Lab begin">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#i-enable-security-checking-on-queue-manager-zqs1" class="md-nav__link">
     <span class="md-ellipsis">
-      I. Enable Security Checking on queue manager ZQS1
+      I. Enable security checking on queue manager ZQS1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cleanup-or-rollback" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cleanup or rollback
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#additional-mqqueue-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional MQQUEUE examples
     </span>
   </a>
   
@@ -1034,291 +1070,385 @@
   
 
 
-<h1 id="configuring-racf-resources-for-mq-security">Configuring RACF resources for MQ Security</h1>
+<h1 id="configuring-racf-resources-for-mq-security">Configuring RACF Resources for MQ Security</h1>
 <h4 id="audience-level"><strong>Audience level</strong></h4>
-<p>Some knowledge of MQ or z/OS </p>
+<p>Some knowledge of MQ or z/OS</p>
 <h4 id="skillset"><strong>Skillset</strong></h4>
 <p>MQ Administration, z/OS systems programming</p>
 <h4 id="background"><strong>Background</strong></h4>
-<h3 id="exercise-objectives">Exercise Objectives</h3>
-<p>The objective of this exercise is to gain experience with protecting access to IBM MQ queues, MQ commands and connection to a queue manager using RACF. In this exercise you will enable the RACF protection of these resources and then provide appropriate access to these resources to different sets of users both local and remote.</p>
-<p>For this exercise, you will be using a data set called ZQS1.SECURITY.JCL. We will be using the following members:
--ADDGROUP - Define MQSTC, CICSSTC, MQUSERS and connect users to those groups
--MQCMDS<br />
--MQCONN<br />
--MQQUEUE </p>
-<h3 id="important-notes">Important Notes</h3>
-<p>Before we get started, let's review some RACF terminology you will use in the lab:</p>
-<p>1) RDEFINE - This command adds a profile for the resource to the RACF database in order to control access to the resource</p>
-<p>2) PERMIT - This command maintains the lists of users and groups authorized to access a particular resource.</p>
-<p>Please note: MVS commands are identified by a leading slash (/). This is reminder that these commands need to be entered using SDSF. </p>
-<p>Please note: Case (upper or lower) is very important when invoking the RACDCERT and keytool commands in this exercise.</p>
-<h2 id="lab-begin">Lab Begin</h2>
-<h4 id="i-enable-security-checking-on-queue-manager-zqs1">I. Enable Security Checking on queue manager ZQS1</h4>
-<p>External security checking is enabled or disabled for a specific queue manager either by the presence or absence of specific MQADMIN RACF resources during the queue manager initialization. During startup, the queue manager uses its name (e.g. ZQS1) to look for a specific SYSPROG resource. If the resource is defined, then its presence disables the corresponding security checking. </p>
-<p>For example for queue manager ZQS1, if MQADMIN resource ZQS1.NO.TOPIC.CHECKS is defined then external security checking for topics will be disabled. If MQADMIN resource ZQS1.NO.QUEUE.CHECKS is defined then external security checking for queue access will be 
-disabled. </p>
-<p>What we do in this lab is start from the default of security ON, disable security, and then add back customized security settings for our MQ resources.</p>
+<h3 id="exercise-objectives">Exercise objectives</h3>
+<p>The objective of this exercise is to gain experience protecting IBM MQ queues, MQ commands, and queue manager connections by using RACF. In this lab, you will enable RACF protection for MQ resources and then grant appropriate access to different sets of users, both local and remote.</p>
+<p>For this exercise, you will use the data set <code>ZQS1.SECURITY.JCL</code>. The following members are referenced in the lab:</p>
+<ul>
+<li><code>ADDGROUP</code> - Defines <code>MQSTC</code>, <code>CICSSTC</code>, and <code>MQUSERS</code>, and connects users to those groups</li>
+<li><code>MQCMDS</code></li>
+<li><code>MQCONN</code></li>
+<li><code>MQQUEUE</code></li>
+</ul>
+<h3 id="important-notes">Important notes</h3>
+<p>Before you begin, review the RACF terms used in this lab:</p>
+<ol>
+<li><code>RDEFINE</code> - Adds a profile for a resource to the RACF database so that access can be controlled</li>
+<li><code>PERMIT</code> - Maintains the list of users and groups authorized to access a resource</li>
+</ol>
+<h2 id="lab-begin">Lab begin</h2>
+<h4 id="i-enable-security-checking-on-queue-manager-zqs1">I. Enable security checking on queue manager ZQS1</h4>
+<p>External security checking is enabled or disabled for a specific queue manager based on the presence or absence of certain <code>MQADMIN</code> RACF resources during queue manager initialization. During startup, the queue manager uses its name, for example <code>ZQS1</code>, to look for queue-manager-specific RACF resources. If a disabling resource is defined, the corresponding security check is turned off.</p>
+<p>For example, if the <code>MQADMIN</code> resource <code>ZQS1.NO.TOPIC.CHECKS</code> is defined, external security checking for topics is disabled. If <code>ZQS1.NO.QUEUE.CHECKS</code> is defined, external security checking for queue access is disabled.</p>
+<p>In this lab, you will move from the current lab state toward a RACF-protected configuration by identifying what is disabled, removing the global subsystem bypass, and defining the RACF profiles needed for basic queue manager operation.</p>
 <ol>
 <li>
 <p>Log on to TSO/ISPF using your assigned z/OS credentials.</p>
 </li>
 <li>
-<p>From option 6 on the ISPF main menu, use the RACF command <code>LISTGROUP</code> (or LG) to list the users currently connected to the groups described above, e.g. LG SYS1. You will see something like the results below.</p>
-<div class="highlight"><pre><span></span><code>NO MODEL DATA SET                                                       
-TERMUACC                                                                
-SUBGROUP(S)= DFSGRP   ZFSGRP   ZOSV210  @PL      ABJ      AIO           
-            AOK      AOP      APK      ASM      ATX      AUP           
-            BDT1     B8R      CAZ      CBC      CDS      CEE           
-            CFZ      CKL      CKR      CPAC     CSD      CSF           
-            C4R      DGA      DIT      EEL      ELA      EMS           
-            EOX      EOY      EPH      EQAW     EQQ      EUVF          
-            FFST     FMN      GDDM     GIM      GLD      GSK           
-            HAP      HVT      IBMZ     ICQ      IDI      IGY           
-            IMW      ING      IOA      IOE      IPV      ISF           
-....
-USER(S)=      ACCESS=      ACCESS COUNT=      UNIVERSAL ACCESS=   
-    IBMUSER       JOIN          000004               READ           
-        CONNECT ATTRIBUTES=NONE                                      
-        REVOKE DATE=NONE                 RESUME DATE=NONE            
-    SYSPROG       JOIN          014895               NONE           
-        CONNECT ATTRIBUTES=NONE                                      
-        REVOKE DATE=NONE                 RESUME DATE=NONE            
-</code></pre></div>
-<blockquote>
-<p>The LISTUSER command can also be useful for investigating the permissions of a particular userid. As an example, LISTUSER USER1</p>
-</blockquote>
+<p>From option <code>6</code> on the ISPF main menu, use the RACF command <code>LISTGROUP</code> (or <code>LG</code>) to list users currently connected to the groups used in this lab. For example:</p>
 </li>
 </ol>
-<p>3. To determine what MQADMIN resources are currently defined use the RACF SEARCH command 
-to display the currently defined MQADMIN resources for ZQS1. </p>
+<div class="highlight"><pre><span></span><code>LG SYS1
+</code></pre></div>
+<p>You may see output similar to the following:</p>
+<div class="highlight"><pre><span></span><code>NO MODEL DATA SET
+TERMUACC
+SUBGROUP(S)= DFSGRP   ZFSGRP   ZOSV210  @PL      ABJ      AIO
+            AOK      AOP      APK      ASM      ATX      AUP
+            BDT1     B8R      CAZ      CBC      CDS      CEE
+            CFZ      CKL      CKR      CPAC     CSD      CSF
+            C4R      DGA      DIT      EEL      ELA      EMS
+            EOX      EOY      EPH      EQAW     EQQ      EUVF
+            FFST     FMN      GDDM     GIM      GLD      GSK
+            HAP      HVT      IBMZ     ICQ      IDI      IGY
+            IMW      ING      IOA      IOE      IPV      ISF
+....
+USER(S)=      ACCESS=      ACCESS COUNT=      UNIVERSAL ACCESS=
+    IBMUSER       JOIN          000004               READ
+        CONNECT ATTRIBUTES=NONE
+        REVOKE DATE=NONE                 RESUME DATE=NONE
+    SYSPROG       JOIN          014895               NONE
+        CONNECT ATTRIBUTES=NONE
+        REVOKE DATE=NONE                 RESUME DATE=NONE
+</code></pre></div>
+<blockquote>
+<p>Tech tip: <code>LISTUSER userid</code> is also useful when you want to inspect the permissions of a specific user. For example: <code>LISTUSER USER1</code></p>
+</blockquote>
+<ol>
+<li>
+<p>If needed, review or submit the <code>ADDGROUP</code> member in <code>ZQS1.SECURITY.JCL</code> so that the required groups and user connections exist before you define MQ resource profiles.</p>
+</li>
+<li>
+<p>To determine which <code>MQADMIN</code> resources are currently defined for <code>ZQS1</code>, use:</p>
+</li>
+</ol>
 <div class="highlight"><pre><span></span><code>SEARCH CLASS(MQADMIN) FILTER(ZQS1.**)
 </code></pre></div>
-<p>The results should look like the list below: </p>
-<div class="highlight"><pre><span></span><code>ZQS1.NO.ALTERNATE.USER.CHECKS 
-ZQS1.NO.CMD.RESC.CHECKS 
-ZQS1.NO.CONTEXT.CHECKS 
-ZQS1.NO.NLIST.CHECKS 
-ZQS1.NO.PROCESS.CHECKS 
-ZQS1.NO.SUBSYS.SECURITY 
-ZQS1.NO.TOPIC.CHECKS 
-ZQS1.RESLEVEL 
+<p>The results should look similar to this:</p>
+<div class="highlight"><pre><span></span><code>ZQS1.NO.ALTERNATE.USER.CHECKS
+ZQS1.NO.CMD.RESC.CHECKS
+ZQS1.NO.CONTEXT.CHECKS
+ZQS1.NO.NLIST.CHECKS
+ZQS1.NO.PROCESS.CHECKS
+ZQS1.NO.SUBSYS.SECURITY
+ZQS1.NO.TOPIC.CHECKS
+ZQS1.RESLEVEL
 </code></pre></div>
 <blockquote>
-<p>Tech-Tip: All RACF resources associated with a specific queue manager are named with a prefix of the queue manager name. This allows the coexistences of multiples RACF resources for the same base resource name, i.e. ZQS1.SYSTEM.DEFAULT.LOCAL.QUEUE will have different security protection than ZQS2.SYSTEM.DEFAULT.LOCAL.QUEUE.</p>
+<p>Tech tip: RACF resources associated with a specific queue manager use the queue manager name as a prefix. This allows <code>ZQS1.SYSTEM.DEFAULT.LOCAL.QUEUE</code> and <code>ZQS2.SYSTEM.DEFAULT.LOCAL.QUEUE</code> to have different protection.</p>
 </blockquote>
-<p>4. The MQADMIN resources in this list disable various MQ external security checks. One of these one in particular disables all external checking regardless of any other MQADMIN resource and that is ZQS1.NO.SUBSYS.SECURITY. If you see  ZQS1.NO.SUBSYS.SECURITY, this indicates that all external security checking is currently disabled. </p>
-<div class="highlight"><pre><span></span><code>CSQH021I ZQS1 CSQHINIT SUBSYSTEM security switch set 
+<ol>
+<li>Review the list carefully. Some <code>MQADMIN</code> resources disable specific external security checks. One resource in particular disables all external security checking, regardless of the others:</li>
+</ol>
+<div class="highlight"><pre><span></span><code>ZQS1.NO.SUBSYS.SECURITY
+</code></pre></div>
+<p>If this profile exists, subsystem security is currently disabled. You would typically see a startup message like:</p>
+<div class="highlight"><pre><span></span><code>CSQH021I ZQS1 CSQHINIT SUBSYSTEM security switch set
 OFF, profile &#39;ZQS1.NO.SUBSYS.SECURITY&#39; found
 </code></pre></div>
-<p>5. To enable external security checking for the next restart of the queue manager, use the RACF RDELETE command to delete this MQADMIN resource. </p>
+<ol>
+<li>To enable external security checking for the next restart of the queue manager, delete this resource:</li>
+</ol>
 <div class="highlight"><pre><span></span><code>RDELETE MQADMIN ZQS1.NO.SUBSYS.SECURITY
 </code></pre></div>
-<p>6. Refresh the RACF instorage profiles with the RACF SETROPTS command </p>
+<ol>
+<li>Refresh the RACF in-storage profiles:</li>
+</ol>
 <div class="highlight"><pre><span></span><code>SETROPTS RACLIST(MQADMIN) REFRESH
 </code></pre></div>
-<p>7. Shutdown the ZQS1 queue manager with MVS command </p>
-<div class="highlight"><pre><span></span><code> /ZQS1 STOP QMGR
+<ol>
+<li>Shut down the <code>ZQS1</code> queue manager from SDSF:</li>
+</ol>
+<div class="highlight"><pre><span></span><code>/ZQS1 STOP QMGR
 </code></pre></div>
 <blockquote>
-<p>Tech-Tip: To disable external security checking use the RDEFINE to command to define this resource.</p>
-</blockquote>
+<p>Tech tip: To disable subsystem security again, redefine the resource:</p>
 <div class="highlight"><pre><span></span><code>RDEFINE MQADMIN ZQS1.NO.SUBSYS.SECURITY OWNER(SYS1)
 </code></pre></div>
-<blockquote>
-<p>Tech-Tip: You probably will receive message ICH14070I SETROPTS RACLIST REFRESH had no effect on class MQADMIN. Not every RACF configuration requires a refresh of the RACF instorage profiles but it is a good practice to get in the habit of doing a refresh after making changes. This will avoid making a configuration change and not having it made active.</p>
+<p>Tech tip: You may receive message <code>ICH14070I SETROPTS RACLIST REFRESH had no effect on class MQADMIN</code>. Not every RACF configuration requires a refresh of in-storage profiles, but refreshing after changes is still a good habit.</p>
 </blockquote>
-<p>CSQH021I ZQS1 CSQHINIT SUBSYSTEM security switch set 
-OFF, profile 'ZQS1.NO.SUBSYS.SECURITY' found </p>
-<p>8. Before the queue manager is restarted, some basic MQ RACF resources should be defined. Select member MQCMDS in data set ZQS1.SECURITY.JCL. This JCL defines MQCMDS RACF resources for some of the basic MQ commands and then grants users in group STCMQ and MQADMS access.</p>
 <ol>
-<li>Submit MQCMDS for execution and verify that it completes with a condition code of zero. </li>
-</ol>
+<li>
+<p>Before restarting the queue manager, define some basic MQ RACF resources. Select member <code>MQCMDS</code> in data set <code>ZQS1.SECURITY.JCL</code>. This member defines <code>MQCMDS</code> RACF resources for common MQ commands and grants suitable access to administrative groups.</p>
+</li>
+<li>
+<p>Submit <code>MQCMDS</code> and verify that it completes with a condition code of zero.</p>
 <blockquote>
-<p>Tech-Tip: The SEARCH and EXEC commands at the beginning of this job delete all existing MQCMDS profiles for queue manager ZQS1. </p>
+<p>Tech tip: The <code>SEARCH</code> and <code>EXEC</code> commands at the beginning of the job remove any existing <code>MQCMDS</code> profiles for queue manager <code>ZQS1</code> before redefining them.</p>
 </blockquote>
-<div class="highlight"><pre><span></span><code>RDEFINE MQCMDS ZQS1.DEFINE.** OWNER(SYS1) 
+<p>Example content includes:</p>
+<div class="highlight"><pre><span></span><code>RDEFINE MQCMDS ZQS1.DEFINE.** OWNER(SYS1)
 
-PERMIT ZQS1.DEFINE.** CLASS(MQCMDS) RESET 
+PERMIT ZQS1.DEFINE.** CLASS(MQCMDS) RESET
 
-PERMIT ZQS1.DEFINE.** CLASS(MQCMDS) ID(MQSTC,MQSYSP) ACC(ALTER) 
+PERMIT ZQS1.DEFINE.** CLASS(MQCMDS) ID(MQSTC,MQSYSP) ACC(ALTER)
 
+RDEFINE MQCMDS ZQS1.DELETE.** OWNER(SYS1)
 
-RDEFINE MQCMDS ZQS1.DELETE.** OWNER(SYS1) 
+PERMIT ZQS1.DELETE.** CLASS(MQCMDS) RESET
 
-PERMIT ZQS1.DELETE.** CLASS(MQCMDS) RESET 
+PERMIT ZQS1.DELETE.** CLASS(MQCMDS) ID(MQSTC,MQSYSP) ACC(ALTER)
 
-PERMIT ZQS1.DELETE.** CLASS(MQCMDS) ID(MQSTC,MQSYSP) ACC(ALTER) 
+RDEFINE MQCMDS ZQS1.DISPLAY.** OWNER(SYS1)
 
+PERMIT ZQS1.DISPLAY.** CLASS(MQCMDS) RESET
 
-RDEFINE MQCMDS ZQS1.DISPLAY.** OWNER(SYS1) 
+PERMIT ZQS1.DISPLAY.** CLASS(MQCMDS) ID(MQSTC,MQUSERS) ACC(READ)
 
-PERMIT ZQS1.DISPLAY.** CLASS(MQCMDS) RESET 
+RDEFINE MQCMDS ZQS1.REFRESH.** OWNER(SYS1)
 
-PERMIT ZQS1.DISPLAY.** CLASS(MQCMDS) ID(MQSTC,MQUSERS) ACC(READ) 
+PERMIT ZQS1.REFRESH.** CLASS(MQCMDS) RESET
 
+PERMIT ZQS1.REFRESH.** CLASS(MQCMDS) ID(MQSTC,MQSYSP) ACC(ALTER)
 
-RDEFINE MQCMDS ZQS1.REFRESH.** OWNER(SYS1) 
+RDEFINE MQCMDS ZQS1.START.** OWNER(SYS1)
 
-PERMIT ZQS1.REFRESH.** CLASS(MQCMDS) RESET 
+PERMIT ZQS1.START.** CLASS(MQCMDS) RESET
 
-PERMIT ZQS1.REFRESH.** CLASS(MQCMDS) ID(MQSTC,MQSYSP) ACC(ALTER) 
+PERMIT ZQS1.START.** CLASS(MQCMDS) ID(MQSTC,MQSYSP) ACC(CONTROL)
 
+RDEFINE MQCMDS ZQS1.STOP.** OWNER(SYS1)
 
-RDEFINE MQCMDS ZQS1.START.** OWNER(SYS1) 
+PERMIT ZQS1.STOP.** CLASS(MQCMDS) RESET
 
-PERMIT ZQS1.START.** CLASS(MQCMDS) RESET 
+PERMIT ZQS1.STOP.** CLASS(MQCMDS) ID(MQSTC,MQSYSP) ACC(CONTROL)
 
-PERMIT ZQS1.START.** CLASS(MQCMDS) ID(MQSTC,MQSYSP) ACC(CONTROL) 
+RDEFINE MQCMDS ZQS1.SET.** OWNER(SYS1)
 
+PERMIT ZQS1.SET.** CLASS(MQCMDS) RESET
 
-RDEFINE MQCMDS ZQS1.STOP.** OWNER(SYS1) 
+PERMIT ZQS1.SET.** CLASS(MQCMDS) ID(MQSTC,MQSYSP) ACC(CONTROL)
 
-PERMIT ZQS1.STOP.** CLASS(MQCMDS) RESET 
+RDEFINE MQCMDS ZQS1.CLEAR.** OWNER(SYS1)
 
-PERMIT ZQS1.STOP.** CLASS(MQCMDS) ID(MQSTC,MQSYSP) ACC(CONTROL) 
+PERMIT ZQS1.CLEAR.** CLASS(MQCMDS) RESET
 
+PERMIT ZQS1.CLEAR.** CLASS(MQCMDS) ID(MQSTC,MQSYSP) ACC(ALTER)
 
-RDEFINE MQCMDS ZQS1.SET.** OWNER(SYS1) 
+RDEFINE MQCMDS ZQS1.** OWNER(SYS1)
 
-PERMIT ZQS1.SET.** CLASS(MQCMDS) RESET 
+PERMIT ZQS1.** CLASS(MQCMDS) RESET
 
-PERMIT ZQS1.SET.** CLASS(MQCMDS) ID(MQSTC,MQSYSP) ACC(CONTROL) 
+PERMIT ZQS1.** CLASS(MQCMDS) ID(MQSTC,MQSYSP) ACC(READ)
 
-
-RDEFINE MQCMDS ZQS1.CLEAR.** OWNER(SYS1) 
-
-PERMIT ZQS1.CLEAR.** CLASS(MQCMDS) RESET 
-
-PERMIT ZQS1.CLEAR.** CLASS(MQCMDS) ID(MQSTC,MQSYSP) ACC(ALTER) 
-
-
-RDEFINE MQCMDS ZQS1.** OWNER(SYS1) 
-
-PERMIT ZQS1.** CLASS(MQCMDS) RESET 
-
-PERMIT ZQS1.** CLASS(MQCMDS) ID(MQSTC,MQSYSP) ACC(READ) 
-
-
-SETROPTS RACLIST(MQCMDS) REFRESH 
+SETROPTS RACLIST(MQCMDS) REFRESH
 </code></pre></div>
-<ol>
-<li>
-<p>Select member MQCONN in data set ZQS1.SECURITY.JCL. This JCL defines MQCONN RACF resources required for accessing the queue manager from various sources, e.g., CICS, batch, remote, etc.</p>
 </li>
 <li>
-<p>Submit MQCONN for execution and verify that it completes with a condition code of zero.</p>
+<p>Select member <code>MQCONN</code> in <code>ZQS1.SECURITY.JCL</code>. This member defines <code>MQCONN</code> RACF resources required for access to the queue manager from different environments such as batch, CICS, and channel initiator processing.</p>
 </li>
 <li>
-<p>Select member MQQUEUE in data set ZQS1.SECURITY.JCL. This JCL defines MQQUEUE 
-RACF resources required for accessing the system related queues.</p>
+<p>Submit <code>MQCONN</code> and verify that it completes with a condition code of zero.</p>
 </li>
-</ol>
-<div class="highlight"><pre><span></span><code>RDEFINE MQCONN ZQS1.BATCH OWNER(SYS1) 
-PERMIT ZQS1.BATCH CLASS(MQCONN) RESET 
-PERMIT ZQS1.BATCH CLASS(MQCONN) ID(MQSTC,MQUSERS) ACC(READ) 
+<li>
+<p>Select member <code>MQQUEUE</code> in <code>ZQS1.SECURITY.JCL</code>. This member defines <code>MQQUEUE</code> RACF resources required for access to system-related queues.</p>
+<p>Example content includes:</p>
+<div class="highlight"><pre><span></span><code>RDEFINE MQCONN ZQS1.BATCH OWNER(SYS1)
+PERMIT ZQS1.BATCH CLASS(MQCONN) RESET
+PERMIT ZQS1.BATCH CLASS(MQCONN) ID(MQSTC,MQUSERS) ACC(READ)
 
-RDEFINE MQCONN ZQS1.CHIN OWNER(SYS1) 
-PERMIT ZQS1.CHIN CLASS(MQCONN) RESET 
-PERMIT ZQS1.CHIN CLASS(MQCONN) ID(MQSTC) ACC(READ) 
+RDEFINE MQCONN ZQS1.CHIN OWNER(SYS1)
+PERMIT ZQS1.CHIN CLASS(MQCONN) RESET
+PERMIT ZQS1.CHIN CLASS(MQCONN) ID(MQSTC) ACC(READ)
 
-RDEFINE MQCONN ZQS1.CICS OWNER(SYS1) 
-PERMIT ZQS1.CICS CLASS(MQCONN) RESET 
-PERMIT ZQS1.CICS CLASS(MQCONN) ID(CICSSTC) ACC(READ) 
+RDEFINE MQCONN ZQS1.CICS OWNER(SYS1)
+PERMIT ZQS1.CICS CLASS(MQCONN) RESET
+PERMIT ZQS1.CICS CLASS(MQCONN) ID(CICSSTC) ACC(READ)
 
-SETROPTS RACLIST(MQCONN) REFRESH 
+SETROPTS RACLIST(MQCONN) REFRESH
 
-RDEFINE MQQUEUE ZQS1.** OWNER(SYS1) 
-PERMIT ZQS1.** CLASS(MQQUEUE) RESET 
-PERMIT ZQS1.** CLASS(MQQUEUE) ID(MQSTC) ACC(READ) 
+RDEFINE MQQUEUE ZQS1.** OWNER(SYS1)
+PERMIT ZQS1.** CLASS(MQQUEUE) RESET
+PERMIT ZQS1.** CLASS(MQQUEUE) ID(MQSTC) ACC(READ)
 
-RDEFINE MQQUEUE ZQS1.SYSTEM.** OWNER(SYS1) 
-PERMIT ZQS1.SYSTEM.** CLASS(MQQUEUE) RESET 
-PERMIT ZQS1.SYSTEM.** CLASS(MQQUEUE) ID(MQSTC) ACC(UPDATE) 
-PERMIT ZQS1.SYSTEM.** CLASS(MQQUEUE) ID(MQUSERS) ACC(READ) 
+RDEFINE MQQUEUE ZQS1.SYSTEM.** OWNER(SYS1)
+PERMIT ZQS1.SYSTEM.** CLASS(MQQUEUE) RESET
+PERMIT ZQS1.SYSTEM.** CLASS(MQQUEUE) ID(MQSTC) ACC(UPDATE)
+PERMIT ZQS1.SYSTEM.** CLASS(MQQUEUE) ID(MQUSERS) ACC(READ)
 
-RDEFINE MQQUEUE ZQS1.SYSTEM.CLUSTER.COMMAND.QUEUE OWNER(SYS1) 
-PERMIT ZQS1.SYSTEM.CLUSTER.COMMAND.QUEUE CLASS(MQQUEUE) RESET 
-PERMIT ZQS1.SYSTEM.CLUSTER.COMMAND.QUEUE CLASS(MQQUEUE) + 
- ID(MQSTC) ACC(ALTER) 
-PERMIT ZQS1.SYSTEM.CLUSTER.COMMAND.QUEUE CLASS(MQQUEUE) + 
- ID(MQUSERS) ACC(UPDATE) 
+RDEFINE MQQUEUE ZQS1.SYSTEM.CLUSTER.COMMAND.QUEUE OWNER(SYS1)
+PERMIT ZQS1.SYSTEM.CLUSTER.COMMAND.QUEUE CLASS(MQQUEUE) RESET
+PERMIT ZQS1.SYSTEM.CLUSTER.COMMAND.QUEUE CLASS(MQQUEUE) +
+ ID(MQSTC) ACC(ALTER)
+PERMIT ZQS1.SYSTEM.CLUSTER.COMMAND.QUEUE CLASS(MQQUEUE) +
+ ID(MQUSERS) ACC(UPDATE)
 
-RDEFINE MQQUEUE ZQS1.SYSTEM.BROKER.** OWNER(SYS1) 
-PERMIT ZQS1.SYSTEM.BROKER.** CLASS(MQQUEUE) RESET 
-PERMIT ZQS1.SYSTEM.BROKER.** CLASS(MQQUEUE) + 
- ID(MQSTC) ACC(ALTER) 
+RDEFINE MQQUEUE ZQS1.SYSTEM.BROKER.** OWNER(SYS1)
+PERMIT ZQS1.SYSTEM.BROKER.** CLASS(MQQUEUE) RESET
+PERMIT ZQS1.SYSTEM.BROKER.** CLASS(MQQUEUE) +
+ ID(MQSTC) ACC(ALTER)
 
-RDEFINE MQQUEUE ZQS1.AMQ.MQEXPLORER.** OWNER(SYS1) 
-PERMIT ZQS1.AMQ.MQEXPLORER.** CLASS(MQQUEUE) RESET 
-PERMIT ZQS1.AMQ.MQEXPLORER.** CLASS(MQQUEUE) + 
- ID(MQSTC,MQUSERS) ACC(UPDATE) 
-
-RDEFINE MQQUEUE ZQS1.SYSTEM.COMMAND.INPUT OWNER(SYS1) 
-PERMIT ZQS1.SYSTEM.COMMAND.INPUT CLASS(MQQUEUE) RESET 
-PERMIT ZQS1.SYSTEM.COMMAND.INPUT CLASS(MQQUEUE) + 
+RDEFINE MQQUEUE ZQS1.AMQ.MQEXPLORER.** OWNER(SYS1)
+PERMIT ZQS1.AMQ.MQEXPLORER.** CLASS(MQQUEUE) RESET
+PERMIT ZQS1.AMQ.MQEXPLORER.** CLASS(MQQUEUE) +
  ID(MQSTC,MQUSERS) ACC(UPDATE)
-RDEFINE MQQUEUE ZQS1.SYSTEM.CSQUTIL.** OWNER(SYS1) 
-PERMIT ZQS1.SYSTEM.CSQUTIL.** CLASS(MQQUEUE) RESET 
-PERMIT ZQS1.SYSTEM.CSQUTIL.** + 
+
+RDEFINE MQQUEUE ZQS1.SYSTEM.COMMAND.INPUT OWNER(SYS1)
+PERMIT ZQS1.SYSTEM.COMMAND.INPUT CLASS(MQQUEUE) RESET
+PERMIT ZQS1.SYSTEM.COMMAND.INPUT CLASS(MQQUEUE) +
+ ID(MQSTC,MQUSERS) ACC(UPDATE)
+
+RDEFINE MQQUEUE ZQS1.SYSTEM.CSQUTIL.** OWNER(SYS1)
+PERMIT ZQS1.SYSTEM.CSQUTIL.** CLASS(MQQUEUE) RESET
+PERMIT ZQS1.SYSTEM.CSQUTIL.** +
  CLASS(MQQUEUE) ID(MQSTC,MQUSERS) ACC(UPDATE)
 </code></pre></div>
-<ol>
-<li>Submit MQQUEUE for execution and verify that it completes with a condition code of zero.This completes the configuration of the RACF resources required to start a basic queue manger.</li>
+</li>
+<li>
+<p>Submit <code>MQQUEUE</code> and verify that it completes with a condition code of zero. This completes the base RACF configuration required to start a basic queue manager with protected resources.</p>
+</li>
+<li>
+<p>Restart the queue manager from SDSF. For example:</p>
+<div class="highlight"><pre><span></span><code>/START ZQS1MSTR
+</code></pre></div>
+<p>If required in your environment, also start the channel initiator:</p>
+<div class="highlight"><pre><span></span><code>/START ZQS1CHIN
+</code></pre></div>
+</li>
+<li>
+<p>Review the queue manager startup messages. Confirm that the queue manager initializes successfully and that you no longer see the message indicating subsystem security is turned off because <code>ZQS1.NO.SUBSYS.SECURITY</code> was found.</p>
+</li>
+<li>
+<p>Validate the configuration with a combination of positive and negative tests. At a minimum, confirm the following:</p>
+<ul>
+<li>The queue manager starts successfully</li>
+<li>Authorized users can connect and issue allowed commands</li>
+<li>Unauthorized users are denied access to protected MQ resources</li>
+<li>MQ Explorer, batch, or CICS access behaves according to the profiles you defined</li>
+</ul>
+</li>
+<li>
+<p>Perform a positive command authorization test using a user in an authorized administrative group. For example, verify that an authorized user can issue display commands against <code>ZQS1</code>.</p>
+</li>
+<li>
+<p>Perform a negative command authorization test using a user that is not permitted to issue administrative commands. Confirm that the command is rejected by RACF or by MQ external security checking.</p>
+</li>
+<li>
+<p>Perform a positive connection test for an allowed access path. For example:</p>
+<ul>
+<li>A batch user in <code>MQUSERS</code> can connect through the <code>MQCONN</code> profile <code>ZQS1.BATCH</code></li>
+<li>A CICS started task in <code>CICSSTC</code> can connect through <code>ZQS1.CICS</code></li>
+</ul>
+</li>
+<li>
+<p>Perform a negative connection test using a user or address space that is not covered by the required <code>MQCONN</code> profile. Confirm that the connection is denied.</p>
+</li>
+<li>
+<p>Perform a queue authorization test:</p>
+<ul>
+<li>Verify that an authorized user can access a queue covered by an allowed <code>MQQUEUE</code> profile</li>
+<li>Verify that an unauthorized user cannot update a protected system queue</li>
+</ul>
+</li>
+<li>
+<p>Expected failures will vary by access path and command, but you should expect unauthorized actions to fail with RACF or MQ security errors rather than succeeding silently. Record the message IDs you see in your environment for future reference.</p>
+</li>
+<li>
+<p>If access does not behave as expected, review:</p>
+<ul>
+<li>group membership for the test user</li>
+<li>the active <code>MQADMIN</code>, <code>MQCMDS</code>, <code>MQCONN</code>, and <code>MQQUEUE</code> profiles</li>
+<li>whether <code>SETROPTS RACLIST(... ) REFRESH</code> was issued after changes</li>
+<li>whether the queue manager was restarted after changing subsystem security behavior</li>
+</ul>
+</li>
 </ol>
-<div class="highlight"><pre><span></span><code>RDEFINE MQQUEUE ZQS1.SYSTEM.MQEXPLORER.REPLY.MODEL OWNER(SYS1) 
-PERMIT ZQS1.SYSTEM.MQEXPLORER.REPLY.MODEL CLASS(MQQUEUE) RESET 
-PERMIT ZQS1.SYSTEM.MQEXPLORER.REPLY.MODEL + 
- CLASS(MQQUEUE) ID(MQSTC,MQUSERS) ACC(UPDATE) 
+<h3 id="cleanup-or-rollback">Cleanup or rollback</h3>
+<p>If you want to roll back the lab to the earlier unsecured state, use the following approach:</p>
+<ol>
+<li>Stop the queue manager:</li>
+</ol>
+<div class="highlight"><pre><span></span><code>/ZQS1 STOP QMGR
+</code></pre></div>
+<ol>
+<li>Redefine the subsystem bypass profile:</li>
+</ol>
+<div class="highlight"><pre><span></span><code>RDEFINE MQADMIN ZQS1.NO.SUBSYS.SECURITY OWNER(SYS1)
+</code></pre></div>
+<ol>
+<li>Refresh the in-storage profiles:</li>
+</ol>
+<div class="highlight"><pre><span></span><code>SETROPTS RACLIST(MQADMIN) REFRESH
+</code></pre></div>
+<ol>
+<li>
+<p>Optionally remove or back out the <code>MQCMDS</code>, <code>MQCONN</code>, and <code>MQQUEUE</code> definitions you added for the lab, according to your site's RACF standards.</p>
+</li>
+<li>
+<p>Restart the queue manager and confirm that subsystem security is again disabled.</p>
+</li>
+</ol>
+<h3 id="additional-mqqueue-examples">Additional MQQUEUE examples</h3>
+<p>The following examples are useful as extensions to the base lab. They provide additional protection for specific system and application queues.</p>
+<div class="highlight"><pre><span></span><code>RDEFINE MQQUEUE ZQS1.SYSTEM.MQEXPLORER.REPLY.MODEL OWNER(SYS1)
+PERMIT ZQS1.SYSTEM.MQEXPLORER.REPLY.MODEL CLASS(MQQUEUE) RESET
+PERMIT ZQS1.SYSTEM.MQEXPLORER.REPLY.MODEL +
+ CLASS(MQQUEUE) ID(MQSTC,MQUSERS) ACC(UPDATE)
 
-RDEFINE MQQUEUE ZQS1.SYSTEM.PROTECTION.POLICY.QUEUE OWNER(SYS1) 
-PERMIT ZQS1.SYSTEM.PROTECTION.POLICY.QUEUE CLASS(MQQUEUE) RESET 
-PERMIT ZQS1.SYSTEM.PROTECTION.POLICY.QUEUE CLASS(MQQUEUE) + 
- ID(MQUSERS,MQSTC) ACC(UPDATE) 
+RDEFINE MQQUEUE ZQS1.SYSTEM.PROTECTION.POLICY.QUEUE OWNER(SYS1)
+PERMIT ZQS1.SYSTEM.PROTECTION.POLICY.QUEUE CLASS(MQQUEUE) RESET
+PERMIT ZQS1.SYSTEM.PROTECTION.POLICY.QUEUE CLASS(MQQUEUE) +
+ ID(MQUSERS,MQSTC) ACC(UPDATE)
 
-RDEFINE MQQUEUE ZQS1.DEAD.LETTER.QUEUE OWNER(SYS1) 
-PERMIT ZQS1.DEAD.LETTER.QUEUE CLASS(MQQUEUE) RESET 
-PERMIT ZQS1.DEAD.LETTER.QUEUE CLASS(MQQUEUE) + 
- ID(MQSTC,CICSUSER) ACC(UPDATE) 
+RDEFINE MQQUEUE ZQS1.DEAD.LETTER.QUEUE OWNER(SYS1)
+PERMIT ZQS1.DEAD.LETTER.QUEUE CLASS(MQQUEUE) RESET
+PERMIT ZQS1.DEAD.LETTER.QUEUE CLASS(MQQUEUE) +
+ ID(MQSTC,CICSUSER) ACC(UPDATE)
 
-RDEFINE MQQUEUE ZQS1.SYSTEM.COMMAND.REPLY.MODEL OWNER(SYS1) 
-PERMIT ZQS1.SYSTEM.COMMAND.REPLY.MODEL CLASS(MQQUEUE) RESET 
-PERMIT ZQS1.SYSTEM.COMMAND.REPLY.MODEL CLASS(MQQUEUE) + 
- ID(MQSTC,MQUSERS) ACC(UPDATE) 
+RDEFINE MQQUEUE ZQS1.SYSTEM.COMMAND.REPLY.MODEL OWNER(SYS1)
+PERMIT ZQS1.SYSTEM.COMMAND.REPLY.MODEL CLASS(MQQUEUE) RESET
+PERMIT ZQS1.SYSTEM.COMMAND.REPLY.MODEL CLASS(MQQUEUE) +
+ ID(MQSTC,MQUSERS) ACC(UPDATE)
 
-RDEFINE MQQUEUE ZQS1.SYSTEM.CSQOREXX.** OWNER(SYS1) 
-PERMIT ZQS1.SYSTEM.CSQOREXX.** CLASS(MQQUEUE) RESET 
-PERMIT ZQS1.SYSTEM.CSQOREXX.** CLASS(MQQUEUE) + 
- ID(MQSTC) ACC(ALTER) 
-PERMIT ZQS1.SYSTEM.CSQOREXX.** CLASS(MQQUEUE) + 
- ID(MQUSERS) ACC(UPDATE) 
+RDEFINE MQQUEUE ZQS1.SYSTEM.CSQOREXX.** OWNER(SYS1)
+PERMIT ZQS1.SYSTEM.CSQOREXX.** CLASS(MQQUEUE) RESET
+PERMIT ZQS1.SYSTEM.CSQOREXX.** CLASS(MQQUEUE) +
+ ID(MQSTC) ACC(ALTER)
+PERMIT ZQS1.SYSTEM.CSQOREXX.** CLASS(MQQUEUE) +
+ ID(MQUSERS) ACC(UPDATE)
 
-RDEFINE MQQUEUE ZQS1.SYSTEM.PROTECTION.ERROR.QUEUE OWNER(SYS1) 
-PERMIT ZQS1.SYSTEM.PROTECTION.ERROR.QUEUE CLASS(MQQUEUE) RESET 
-PERMIT ZQS1.SYSTEM.PROTECTION.ERROR.QUEUE CLASS(MQQUEUE) + 
- ID(MQUSERS) ACC(UPDATE) 
+RDEFINE MQQUEUE ZQS1.SYSTEM.PROTECTION.ERROR.QUEUE OWNER(SYS1)
+PERMIT ZQS1.SYSTEM.PROTECTION.ERROR.QUEUE CLASS(MQQUEUE) RESET
+PERMIT ZQS1.SYSTEM.PROTECTION.ERROR.QUEUE CLASS(MQQUEUE) +
+ ID(MQUSERS) ACC(UPDATE)
 
-RDEFINE MQQUEUE ZQS1.SYSTEM.DEFAULT.LOCAL.QUEUE OWNER(SYS1) 
-PERMIT ZQS1.SYSTEM.DEFAULT.LOCAL.QUEUE CLASS(MQQUEUE) RESET 
-PERMIT ZQS1.SYSTEM.DEFAULT.LOCAL.QUEUE CLASS(MQQUEUE) + 
- ID(MQUSERS,MQSTC,MQSYSP) ACC(UPDATE) 
+RDEFINE MQQUEUE ZQS1.SYSTEM.DEFAULT.LOCAL.QUEUE OWNER(SYS1)
+PERMIT ZQS1.SYSTEM.DEFAULT.LOCAL.QUEUE CLASS(MQQUEUE) RESET
+PERMIT ZQS1.SYSTEM.DEFAULT.LOCAL.QUEUE CLASS(MQQUEUE) +
+ ID(MQUSERS,MQSTC,MQSYSP) ACC(UPDATE)
 
-RDEFINE MQQUEUE ZQS1.DEAD.LETTER.QUEUE OWNER(SYS1) 
-PERMIT ZQS1.DEAD.LETTER.QUEUE CLASS(MQQUEUE) RESET 
-PERMIT ZQS1.DEAD.LETTER.QUEUE CLASS(MQQUEUE) + 
- ID(MQUSERS,MQSTC,MQSYSP) ACC(UPDATE) 
+RDEFINE MQQUEUE ZQS1.DEAD.LETTER.QUEUE OWNER(SYS1)
+PERMIT ZQS1.DEAD.LETTER.QUEUE CLASS(MQQUEUE) RESET
+PERMIT ZQS1.DEAD.LETTER.QUEUE CLASS(MQQUEUE) +
+ ID(MQUSERS,MQSTC,MQSYSP) ACC(UPDATE)
 
-RDEFINE MQQUEUE ZQS1.AMSDEMO.** OWNER(SYS1) 
-PERMIT ZQS1.AMSDEMO.** CLASS(MQQUEUE) RESET 
+RDEFINE MQQUEUE ZQS1.AMSDEMO.** OWNER(SYS1)
+PERMIT ZQS1.AMSDEMO.** CLASS(MQQUEUE) RESET
 PERMIT ZQS1.AMSDEMO.** CLASS(MQQUEUE) ID(MQUSERS) ACC(UPDATE)
-PERMIT ZQS1.AMSDEMO.** CLASS(MQQUEUE) ID(MQSTC) ACC(UPDATE) 
+PERMIT ZQS1.AMSDEMO.** CLASS(MQQUEUE) ID(MQSTC) ACC(UPDATE)
 
-RDEFINE MQQUEUE ZQS1.USER1.** OWNER(SYS1) 
-PERMIT ZQS1.USER1.** CLASS(MQQUEUE) RESET 
-PERMIT ZQS1.USER1.** CLASS(MQQUEUE) ID(USER1) ACC(UPDATE) 
-PERMIT ZQS1.USER1.** CLASS(MQQUEUE) ID(MQSTC) ACC(UPDATE) 
+RDEFINE MQQUEUE ZQS1.USER1.** OWNER(SYS1)
+PERMIT ZQS1.USER1.** CLASS(MQQUEUE) RESET
+PERMIT ZQS1.USER1.** CLASS(MQQUEUE) ID(USER1) ACC(UPDATE)
+PERMIT ZQS1.USER1.** CLASS(MQQUEUE) ID(MQSTC) ACC(UPDATE)
 
-SETROPTS RACLIST(MQQUEUE) REFRESH 
+SETROPTS RACLIST(MQQUEUE) REFRESH
 </code></pre></div>
 
 

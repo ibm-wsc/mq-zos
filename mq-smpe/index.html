@@ -12,13 +12,9 @@
         <meta name="author" content="IBM Z WSC">
       
       
-        <link rel="canonical" href="https://ibm-wsc.github.io/mq-zos/new-queue-manager/">
+        <link rel="canonical" href="https://ibm-wsc.github.io/mq-zos/mq-smpe/">
       
       
-        <link rel="prev" href="../certificates/">
-      
-      
-        <link rel="next" href="../connectivity/">
       
       
       <link rel="icon" href="../assets/wsc-logo.png">
@@ -26,7 +22,7 @@
     
     
       
-        <title>Configuring a New Queue Manager Lab - IBM MQ for z/OS</title>
+        <title>Customizing a new queue manager on IBM MQ for z/OS - IBM MQ for z/OS</title>
       
     
     
@@ -115,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Configuring a New Queue Manager Lab
+              Customizing a new queue manager on IBM MQ for z/OS
             
           </span>
         </div>
@@ -345,32 +341,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Configuring a New Queue Manager Lab
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../new-queue-manager/" class="md-nav__link">
         
   
   
@@ -381,140 +355,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#audience-level" class="md-nav__link">
-    <span class="md-ellipsis">
-      Audience level
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#skillset" class="md-nav__link">
-    <span class="md-ellipsis">
-      Skillset
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#background" class="md-nav__link">
-    <span class="md-ellipsis">
-      Background
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#overview-of-exercise" class="md-nav__link">
-    <span class="md-ellipsis">
-      Overview of exercise
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#lab-begin" class="md-nav__link">
-    <span class="md-ellipsis">
-      Lab begin
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Lab begin">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#i-copy-and-tailor-the-sample-jcl" class="md-nav__link">
-    <span class="md-ellipsis">
-      I. Copy and tailor the sample JCL
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ii-run-jobs-to-create-the-bootstrap-data-sets-and-log-data-sets" class="md-nav__link">
-    <span class="md-ellipsis">
-      II. Run jobs to create the bootstrap data sets and log data sets
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#iii-add-mstr-and-chin-to-sys1proclib-the-started-task-library" class="md-nav__link">
-    <span class="md-ellipsis">
-      III. Add MSTR and CHIN to SYS1.PROCLIB, the started task library
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#iv-dynamically-add-mq-subsystem-to-mvs" class="md-nav__link">
-    <span class="md-ellipsis">
-      IV. Dynamically add MQ subsystem to MVS
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#v-define-subsystem-security" class="md-nav__link">
-    <span class="md-ellipsis">
-      V. Define subsystem security
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vi-starting-your-queue-manager-and-channel-initiator" class="md-nav__link">
-    <span class="md-ellipsis">
-      VI. Starting your queue manager and channel initiator
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#appendix" class="md-nav__link">
-    <span class="md-ellipsis">
-      Appendix:
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1028,64 +868,37 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#lab-begin" class="md-nav__link">
+  <a href="#graphic-of-smpe-process" class="md-nav__link">
     <span class="md-ellipsis">
-      Lab begin
+      Graphic of SMP/E process
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Lab begin">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#demonstration-begin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Demonstration begin
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Demonstration begin">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#i-copy-and-tailor-the-sample-jcl" class="md-nav__link">
+  <a href="#i-retrieve-ibm-mq-for-zos-945-to-zos-from-the-internet-via-jcl" class="md-nav__link">
     <span class="md-ellipsis">
-      I. Copy and tailor the sample JCL
+      I. Retrieve IBM MQ for z/OS 9.4.5 to z/OS from the internet via JCL
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#ii-run-jobs-to-create-the-bootstrap-data-sets-and-log-data-sets" class="md-nav__link">
+  <a href="#i-retrieve-ibm-mq-for-zos-945-to-zos-from-the-internet-via-workstation" class="md-nav__link">
     <span class="md-ellipsis">
-      II. Run jobs to create the bootstrap data sets and log data sets
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#iii-add-mstr-and-chin-to-sys1proclib-the-started-task-library" class="md-nav__link">
-    <span class="md-ellipsis">
-      III. Add MSTR and CHIN to SYS1.PROCLIB, the started task library
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#iv-dynamically-add-mq-subsystem-to-mvs" class="md-nav__link">
-    <span class="md-ellipsis">
-      IV. Dynamically add MQ subsystem to MVS
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#v-define-subsystem-security" class="md-nav__link">
-    <span class="md-ellipsis">
-      V. Define subsystem security
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vi-starting-your-queue-manager-and-channel-initiator" class="md-nav__link">
-    <span class="md-ellipsis">
-      VI. Starting your queue manager and channel initiator
+      I. Retrieve IBM MQ for z/OS 9.4.5 to z/OS from the internet via workstation
     </span>
   </a>
   
@@ -1093,15 +906,6 @@
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#appendix" class="md-nav__link">
-    <span class="md-ellipsis">
-      Appendix:
-    </span>
-  </a>
   
 </li>
       
@@ -1126,302 +930,99 @@
 
 <h1 id="customizing-a-new-queue-manager-on-ibm-mq-for-zos">Customizing a new queue manager on IBM MQ for z/OS</h1>
 <h3 id="audience-level">Audience level</h3>
-<p>Some knowledge of MQ or z/OS </p>
+<p>Intermediate/Advanced</p>
 <h3 id="skillset">Skillset</h3>
 <p>z/OS Systems Programming, MQ Administration</p>
 <h3 id="background">Background</h3>
-<p>Every time a new release of IBM MQ for z/OS is installed, you have the opportunity to create or migrate a new queue manager with the latest capabilities of the IBM MQ release. We will go through the process of creating a new queue manager with IBM MQ for z/OS 9.4.2. IBM MQ for z/OS has been installed on the environment before the lab, so that will installation process will not be in scope of today’s lab. 
-To start a new queue manager, JCL procedures need to be copied to a system JCL procedure library and the new queue manager subsystem needs to be defined to MVS. </p>
+<p>The SMP/E process is a standard of installing software on IBM z/OS. MQ is one of multiple software products that takes advantage of SMP/E. This demonstration will show you an example walk through of IBM MQ for z/OS installation. Every environment is different, and this example should be used for educational purposes only.</p>
 <h3 id="overview-of-exercise">Overview of exercise</h3>
 <p>What needs to be done here: </p>
-<p>I.  Copy and tailor the sample JCL. Each of these members comes pre-canned in the IBM MQ installation. What your task is as an administrator is to customize these for your specific need.</p>
-<p>II. Run jobs to create the bootstrap data sets and log data sets</p>
-<p>III.    Add MSTR and CHIN to SYS1.PROCLIB, the started task library</p>
-<p>IV. Dynamically add MQ subsystem to MVS</p>
-<p>V.  Define subsystem security</p>
-<p>VI. Start the queue manager and channel initiator</p>
-<h3 id="lab-begin">Lab begin</h3>
-<h4 id="i-copy-and-tailor-the-sample-jcl">I. Copy and tailor the sample JCL</h4>
 <ol>
-<li>First, copy the sample members from the IBM MQ installation. All the IBM MQ installation will be under the high level qualifier MQ942CD. It is only necessary to copy the sample definitions under SCSQPROC. These samples are provided by the product to define MQ objects for various purposes. (*) specifies we want all the members in the SCSQPROC dataset. Go to option =3.3.</li>
+<li>Retrieve IBM MQ for z/OS 9.4.5 to z/OS from the internet</li>
+<li>Build SMP/E Environment</li>
+<li>SMP/E RECEIVE</li>
+<li>Customize and submit IBM MQ 9.4.1 data set allocation jobs</li>
+<li>Define the MQ product DDEF entries</li>
+<li>SMP/E APPLY</li>
+<li>SMP/E ACCEPT</li>
 </ol>
-<p><code>MQ942CD.SCSQPROC(*)
-Option ===&gt; C</code></p>
+<h3 id="graphic-of-smpe-process">Graphic of SMP/E process</h3>
+<p><a href="../assets/SMPE/smpe0.png">Image of SMP/E process at a high level</a></p>
+<h3 id="demonstration-begin">Demonstration begin</h3>
+<h4 id="i-retrieve-ibm-mq-for-zos-945-to-zos-from-the-internet-via-jcl">I. Retrieve IBM MQ for z/OS 9.4.5 to z/OS from the internet via JCL</h4>
 <ol>
 <li>
-<p>We are making a new queue manager called ZQSX, so we want the new dataset to be referenceable by the high-level qualifier ZQSX. Press enter.</p>
+<p>Each software order will contain SERVINFO DD statement that contains specific information for your order, including credentials and unique identifiers for the product.</p>
 </li>
 <li>
-<p>Type a ‘1’ next to option 1. We want the new dataset to have the attribute of MQ941CD.SCSQPROC. Press enter. </p>
+<p>Use a GIMSMP job to receive software directly from the internet to your global consolidated software inventory (CSI) zone</p>
 </li>
-<li>
-<p>In the top right corner, you should see z/OS confirm that 113 members have been copied to the new dataset you created ZQSX.SCSQPROC. Great! We just need one more thing before we can customize. We are going to steal it from already-existing queue manager ZQS2 in this instance. </p>
-</li>
-<li>
-<p>QMEDIT is a REXX EXEC that will help us customize our sample code efficiently. We want to name it QMEDIT under our ZQSX dataset as well. Press enter and you should see in the top right corner, ‘QMEDIT copied’.</p>
-</li>
-<li>
-<p>Now, from the ISPF main screen, if we enter ‘=3.4’ into the command line and Press enter. We should be able to navigate to our newly created dataset. Copy the below screen and press enter.</p>
-</li>
-<li>
-<p>Press enter.</p>
-</li>
-<li>
-<p>Browse the dataset by entering a ‘b’ to the left of the dataset name and press enter. </p>
-</li>
-<li>
-<p>We will need to customize the following members of the dataset to effectively create a new queue manager:</p>
-<table>
-<thead>
-<tr>
-<th>JCL job</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>CSQ4BSDS</td>
-<td>Creates bootstrap data sets</td>
-</tr>
-<tr>
-<td>CSQ4CHIN</td>
-<td>Sample Channel Initiator JCL procedure</td>
-</tr>
-<tr>
-<td>CSQ4MSTR</td>
-<td>Sample Queue Manager JCL procedure</td>
-</tr>
-<tr>
-<td>CSQ4INPX</td>
-<td>Sample commands related to the channel initiator</td>
-</tr>
-<tr>
-<td>CSQ4INYG</td>
-<td>Commands to define objects that are normally required</td>
-</tr>
-<tr>
-<td>CSQ4PAGE</td>
-<td>Creates page sets for QM storage</td>
-</tr>
-<tr>
-<td>CSQ4ZPRM</td>
-<td>Creates the queue manager initiation attributes</td>
-</tr>
-</tbody>
-</table>
-</li>
-<li>
-<p>Instead of manually customizing each of these, we will use our QMEDIT to help us customize quickly. Use ‘F8’ to navigate down to QMEDIT from the list of members in ZQSX.SCSQPROC. Place a ‘e’ to the left of QMEDIT and Press enter.</p>
-</li>
-<li>
-<p>Once inside QMEDIT, look through the code and see what the code is customizing. Since this was last used for ZQS2, you will see ZQS2 mentioned a lot. We need to change that.</p>
-</li>
-</ol>
-<p>a.  Enter the command </p>
-<p><code>C ‘ZQS2’ ‘ZQSX’ ALL</code></p>
-<p>on the command line and press enter. </p>
-<p>b.  Enter the command </p>
-<p><code>C ‘MQ933CD’ ‘MQ941CD' ALL</code></p>
-<p>on the command line and press enter.</p>
-<p>c.  Enter the command </p>
-<p><code>C ‘1424’ ‘1425’ ALL</code></p>
-<p>on the command line and press enter so there isn’t a port number overlap with ZQS2.</p>
-<p>12.    By entering the above commands, we’re customizing the REXX exec to the data sets of this particular z/OS environment.</p>
-<p>13.    Now, our REXX exec should be ready to use because it has the correct version of MQ specified, our desired queue manager name, our desired storage areas, and English. Each of those things need to be specified from the original sample code.</p>
-<p>14.    We need to activate the QMEDIT code to be able to go through our relevant members and customize them quickly. Use F3, return to the ISPF main menu and enter option 6. Enter this command:</p>
-<p><code>===&gt; ALTLIB ACTIVATE APPLICATION(EXEC) DA('ZQSX.SCSQPROC')</code></p>
-<p>15.    Press enter. With ALTLIB, a user or ISPF application can easily activate and deactivate CLIST and REXX exec libraries as the need arises. We are activating the REXX exec library of QMEDIT here to automate customization.</p>
-<p>16.    From the ISPF main menu, navigate back to the ZQSX.SCSQPROC members via option 3.4.</p>
-<p>17.    Starting with CSQ4BSDS, we will customize:</p>
-<p>a.  CSQ4BSDS</p>
-<p>b.  CSQ4CHIN</p>
-<p>c.  CSQ4MSTR</p>
-<p>d.  CSQ4INPX</p>
-<p>e.  CSQ4INYG</p>
-<p>f.  CSQ4PAGE</p>
-<p>g.  CSQ4ZPRM</p>
-<ol>
-<li>Enter an ‘e’ next to CSQ4BSDS and Press enter from the member list. Once inside CSQ4BSDS, enter QMEDIT on the command input line and Press enter.</li>
 </ol>
 <blockquote>
-<p>NOTE: You must execute QMEDIT in the same session as you executed the ALTLIB command from. Otherwise, you will get the error message ‘QMEDIT not found’.</p>
+<p>NOTE:  CSI is a VSAM data set partitioned into zones, typically including a Global Zone (central repository), Target Zones (for products running on the system), and Distribution Zones (for backup/system maintenance).</p>
+</blockquote>
+<ol>
+<li></li>
+</ol>
+<h4 id="i-retrieve-ibm-mq-for-zos-945-to-zos-from-the-internet-via-workstation">I. Retrieve IBM MQ for z/OS 9.4.5 to z/OS from the internet via workstation</h4>
+<ol>
+<li>On shopZ, there are various options for obtaining the media of a z/OS product. Downloading directly to your workstation can be the easiest to avoid having to establish network connections.</li>
+</ol>
+<blockquote>
+<p>NOTE: Check if this meets your organization's security standards.</p>
 </blockquote>
 <ol>
 <li>
-<p>You should notice the changes by looking through CSQ4BSDS, using F7 and F8 to navigate up and down the JCL code. Enter F3 to return to the member list and save your changes to CSQ4BSDS.</p>
+<p>On your workstation, create a directory structure to accomodate for the format of the SMP/E format. For example,</p>
+<div class="highlight"><pre><span></span><code>c:\z\shopz\MQ942CD\SMPHOLD
+c:\z\shopz\MQ942CD\SMPPTFIN
+c:\z\shopz\MQ942CD\SMPRELF
+</code></pre></div>
 </li>
 <li>
-<p>Now, navigate back to the ZQSX.SCSQPROC list. Repeat this process for:</p>
+<p>Once downloaded, files can be easily moved to a z/OS system using FTP. The package must first be moved to an OMVS file system on z/OS. So, you must have a OMVS file system prepared.</p>
+</li>
+<li>
+<p>Using the mkdir command, create a dedicated mount point in the OMVS root directory in the z/OS system's OMVS directory structure. For example, /u/sysp.</p>
+</li>
+<li>
+<p>Next, mount a very large file system at this mount point.</p>
+</li>
+<li>
+<p>Once, the file system is mounted, create three sub directories to match the SMP/E format:</p>
+<p>```
+/u/sysp/SMPHOLD
+/u/sysp/SMPPTFIN
+/u/sysp/SMPRELF</p>
 </li>
 </ol>
-<p>a.  CSQ4CHIN</p>
-<p>b.  CSQ4MSTR</p>
-<p>c.  CSQ4INPX</p>
-<p>d.  CSQ4INYG</p>
-<p>e.  CSQ4PAGE</p>
-<p>f.  CSQ4ZPRM</p>
-<ol>
-<li>We are going to make an additional customization on CSQ4PAGE. Navigate to the member using ‘e’ to the left of the member. Once inside, enter the following commands on the command line at the bottom and Press enter. </li>
-</ol>
-<p><code>c 'VOL=SER' 'STORCLAS' all</code></p>
-<p><code>c 'VOLUMES' 'STORCLAS' all</code></p>
-<ol>
-<li>
-<p>We’re using system managed storage devices now instead of volumes, as is the standard on z/OS now</p>
-</li>
-<li>
-<p>F3 to save the changes. We have to customize the storage here to be appropriate for this z/OS image.</p>
-</li>
-<li>
-<p>Next, we’re going to modify CSQ4ZPRM. Enter the command: c ‘++HLQ.USERAUTH++’ ‘ZQS1.USERAUTH’ ALL</p>
-</li>
-<li>
-<p>Last, modify CSQ4CHIN using ‘e’. Once inside CSQ4CHIN, enter the command ‘f user exit library’. This will find the appropriate JCL.</p>
-</li>
-<li>
-<p>We want to comment the lines 94 and 119 out. Insert a “*” in the front of the line so that the asterisk lines up with the asterisk on the line below. It should look like this: </p>
-</li>
-</ol>
-<p><code>000094 //*          DD DSN=++CSFQUAL++.SCSSFMOD0,DISP=SHR</code></p>
-<p><code>000119 //* CSQXLIB  DD DSN=++EXITLIB++.DISP=SHR</code></p>
-<ol>
-<li>
-<p>F3 out of CSQ4CHIN to save your changes and return to the member list.</p>
-</li>
-<li>
-<p>You can enter the command ‘SORT CHANGED’ from the member list panel to ensure you customized all the essential members</p>
-</li>
-</ol>
-<h4 id="ii-run-jobs-to-create-the-bootstrap-data-sets-and-log-data-sets">II. Run jobs to create the bootstrap data sets and log data sets</h4>
-<ol>
-<li>
-<p>Now, your customization is complete. Enter ‘e’ next to CSQ4BSDS and input ‘SUBMIT’ on the command line. This will create our bootstrap data sets for the new queue manager. </p>
-</li>
-<li>
-<p>Repeat this for CSQ4PAGE to set up the page sets for the new queue manager. </p>
-</li>
-<li>
-<p>Last, submit CSQ4ZPRM using the same process as CSQ4BSDS and CSQ4PAGE.</p>
-</li>
-<li>
-<p>When you return to the main ISPF menu, use option 3.4 to navigate to all the ZQSX libraries.</p>
-</li>
-<li>
-<p>Once you Press enter, you should now see boot strap data set and page set files set up along with our original ZQSX.SCSQPROC data set. If you do not see the new data sets, something has failed in your JCL and you will need to debug. We recommend comparing the BSDS and PAGE JCL to the JCL of a working queue manager, for example, ZQS1.</p>
-</li>
-</ol>
-<h4 id="iii-add-mstr-and-chin-to-sys1proclib-the-started-task-library">III. Add MSTR and CHIN to SYS1.PROCLIB, the started task library</h4>
-<ol>
-<li>
-<p>Now, we have to edit SYS1.PROCLIB. Navigate to SYS1.PROCLIB using 3.4 on the ISPF menu. SYS1.PROCLIB needs to contain two members for ZQSX, ZQSXMSTR and ZQSXCHIN. We can add these two members by copying our CSQ4MSTR and CSQ4CHIN and renaming them.</p>
-</li>
-<li>
-<p>From the ISPF main menu, go to 3.3. Here, specify that you would like to copy from ‘ZQSX.SCSQPROC(CSQ4MSTR)’ to ‘SYS1.PROCLIB(ZQSXMSTR)’. This will create a copy of your edited member for SYS1.PROCLIB and it will also rename the member to ZQSXMSTR.</p>
-</li>
-<li>
-<p>Repeat this copying process for CSQ4CHIN i.e. ‘ZQSX.SCSQPROC(CSQ4CHIN)’ to ‘SYS1.PROCLIB(ZQSXCHIN)’.</p>
-</li>
-<li>
-<p>Now, if you navigate to SYS1.PROCLIB using option 3.4, you should see the members ZQSXMSTR and ZQSXCHIN listed as members.</p>
-</li>
-</ol>
-<h4 id="iv-dynamically-add-mq-subsystem-to-mvs">IV. Dynamically add MQ subsystem to MVS</h4>
-<ol>
-<li>
-<p>Now, all the setup is complete, so we just have to start up the queue manager!</p>
-</li>
-<li>
-<p>The next few commands will all be entered in the MVS command area. Navigate there by entering ‘D’ in the ISPF menu command line to navigate to SDSF. Once in SDSF, enter a slash in your command input and Press enter like so:</p>
-</li>
-</ol>
-<p><img alt="SDSF command input" src="../assets/newQM/newqmX.png" /></p>
-<ol>
-<li>Execute command to dynamically define MQ subsystem: </li>
-</ol>
-<p><code>SETSSI ADD,S=ZQSX,I=CSQ3INI,P='CSQ3EPX,ZQSX,S'</code></p>
 <blockquote>
-<p>NOTE! None of these dynamic commands will last through an IPL of the system. To make these changes concrete, you will need to modify the LPALST##, IEFSSN## and PROG## members of the LPAR’s SYS1.PARMLIB data set.</p>
+<p>NOTE:
+<strong>SMPHOLD</strong> contains exception system modification data, specifically ++HOLD and ++RELEASE statements. A ++HOLD statement is a control record that flags a software modification (SYSMOD, like a PTF) as having a potential issue, preventing its application, while a ++RELEASE statement removes that restriction. Essentially, these statements act as an automated, proactive "stop-and-go" mechanism to ensure software updates don't cause errors or damage the mainframe system.</p>
+<p>NOTE:
+<strong>SMPPTFIN</strong> contains Program Temporary Fixes (PTFs), function modification identifiers (FMIDs), and ++ASSIGN statements. ++ASSIGN statements are used to assign specific source identifiers (SOURCEIDs) to SYSMODs (system modifications) during the RECEIVE process. </p>
+<p>NOTE: 
+<strong>SMPRELF</strong> delivers the actual code, macros, and modules of a program being installed via SMP/E. You may also here the contents of SMPRELF referred to simply as REL files</p>
 </blockquote>
-<h4 id="v-define-subsystem-security">V. Define subsystem security</h4>
-<ol>
-<li>F3 back to the main menu, out of SDSF, enter option 6 from the main menu. Here, you will find a TSO command input window:</li>
-</ol>
-<p>a.  Turn off security by entering this command: </p>
-<p><code>RDEFINE MQADMIN ZQSX.NO.SUBSYS.SECURITY</code></p>
-<p>NOTE! Never turn off security outside of workshop lab environments.</p>
-<ol>
-<li>You will see an output like this, indicating this has already been done for you, but this enables you to see how we did it. Obviously, you will not be disabling security in any of your environments, just in our test environment.  </li>
-</ol>
-<h4 id="vi-starting-your-queue-manager-and-channel-initiator">VI. Starting your queue manager and channel initiator</h4>
-<ol>
-<li>Return to the SDSF command window and input the commands into the MVS command line:</li>
-</ol>
-<p>a.  Start up our queue manager ZQSX with the command: </p>
-<p><code>ZQSX START QMGR</code></p>
-<p>b.  Start up the channel initiator with the command: </p>
-<p><code>ZQSX START CHINIT</code></p>
-<p>c.  Start up the listener with the command: </p>
-<p><code>ZQSX start listener TRPTYPE(TCP) Port(1425)</code></p>
 <ol>
 <li>
-<p>To verify that your queue manager has been set up, you can navigate to MQ Explorer and test the connection. You will use the port number you specified in the REXX exec.</p>
-</li>
-<li>
-<p>Congrats! You have created a queue manager from scratch! Lab COMPLETE!</p>
+<p>Next, using FTP, each file to the z/OS OMVS directory you've created. Ensure the mode is binary mode. For example...</p>
+<div class="highlight"><pre><span></span><code>ftp zos.image
+cd /u/sysp
+bin
+prompt
+cd SMPHOLD 
+lcd SMPHOLD
+mput *
+cd SMPPTFIN 
+lcd SMPPTFIN
+mput *
+cd SMPRELF 
+lcd SMPRELF
+mput *
+</code></pre></div>
 </li>
 </ol>
-<h3 id="appendix">Appendix:</h3>
-<p>• REXX EXEC is not included with the base product – describe ++ variables </p>
-<p>• Make an error when executing your SETSSI command? Use SETSSI DELETE,S=ZQSX,FORCE to roll back your command.</p>
-<p>• Check APF authorized libraries by entering the command /DISPLAY PROG,APF from the SDSF command input then going to the log. </p>
-<p>APF authorized libraries must be:</p>
-<p>o   MQ941CD.SCSQANLE</p>
-<p>o   MQ941CD.SCSQAUTH</p>
-<p>o   MQ941CD.SCSQMVR1</p>
-<blockquote>
-<p>NOTE: You may see several LPALST## PROG##, and IEFSSN## members. You want to use the ones specified in the SYS1.PARMLIB(IEASYS##). You can find the IEASYS## member by entering the command /D IPLINFO from the SDSF command input. It will show a screen like this:</p>
-</blockquote>
-<p><code>COMMAND INPUT ===&gt;                                            S
- RESPONSE=MQS1                                                  
-  IEE254I  09.34.43 IPLINFO DISPLAY 726                         
-   SYSTEM IPLED AT 09.55.40 ON 03/10/2026                       
-   RELEASE z/OS 03.02.00    LICENSE = z/OS                      
-   USED LOADMQ IN SYS0.IPLPARM ON 0A04C                         
-   ARCHLVL = 2   MTLSHARE = N                                   
-   VALIDATED BOOT: NO                                           
-   SOFTWARE INSTANCE UUID: bbb756c7-a3ea-40c4-b037-79a73b324536 
-   IEASYM LIST = XX                                             
-   IEASYS LIST = (00) (OP)                                      
-   IODF DEVICE: ORIGINAL(0A04C) CURRENT(0A04C)                  
-   IPL DEVICE: ORIGINAL(0A472) CURRENT(0A472) VOLUME(Z32RD1)    
-   VM CPID = z/VM    7.3.0                                      
-   VM UUID IS NOT PROVIDED                                      
-   VM NAME = MQS1                                               
-   VM EXT NAME IS NOT PROVIDED</code></p>
-<p>• Looking to permanently make updates to your LPALST## member?</p>
-<p>o   Add code like this:</p>
-<p>•   Looking to permanently make updates to your IEFSSN## member?</p>
-<p>a.  Add code in the format of:</p>
-<div class="highlight"><pre><span></span><code>```
-SUBSYS SUBNAME(ZQSX) INITRTN(CSQ3INI) INIPARM(&#39;CSQ3EPX,ZQSX,S&#39;)
-```
-</code></pre></div>
-<p>•   Looking to permanently make updates to your PROG## member?</p>
-<p>o   Add code in the format of:</p>
-<div class="highlight"><pre><span></span><code>```
-APF ADD DSNAME(MQ941CD.SCSQ****)            SMS
-```
-</code></pre></div>
-<p>• Need to dynamically APF authorize your MQ load libraries?</p>
-<div class="highlight"><pre><span></span><code>```SETPROG APF,ADD,DSNAME=MQ941CD.SCSQANLE ,SMS```
-
-```SETPROG APF,ADD,DSNAME=MQ941CD.SCSQSNLE ,SMS```
-</code></pre></div>
-<p>• Need to dynamically add some modules to the LPA (link pack area) of z/OS?</p>
-<div class="highlight"><pre><span></span><code>```SETPROG LPA,ADD,MODNAME=(CSQ3EPX,CSQ3INI),DSNAME=MQ941CD.SCSQLINK```
-
-```SETPROG LPA,ADD,MODNAME=(CSQ3ECMX),DSNAME=MQ941CD.SCSQSNLE```
-</code></pre></div>
 
 
 

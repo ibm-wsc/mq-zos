@@ -31,6 +31,19 @@ By the end of this lab, you should understand how MQ triggering with CICS is con
 
 This sample requires a currently supported version of IBM MQ and CICS. If you are using the MQPLEX lab environment, the COBOL source for the `QCOPY` program is available in `ZQS1.COBOL.SOURCE`. If you need access to a lab sysplex, contact the Worldwide Systems Center or your IBM technical sales contact.
 
+### Prerequisites
+
+Before you begin, make sure the following are available:
+
+- A running queue manager, for example `ZQS1`
+- A CICS region that is configured to work with MQ
+- Access to the MQ web console, MQ Explorer, or MQSC through PCOMM
+- Authority to define MQ objects and access the required CICS transactions
+- The `QCOPY` sample program and `QCPY` transaction installed in the target CICS region
+- A working MQ-CICS connection and the ability to start the CICS trigger monitor (`CKTI`)
+
+> Note: This lab assumes the objects are created on queue manager `ZQS1`. If you use a different queue manager, substitute that name consistently throughout the lab.
+
 #### Procedure
 
 ### I. Defining MQ objects for triggering
@@ -166,3 +179,22 @@ This sample requires a currently supported version of IBM MQ and CICS. If you ar
 25. Congratulations. You have successfully used a CICS application with MQ triggering. In this lab, you created the necessary MQ objects, configured the MQ-to-CICS connection, and verified that triggered processing copied messages from a source queue to a target queue.
 
    ![Picture of triggering process](assets/triggering/trigdiagram.png)
+
+### Troubleshooting
+
+If the test does not work as expected, check the following:
+
+- `QCPY.PROCESS` exists and identifies the `QCPY` CICS transaction
+- `QCPY.CONTROL` is defined for triggering and references the correct initiation queue and process
+- `CICS.INITQ` exists on the correct queue manager
+- `CKTI` is active in CICS
+- The MQ-CICS connection is active
+- The `QCOPY` program and `QCPY` transaction are installed in CICS
+- The control message format is correct
+- The queue manager name used in CICS matches the queue manager where the MQ objects were defined
+
+Typical symptoms and causes:
+- No trigger occurs: `CKTI` is not active, the initiation queue is wrong, or `QCPY.CONTROL` is not defined as a triggered queue
+- Trigger message is generated but nothing runs: the CICS connection or `QCPY` transaction definition is missing
+- Messages do not move: the control message format is wrong or the source or target queue names are incorrect
+- `CICS.INITQ` open input count is `0`: CICS is not monitoring the initiation queue

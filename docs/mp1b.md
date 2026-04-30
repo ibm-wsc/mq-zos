@@ -1,178 +1,285 @@
-# Looking at SMF data for problem determination
+# Looking at SMF Data for Problem Determination
 
 #### **Audience level**
-Some knowledge of MQ or z/OS 
+Some knowledge of MQ or z/OS
+
 #### **Skillset**
 MQ Administration, z/OS systems programming
 
 #### **Background**
-MP1B is a utility provided by IBM to analyze your IBM MQ environment’s performance. MP1B shows you your SMF performance data and allows you to roll it off platform to CSV files for further analysis.
+MP1B is a utility provided by IBM to help analyze IBM MQ for z/OS performance data. It reads MQ-related SMF records and can format them for review or export them to CSV for further analysis.
 
-MP1B is installable at [Link](https://www.ibm.com/support/fixcentral/swg/selectFixes?parent=ibm~WebSphere&product=ibm/WebSphere/WebSphere+MQ&release=9.3.2.0&platform=z/OS&function=fixId&fixids=mp1b*)
+MP1B can be installed from IBM support resources. In this lab environment, it has already been installed for you.
 
-Out of the box, it contains:
+Out of the box, MP1B contains:
 
-*MQCMD* – a program to display queue statistics and channel status over time
+- `MQCMD` - a program to display queue statistics and channel status over time
+- `MQSMF` - a program for interpreting MQ accounting and statistics data
+- `OEMPUT` - a program to put or get large volumes of messages, which is useful for throughput testing
 
-*MQSMF* – a program for interpreting your own accounting and statistics data
+### **Overview of the exercise**
 
-*OEMPUT* - a program to put/get messages in high quantities, useful for testing throughput
+In this lab, you will:
 
-### **Overview of exercise**
+I. Set up the local queue `MP1B.TESTER`
 
-I.	Set up the local queue MP1B.TESTER
+II. Make sure the queue manager is configured to record the SMF data you need
 
-II.	Make sure settings are in place to record SMF data 
+III. Run JCL to generate and capture SMF data
 
-III.	Run JCL to record our SMF data 
+IV. Navigate the formatted SMF output to identify a performance issue
 
-IV.	Navigate the SMF data output to find performance problems in our queue
+V. Interpret the problem and relate it to the queue manager configuration
 
-V.	Interpret the performance problem
+Video tutorial of the exercise: [Link](https://youtu.be/Mv4e50Xztn0)
 
-Video tutorial of the following exercise: [Link](https://youtu.be/Mv4e50Xztn0)
+### Prerequisites
 
-### **Exercise** 
+Before you begin, make sure the following are available:
 
-1.	MP1B has been installed on this environment, and you can find it by searching for the directory ZQS1.MP1B.JCL in the =3.4 data set search bar.
+- Access to the `ZQS1.MP1B.JCL` data set
+- A running queue manager `ZQS1`
+- MQ Explorer access to `ZQS1`
+- Authority to issue MQ commands and submit jobs through ISPF and SDSF
+- Access to the MP1B sample jobs `OEMPUT`, `SMFDUMP`, and `MQSMFP`
+- The correct Julian date for the day on which you run the lab
+- Permission to alter queue manager attributes temporarily for the purpose of the exercise
 
-    ![Picture of z/OS data set search](assets/mp1b-1.png "Picture of z/OS data set search")
+> Note: This lab intentionally changes queue manager settings such as `STATIME`, `ACCTIME`, and `LOGLOAD` to produce visible effects in the SMF data. These values are suitable for a controlled lab, but not necessarily for a production environment.
 
-2.	Now, outside of z/OS, open up MQ Explorer on your Windows Desktop. The icon should look like this:
+### **Exercise**
 
-    ![Picture of MQ Explorer icon](assets/mp1b-2.png "MQ Explorer icon")
+#### I. Create the test queue
 
-3.	Once you’ve opened MQ Explorer, you should see a left-hand menu bar like below. Right click on the ZQS1 queue manager and hit ‘Connect’.
+1. MP1B has already been installed in this environment. You can find it by searching for the data set `ZQS1.MP1B.JCL` in ISPF option `3.4`.
 
-    ![Picture of MQ Explorer active queue managers](assets/mp1b-3.png "Picture of MQ Explorer active queue managers")
+   ![Picture of z/OS data set search](assets/mp1b-1.png "Picture of z/OS data set search")
 
-4.	By clicking on the arrow to the left of ZQS1, a dropdown list of MQ objects will appear. Right click on the ‘Queues’ folder and construct a new local queue called MP1B.TESTER.
+2. Open MQ Explorer on your Windows desktop.
 
-    ![Picture of creating new queue on MQ Explorer](assets/mp1b-4.png "Picture of creating new queue on MQ Explorer")
+   ![Picture of MQ Explorer icon](assets/mp1b-2.png "MQ Explorer icon")
 
-5.	Create a queue on your queue manager using MQ Explorer. The queue should have the following properties: 
+3. In MQ Explorer, right-click the `ZQS1` queue manager and select **Connect**.
 
-    ![Display of queue properties](assets/mp1b-5.png "Display of queue properties")
-    
-> Why make the queue shareable? Great question! Shareable queues tend to come in handy in a test environment, so that developers can browse the queues.
+   ![Picture of MQ Explorer active queue managers](assets/mp1b-3.png "Picture of MQ Explorer active queue managers")
 
-6.	Now that we have our queue defined, head back to z/OS. 
+4. Expand `ZQS1`, right-click the **Queues** folder, and create a new local queue called `MP1B.TESTER`.
 
-7.	Now, we will enter a series of MVS commands to adjust the settings of the queue manager to prepare it for the collection of SMF data. To do this, navigate to the ISPF main menu
+   ![Picture of creating new queue on MQ Explorer](assets/mp1b-4.png "Picture of creating new queue on MQ Explorer")
 
-8.	Once in the ISPF main menu, enter ‘d’ in the command line and hit enter
+5. Create the queue with the properties shown in the following example:
 
-9.	Once in SDSF, place a / in the command input line and hit enter
+   ![Display of queue properties](assets/mp1b-5.png "Display of queue properties")
 
-10.	A MVS command prompt like this should pop up:
+   > Why make the queue shareable? In a lab environment, shareable queues are convenient because multiple users or tools can browse them.
 
-    ![Display of MVS command prompt](assets/mp1b-6.png "Display of MVS command prompt")
+6. Once the queue has been defined, return to z/OS.
 
-11.	Enter the following commands here, one at a time. Each command will take you out of the System Command Extension window, so you will have to use the / command to return to the correct window for executing commands.
+#### II. Configure the queue manager for SMF collection
 
-        ZQS1 SET SYSTEM STATIME(1.00)
+7. You will now enter a series of MVS commands to adjust the queue manager configuration so that the resulting SMF data is easier to analyze.
 
-    To change the statistics time interval to 1 minute
+8. From the ISPF main menu, enter `D` to open SDSF.
 
-        ZQS1 SET SYSTEM ACCTIME(-1)
+9. In SDSF, enter `/` in the command input line and press Enter to open the system command extension window.
 
-    To change the accounting time interval to match the statistics time interval
+10. A command prompt like the following should appear:
 
-        ZQS1 SET SYSTEM LOGLOAD(200) 
-        
-    To change the log load attribute to the minimum.
+   ![Display of MVS command prompt](assets/mp1b-6.png "Display of MVS command prompt")
 
-    We want to modify our queue manager’s log load attribute to be super low in order to manufacture a lot of checkpointing so we see something interesting in the SMF records for the purpose of the lab
+11. Enter the following commands one at a time. After each command, you may need to reopen the system command extension window with `/`.
 
-        DISPLAY SMF
+   ```text
+   ZQS1 SET SYSTEM STATIME(1.00)
+   ```
 
-    This tells us where our SMF data will be stored
+   This changes the statistics interval to one minute.
 
-        ZQS1 ALTER QMGR STATCHL(MEDIUM)
+   ```text
+   ZQS1 SET SYSTEM ACCTIME(-1)
+   ```
 
-    This tells z/OS we want to enable channel statistics to be collected at a moderate ratio of data collection
+   This changes the accounting interval so that it follows the statistics interval.
 
-        ZQS1 ALTER QMGR MONQ(MEDIUM)
+   ```text
+   ZQS1 SET SYSTEM LOGLOAD(200)
+   ```
 
-    This tells z/OS to turn on monitoring for the queue manager’s queues at a moderate ratio of data collection
+   This sets the `LOGLOAD` attribute to a very low value.
 
-        ZQS1 ALTER QMGR MONCHL(MEDIUM)
+   > In this lab, `LOGLOAD(200)` is intentionally low so that the queue manager performs frequent checkpoints. This makes the effect visible in the SMF data.
 
-    This tells z/OS to turn on monitoring for the queue manager’s channels at a moderate ratio of data collection
+   ```text
+   DISPLAY SMF
+   ```
 
-        ZQS1 START TRACE(STAT) CLASS(1,2,4,5)
+   This shows where the SMF data is being recorded.
 
-        ZQS1 START TRACE(ACCTG) CLASS(3,4)
+   ```text
+   ZQS1 ALTER QMGR STATCHL(MEDIUM)
+   ```
 
-12.	Now all the settings should be in place for our queue manager. Head back to ZQS1.MP1B.JCL using 3.4 from the main ISPF menu. 
+   This enables channel statistics collection at a moderate level.
 
-13.	We will use OEMPUT to load messages into MP1B.TESTER. In the directory ZQS1.MP1B.JCL, place an ‘e’ to the left of the OEMPUT member. 
+   ```text
+   ZQS1 ALTER QMGR MONQ(MEDIUM)
+   ```
 
-     ![Screenshot of OEMPUT JCL](assets/mp1b-7.png "Screenshot of OEMPUT JCL")
+   This enables queue monitoring at a moderate level.
 
-14.	Make sure that your queue manager and queue names are correct in lines 46 and 47.
+   ```text
+   ZQS1 ALTER QMGR MONCHL(MEDIUM)
+   ```
 
-15.	Once in OEMPUT, type ‘submit’ on the command line and hit enter to load persistent messages into the queue manager.
+   This enables channel monitoring at a moderate level.
 
-    I won’t summarize the whole JCL, but pay attention to this particular line:  
+   ```text
+   ZQS1 START TRACE(STAT) CLASS(1,2,4,5)
+   ```
 
-    `PARM=('-M&QM -tm3 -Q&Q -crlf -fileDD:MSGIN -P')`
+   ```text
+   ZQS1 START TRACE(ACCTG) CLASS(3,4)
+   ```
 
-    Lets break it down:
+12. At this point, the queue manager should be configured to generate the SMF data needed for the exercise.
 
+#### III. Generate workload and dump SMF data
 
-    | Parameter    | Meaning |
-    | -------- | ------- |
-    | '-M&QM | Queue manager name |
-    |	-tm3 | Send messages for 3 minutes |
-    |	-Q&Q | The queue name |
-    |	-crlf | Each line in the input message file is used in sequence as message data |
-    |	-fileDD:MSGIN | Use the MSGIN file as input |
-    |	-P | Use persistent messages |
+13. Return to `ZQS1.MP1B.JCL` using ISPF option `3.4`.
 
-16.	If you look at your MQ Explorer, you should now see that your queue is populated with lots of messages! 
+14. Open the `OEMPUT` member by entering `E` next to it.
 
-    ![MQ Explorer display of message depth on queue](assets/mp1b-8.png "MQ Explorer display of message depth on queue")
+   ![Screenshot of OEMPUT JCL](assets/mp1b-7.png "Screenshot of OEMPUT JCL")
 
-17.	Back in ZQS1.MP1B.JCL, navigate to the SMFDUMP member. Once inside, enter ‘submit’ on the command line to execute SMFDUMP JCL. The SMFDUMP JCL starts with deleting old tasks, then outputs it in a specified location, in our case, ZQS1.QUEUE.MQSMF.SHRSTRM2.
+15. Verify that the queue manager name and queue name are correct in the member.
 
-    ![SMFDUMP JCL](assets/mp1b-9.png "SMFDUMP JCL")
+16. Submit the `OEMPUT` job to load persistent messages into the queue.
 
- 
-18.	You can check that the SMFDUMP is processing by navigating to your job using SDSF. Access SDSF using =D from the ISPF menu.
-19.	Once in SDSF, select ST from the menu and hit ‘enter’
-20.	Type in ‘prefix ZQS1*’. This will show you a list of all jobs submitted that start with ZQS1. Remember, we define our job names at the top left of each JCL file.  
-21.	Here, you put a ‘?’ mark besides the jobname. Hit enter, then a screen with a SYSPRINT menu option should pop up. Next to SYSPRINT, put a ‘s’ and hit enter.
-22.	Enter ‘bottom’ on the command line and you should see a screen like below, indicating that records are being written. You can also confirm this by looking in the output for the SUMMARY ACTIVITY REPORT.
+17. The following `PARM` line is especially important:
 
-    ![Picture of SMFDUMP Output: SUMMARY ACTIVITY REPORT](assets/mp1b-10.png "SUMMARY ACTIVITY REPORT")
+   ```text
+   PARM=('-M&QM -tm3 -Q&Q -crlf -fileDD:MSGIN -P')
+   ```
 
- 
-23.	After submitting, you will have to submit another job MQSMFP in ZQS1.MP1B.JCL. This job will give us some formatted information about the SMF data. Make one change before submitting: ensure that the julian date is correct. For labs taking place on 2/24/2025, the julian date is 25055.
+   Meaning of the parameters:
 
-24. Type ‘submit’ and hit enter.
+   | Parameter | Meaning |
+   | --- | --- |
+   | `-M&QM` | Queue manager name |
+   | `-tm3` | Send messages for 3 minutes |
+   | `-Q&Q` | Queue name |
+   | `-crlf` | Use each input line as a separate message |
+   | `-fileDD:MSGIN` | Use the `MSGIN` DD as input |
+   | `-P` | Use persistent messages |
 
-    ![Picture of MQSMFP JCL](assets/mp1b-11.png)
+18. In MQ Explorer, you should now see that `MP1B.TESTER` is populated with many messages.
 
-25.	Now, navigate to the SDSF output for the submitted job. We will be able to see the SMF output in useful categories that can also be exported as CSV files.
- 
-    ![Picture of MQSMFP Output](assets/mp1b-12.png)
+   ![MQ Explorer display of message depth on queue](assets/mp1b-8.png "MQ Explorer display of message depth on queue")
 
-26.	Navigate to the LOG statistics by putting a ‘s’ next to it and hitting enter. Scroll down until you see a screen similar to the one below. 
+19. Back in `ZQS1.MP1B.JCL`, open the `SMFDUMP` member and submit it. This job deletes old output if needed and then writes the relevant SMF data to the target data set, which in this environment is `ZQS1.QUEUE.MQSMF.SHRSTRM2`.
 
-27.	Here you can see LLCheckpoints has a value of 1564. Within our interval, we would expect this value to be 0’s or single-digits. 1564 is way too high. This indicates we should adjust our LOGLOAD attribute to have it write more log records between checkpoints.
- 
-    ![Picture of Checkpoint count](assets/mp1b-13.png)
+   ![SMFDUMP JCL](assets/mp1b-9.png "SMFDUMP JCL")
 
-### Summary
+20. To confirm that `SMFDUMP` is processing, use SDSF. From ISPF, enter `=D`.
 
-![Picture of logging schematic](assets/mp1b-14.png)
+21. In SDSF, select `ST` and press Enter.
 
-The LOGLOAD parameter specifies the number of log records that are written between checkpoints. In the figure above, you can see the LOGLOAD indicated by the blue brackets. For the above image’s example, the LOGLOAD looks to be 6 here (6 would be impossibly small in a real environment).
-We set our queue manager’s LOGLOAD attribute to the lowest possible value of 200 then flood our environment with messages. We saw see this cause high checkpointing in our recorded SMF window, resulting in unnecessary consumption of processor time and additional I/O.
+22. Enter the following command:
 
+   ```text
+   PREFIX ZQS1*
+   ```
 
+   This shows the submitted jobs that begin with `ZQS1`.
 
+23. Place a `?` next to the job name and press Enter. Then place an `S` next to `SYSPRINT` and press Enter.
 
+24. Enter `BOTTOM` on the command line. You should see output similar to the following, indicating that records are being written. You can also confirm this by locating the **SUMMARY ACTIVITY REPORT**.
 
+   ![Picture of SMFDUMP Output: SUMMARY ACTIVITY REPORT](assets/mp1b-10.png "SUMMARY ACTIVITY REPORT")
 
+#### IV. Format and review the SMF data
+
+25. After `SMFDUMP` completes, open the `MQSMFP` member in `ZQS1.MP1B.JCL`.
+
+26. Before submitting the job, make sure the Julian date is correct for the day of the lab. For example, for 24 February 2025, the Julian date is `25055`.
+
+27. Submit `MQSMFP`.
+
+   ![Picture of MQSMFP JCL](assets/mp1b-11.png)
+
+28. Navigate to the SDSF output for the submitted job. This output presents the SMF data in useful categories and can also be used to generate CSV-style output for later analysis.
+
+   ![Picture of MQSMFP Output](assets/mp1b-12.png)
+
+29. Select the **LOG statistics** section by placing an `S` next to it and pressing Enter.
+
+30. Scroll until you see a screen similar to the following:
+
+   ![Picture of Checkpoint count](assets/mp1b-13.png)
+
+31. Review the `LLCheckpoints` value. In the lab example, it is `1564`. For such a short interval, that is extremely high. In a more typical interval, you would expect the value to be zero or a small single-digit number.
+
+32. This result indicates that the queue manager is checkpointing far too frequently. In this lab, that behavior is caused by the intentionally low `LOGLOAD` setting.
+
+#### V. Interpret the performance issue
+
+33. The `LOGLOAD` parameter specifies how many log records are written between checkpoints.
+
+   ![Picture of logging schematic](assets/mp1b-14.png)
+
+34. In the diagram above, the `LOGLOAD` interval is shown by the blue brackets. In a real environment, a value as low as the one shown in the illustration would be unrealistically small.
+
+35. In this lab, you set the queue manager `LOGLOAD` attribute to the minimum value of `200` and then generated a heavy message workload. That combination caused a very high checkpoint frequency in the SMF window.
+
+36. Excessive checkpointing increases processor usage and I/O activity. The performance conclusion for this lab is that `LOGLOAD(200)` is too low for the workload you generated.
+
+### Validation checklist
+
+Before considering the lab complete, confirm the following:
+
+- `MP1B.TESTER` was created successfully
+- The queue manager settings were changed successfully
+- `OEMPUT` loaded persistent messages to the queue
+- `SMFDUMP` captured the relevant SMF data
+- `MQSMFP` formatted the SMF data successfully
+- The `LOG statistics` section showed the `LLCheckpoints` value
+- You were able to relate the high checkpoint count to the low `LOGLOAD` value
+
+### Troubleshooting
+
+If the lab does not work as expected, check the following:
+
+- MQ Explorer is connected to `ZQS1`
+- `MP1B.TESTER` was created on the correct queue manager
+- The `OEMPUT` member references the correct queue manager and queue
+- `SMFDUMP` completed successfully and wrote records to the expected data set
+- The Julian date in `MQSMFP` is correct
+- The queue manager tracing and monitoring commands were accepted successfully
+- The workload actually ran long enough to generate noticeable SMF data
+- You are viewing the `LOG statistics` section, not a different section of the formatted report
+
+Common symptoms and causes:
+
+- Queue depth never increases: `OEMPUT` may have been pointed at the wrong queue or queue manager
+- `SMFDUMP` shows little or no activity: tracing or monitoring may not have been enabled correctly
+- `MQSMFP` output is empty or incomplete: the wrong Julian date may have been used
+- `LLCheckpoints` is low: the workload may have been too small, or `LOGLOAD` was not changed successfully
+- MQ Explorer cannot browse the queue: the queue may not have been created, or the queue manager is not connected
+
+### Cleanup
+
+This lab changes queue manager settings to values that are useful for demonstration but are not ideal for normal operation. After the lab, consider restoring the queue manager settings to your environment's normal values.
+
+At a minimum, review and reset these attributes if needed:
+
+```text
+ZQS1 SET SYSTEM STATIME(...)
+ZQS1 SET SYSTEM ACCTIME(...)
+ZQS1 SET SYSTEM LOGLOAD(...)
+ZQS1 ALTER QMGR STATCHL(...)
+ZQS1 ALTER QMGR MONQ(...)
+ZQS1 ALTER QMGR MONCHL(...)
+```
+
+You may also want to remove the `MP1B.TESTER` queue after the exercise if it is no longer needed.

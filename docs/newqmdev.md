@@ -1,17 +1,9 @@
 # Customizing a New Queue Manager on IBM MQ for z/OS
 
-### Audience level
-Some knowledge of MQ or z/OS
-
-### Skillset
-z/OS Systems Programming, MQ Administration
-
-### Background
-Each time a new release of IBM MQ for z/OS is installed, you have an opportunity to create or migrate a queue manager and take advantage of the latest function available in that release.
+### Overview
 
 This lab walks through the process of creating a new queue manager using IBM MQ for z/OS 9.4.2 CD (Continuous Delivery). IBM MQ for z/OS is assumed to be already installed in the lab environment, so the product installation itself is out of scope.
 
-### Why create a queue manager from scratch?
 Understanding the manual creation process provides useful insight into:
 
 - Architecture: how z/OS queue managers integrate with the operating system
@@ -19,48 +11,51 @@ Understanding the manual creation process provides useful insight into:
 - Troubleshooting: what to check when a queue manager fails to start
 - Automation: the foundation for repeatable provisioning and tools such as Ansible
 
-### Overview of the exercise
+### Prerequisites
+
+You will need access to a sandbox z/OS system. If you are not able to access a sandbox z/OS environment, please reach out to IBM Worldwide Systems Center to provision a sample lab environment.
+
+You should be familiar with IBM MQ for z/OS, ISPF/TSO, and SDSF.
+
+The following needs to be installed or configured on z/OS:
+
+   - IBM MQ for z/OS. We are using IBM MQ 9.4.5 continuous delivery in this tutorial, but the instructions should work all supported versions of IBM MQ for z/OS.
+   - REXX EXEC called QMEDIT. The contents of the REXX EXEC are included in this document and may be tailored for different z/OS environments.
+
+### Steps
 
 In this lab, you will:
 
-#### I. Copy and tailor MQ sample JCL
-The IBM MQ installation provides sample JCL members that must be customized for your queue manager name, data set names, storage choices, and runtime configuration.
+#### Step 1. Copy and tailor MQ sample JCL
 
-#### II. Run jobs to create the bootstrap data sets and page sets
-IBM MQ uses VSAM linear data sets for key queue manager resources. These must be created before the queue manager can start.
+#### Step 2. Run jobs to create the bootstrap data sets and page sets
 
-#### III. Add MSTR and CHIN procedures to SYS1.PROCLIB
-A z/OS queue manager uses two started tasks: MSTR and CHIN. MVS must be able to locate the procedures for both.
+#### Step 3. Add MSTR and CHIN procedures to SYS1.PROCLIB
 
-#### IV. Dynamically add the MQ subsystem to MVS
-The subsystem definition allows MVS to recognize the queue manager as an MQ subsystem.
+#### Step 4. Dynamically add the MQ subsystem to MVS
 
-#### V. Define subsystem security
-In this lab environment, subsystem security is relaxed to simplify the exercise. This step is for lab use only.
+#### Step 5. Define subsystem security
 
-#### VI. Start the queue manager and channel initiator
-Once the supporting data sets, procedures, subsystem definition, and security are in place, you can start the queue manager.
+#### Step 6. Start the queue manager and channel initiator
 
-### Lab instructions
+### Step 1. Copy and tailor the sample JCL
 
-#### I. Copy and tailor the sample JCL
-
-1\. Copy the sample members from the IBM MQ installation library. In this environment, the MQ installation uses the high-level qualifier `MQ942CD`. You only need the sample members in `SCSQPROC`. From ISPF option `3.3`, copy all members from:
+1\. Copy the sample members from the IBM MQ installation library. In this environment, the MQ installation uses the high-level qualifier `MQ945CD`. You only need the sample members in `SCSQPROC`. From ISPF option `3.3`, copy all members from:
 
    ```
-   MQ942CD.SCSQPROC(*)
+   MQ945CD.SCSQPROC(*)
    Option ===> C
    ```
 
 2\. Use `ZQSX` as the high-level qualifier for the new queue manager library so the copied library becomes `ZQSX.SCSQPROC`.
 
-3\. Type `1` next to option 1 so the new data set is allocated using the attributes of `MQ942CD.SCSQPROC`, then press Enter.
+3\. Type `1` next to option 1 so the new data set is allocated using the attributes of `MQ945CD.SCSQPROC`, then press Enter.
 
 4\. Confirm that the members were copied successfully. You should see a message indicating that 113 members were copied into `ZQSX.SCSQPROC`.
 
 5\. From the ISPF main screen, enter `=3.4` on the command line and navigate to the newly created data set.
 
-   ![ISPF 3.4 data set list utility with ZQSX.SCSQPROC](assets/newQMdev/new0.png)
+   ![ISPF 3.4 data set list utility with ZQSX.SCSQPROC](assets/newQM/new0.png)
 
 6\. Press Enter, then browse the library by entering `B` next to the data set name.
 
@@ -76,7 +71,13 @@ Once the supporting data sets, procedures, subsystem definition, and security ar
    | `CSQ4PAGE` | Creates page sets |
    | `CSQ4ZPRM` | Creates queue manager initiation attributes |
 
-8\. Locate and edit `QMEDIT`. Review the REXX EXEC to understand what it customizes. Because it was last used for `ZQS2`, you will see `ZQS2` and older installation values throughout the member.
+8\. Locate `QMEDIT` in another queue manager `ZQS2.SCSQPROC`. From the ISPF main menu, go to option `3.3` and copy:
+
+   - `ZQS2.SCSQPROC(QMEDIT)` to `ZQSX.SCSQPROC(QMEDIT)`
+
+> NOTE: If you would like to manually customize the necessary MQ JCL, you do not have to use QMEDIT.
+
+9\. Review the REXX EXEC to understand what it customizes. Because it was last used for another queue manager `ZQS2`, you will see `ZQS2` and older installation values throughout the member.
 
    The REXX EXEC allows you to make repeated substitutions across the sample members. For example:
 
@@ -125,7 +126,7 @@ Once the supporting data sets, procedures, subsystem definition, and security ar
    "change '++NAME++'      'QMGRZPRM' all"
    ```
 
-9\. Update the values in `QMEDIT` by issuing these ISPF change commands:
+   Update the values in `QMEDIT` by issuing these ISPF change commands:
 
    a. Replace the existing queue manager qualifier:
    ```text
@@ -134,7 +135,7 @@ Once the supporting data sets, procedures, subsystem definition, and security ar
 
    b. Replace the MQ installation high-level qualifier:
    ```text
-   C 'MQ933CD' 'MQ942CD' ALL
+   C 'MQ933CD' 'MQ945CD' ALL
    ```
 
    c. Change the listener port to avoid conflict with `ZQS2`:
@@ -184,11 +185,13 @@ Once the supporting data sets, procedures, subsystem definition, and security ar
 
 18\. Save `CSQ4PAGE` with `F3`.
 
-19\. Edit `CSQ4ZPRM` and issue the following command:
+19\. Comment out lines 85 by placing `*` in the first column so they look like this:
 
    ```text
-   C '++HLQ.USERAUTH++' 'ZQS1.USERAUTH' ALL
+   000085 //*           DD DSN=++HLQ++.USERAUTH,DISP=SHR    
    ```
+
+   > NOTE: Only do this in a lab environment. USERAUTH works with z/OS security manager to validate credentials against security profiles in MQQUEUE, MQPROC, and MQCONN classes, providing the first line of defense for queue manager security.
 
 20\. Edit `CSQ4CHIN`, then enter `F USER EXIT LIBRARY` on the command line to locate the user exit library definitions.
 
@@ -206,7 +209,7 @@ Once the supporting data sets, procedures, subsystem definition, and security ar
 
 23\. Optionally, use `SORT CHANGED` from the member list panel to confirm which members were updated.
 
-#### II. Run jobs to create the bootstrap data sets and page sets
+#### Step 2. Run jobs to create the bootstrap data sets and page sets
 
 24\. Submit `CSQ4BSDS`. This creates the bootstrap data sets for the new queue manager.
 
@@ -218,7 +221,7 @@ Once the supporting data sets, procedures, subsystem definition, and security ar
 
 28\. Confirm that the new bootstrap and page set data sets now exist alongside `ZQSX.SCSQPROC`. If they do not, review the job output and compare your JCL with a known working queue manager such as `ZQS1`.
 
-#### III. Add MSTR and CHIN to SYS1.PROCLIB, the started task library
+#### Step 3. Add MSTR and CHIN to SYS1.PROCLIB, the started task library
 
 29\. Navigate to `SYS1.PROCLIB` using ISPF option `3.4`. You need two members for `ZQSX`: `ZQSXMSTR` and `ZQSXCHIN`.
 
@@ -229,7 +232,7 @@ Once the supporting data sets, procedures, subsystem definition, and security ar
 
 31\. Return to `SYS1.PROCLIB` and verify that both `ZQSXMSTR` and `ZQSXCHIN` exist.
 
-#### IV. Dynamically add MQ subsystem to MVS
+#### Step 4. Dynamically add MQ subsystem to MVS
 
 32\. Open SDSF by entering `D` on the ISPF command line. In SDSF, enter a slash (`/`) in the command input area and press Enter.
 
@@ -243,7 +246,7 @@ Once the supporting data sets, procedures, subsystem definition, and security ar
 
    > NOTE: This dynamic definition does not survive an IPL. To make it permanent, you must update the appropriate `LPALST##`, `IEFSSN##`, and `PROG##` members in `SYS1.PARMLIB`.
 
-#### V. Define subsystem security
+#### Step 5. Define subsystem security
 
 34\. Return to the ISPF main menu, select option `6`, and use the TSO command line to enter:
 
@@ -255,7 +258,7 @@ Once the supporting data sets, procedures, subsystem definition, and security ar
 
 35\. In this environment, the definition may already exist. The purpose of this step is to show how subsystem security was configured for the lab.
 
-#### VI. Start the queue manager and channel initiator
+#### Step 6. Start the queue manager and channel initiator
 
 36\. Return to SDSF and enter the following commands from the MVS command line:
 
@@ -276,7 +279,7 @@ Once the supporting data sets, procedures, subsystem definition, and security ar
 
 37\. To verify that the queue manager is working, check in SDSF that ZQSXMSTR and ZQSXCHIN are actively running in address spaces. Alternatively, connect to the queue manager using MQ Explorer or the MQ Web Console.
 
-38\. Congratulations. You have created a queue manager from scratch. 
+38\. Congratulations. You have created a queue manager from scratch!
 
 ### Appendix
 
@@ -292,9 +295,9 @@ Once the supporting data sets, procedures, subsystem definition, and security ar
 
   Required APF-authorized libraries include:
 
-  - `MQ941CD.SCSQANLE`
-  - `MQ941CD.SCSQAUTH`
-  - `MQ941CD.SCSQMVR1`
+  - `MQ945CD.SCSQANLE`
+  - `MQ945CD.SCSQAUTH`
+  - `MQ945CD.SCSQMVR1`
 
 - You may see several `LPALST##`, `PROG##`, and `IEFSSN##` members. Use the members referenced by `SYS1.PARMLIB(IEASYS##)`. You can identify the active `IEASYS##` member with:
 
@@ -333,25 +336,25 @@ Once the supporting data sets, procedures, subsystem definition, and security ar
 - To make APF authorization permanent, add entries similar to the following to the active `PROG##` member:
 
   ```text
-  APF ADD DSNAME(MQ941CD.SCSQ****) SMS
+  APF ADD DSNAME(MQ945CD.SCSQ****) SMS
   ```
 
 - To dynamically APF-authorize the MQ load libraries, use commands such as:
 
   ```text
-  SETPROG APF,ADD,DSNAME=MQ941CD.SCSQANLE,SMS
+  SETPROG APF,ADD,DSNAME=MQ945CD.SCSQANLE,SMS
   ```
 
   ```text
-  SETPROG APF,ADD,DSNAME=MQ941CD.SCSQSNLE,SMS
+  SETPROG APF,ADD,DSNAME=MQ945CD.SCSQSNLE,SMS
   ```
 
 - To dynamically add MQ modules to the LPA, use:
 
   ```text
-  SETPROG LPA,ADD,MODNAME=(CSQ3EPX,CSQ3INI),DSNAME=MQ941CD.SCSQLINK
+  SETPROG LPA,ADD,MODNAME=(CSQ3EPX,CSQ3INI),DSNAME=MQ945CD.SCSQLINK
   ```
 
   ```text
-  SETPROG LPA,ADD,MODNAME=(CSQ3ECMX),DSNAME=MQ941CD.SCSQSNLE
+  SETPROG LPA,ADD,MODNAME=(CSQ3ECMX),DSNAME=MQ945CD.SCSQSNLE
   ```

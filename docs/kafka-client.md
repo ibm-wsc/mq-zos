@@ -5,7 +5,7 @@ Knowledge of IBM MQ for z/OS or Linux
 #### **Skill set**
 Kafka, IBM MQ for z/OS
 
-#### **Background**
+#### **Background**asdfasdf
 
 This lab is designed for MQ administrators looking to gain beginner experience with Apache Kafka. If you are looking to gain familiarity with connecting IBM MQ for z/OS to Kafka for event-streaming, this lab is a great place to start. In this lab, we will walk through configuring the open-source Kafka Connector to demonstrate how to capture z/OS events with a standalone Kafka instance. Businesses are looking to capture the valuable insights on z/OS with events, using Kafka. As an MQ administrator, this lab will help you become comfortable with the Kafka architecture. This lab is for development and test purposes only.
 

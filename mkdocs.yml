@@ -11,6 +11,7 @@ nav:
   - Kafka via Client Connections Lab: kafka-client.md
   - Logging: logging.md
   - MP1B Lab: mp1b.md
+  - MQ Treasure Hunt: treasurehunt.md
   - Queue Manager Upgrade Lab: qm_upgrade.md
   - Queue Sharing Best Practices: qsg_bp.md
   - Queue Statistics Lab: queue-statistics.md

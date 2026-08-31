@@ -1,0 +1,1659 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="IBM MQ for z/OS">
+      
+      
+        <meta name="author" content="IBM Z WSC">
+      
+      
+        <link rel="canonical" href="https://ibm-wsc.github.io/mq-zos/treasurehunt/">
+      
+      
+        <link rel="prev" href="../mp1b/">
+      
+      
+        <link rel="next" href="../qm_upgrade/">
+      
+      
+      <link rel="icon" href="../assets/wsc-logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.23">
+    
+    
+      
+        <title>MQ Treasure Hunt - IBM MQ for z/OS</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.84d31ad4.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,300i,400,400i,700,700i%7CIBM+Plex+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"IBM Plex Sans";--md-code-font:"IBM Plex Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ibm-mq-for-zos-treasure-hunt" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="IBM MQ for z/OS" class="md-header__button md-logo" aria-label="IBM MQ for z/OS" data-md-component="logo">
+      
+  <img src="../assets/wsc-logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            IBM MQ for z/OS
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              MQ Treasure Hunt
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ibm-wsc/mq-zos" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="IBM MQ for z/OS" class="md-nav__button md-logo" aria-label="IBM MQ for z/OS" data-md-component="logo">
+      
+  <img src="../assets/wsc-logo.png" alt="logo">
+
+    </a>
+    IBM MQ for z/OS
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ibm-wsc/mq-zos" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../saf-console/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Basic SAF Authentication for MQ Console
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../saf-keyrings/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuring SAF Key Rings for MQ Console
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../certificates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Certificate Management Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../newqmdev/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuring a New Queue Manager Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../connectivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Connectivity to Lab Environment
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../comparing-offloading/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Comparing Offloading Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kafka-bindings/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kafka via Bindings Mode Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kafka-client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kafka via Client Connections Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../logging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Logging
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mp1b/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MP1B Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    MQ Treasure Hunt
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    MQ Treasure Hunt
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#part-1-finding-your-bearings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 1 — Finding Your Bearings
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 1 — Finding Your Bearings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clue-1-whos-in-charge-here" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clue 1 — Who's in charge here? 🟢
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clue-2-what-queues-live-here" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clue 2 — What queues live here? 🟢
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-2-digging-into-queues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 2 — Digging into Queues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 2 — Digging into Queues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clue-3-define-your-own-queue" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clue 3 — Define your own queue 🟡
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clue-4-the-dead-letter-queue-what-goes-there" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clue 4 — The dead-letter queue — what goes there? 🟡
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-3-channels-connectivity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 3 — Channels &amp; Connectivity
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 3 — Channels &amp; Connectivity">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clue-5-channels-who-can-connect" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clue 5 — Channels: who can connect? 🟡
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clue-6-start-a-listener-check-the-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clue 6 — Start a listener, check the status 🟡
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-4-storage-page-sets-buffer-pools" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 4 — Storage: Page Sets &amp; Buffer Pools
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 4 — Storage: Page Sets &amp; Buffer Pools">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clue-7-under-the-hood-page-sets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clue 7 — Under the hood: page sets 🟡
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-5-running-commands-in-batch-with-csqutil" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 5 — Running Commands in Batch with CSQUTIL
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 5 — Running Commands in Batch with CSQUTIL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clue-8-batch-mqsc-with-csqutil" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clue 8 — Batch MQSC with CSQUTIL 🔴
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-6-the-final-challenge" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 6 — The Final Challenge
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 6 — The Final Challenge">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clue-9-the-log-your-safety-net" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clue 9 — The log — your safety net 🔴
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clue-10-tidy-up-the-responsible-explorer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clue 10 — Tidy up — the responsible explorer 🟡
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hunt-complete" class="md-nav__link">
+    <span class="md-ellipsis">
+      🏆 Hunt Complete!
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-reference-key-commands-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick Reference — Key Commands Used
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../qm_upgrade/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Queue Manager Upgrade Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../qsg_bp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Queue Sharing Best Practices
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../queue-statistics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Queue Statistics Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../streaming-queues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Streaming Queues Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../securitylab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Security Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../triggering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Triggering Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../archive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Archived Materials
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_20" >
+        
+          
+          <label class="md-nav__link" for="__nav_20" id="__nav_20_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    MQSMF Blog
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_20_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_20">
+            <span class="md-nav__icon md-icon"></span>
+            MQSMF Blog
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Blog/CF%20calls%20Generated%20by%20an%20MQGET%20Query/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CF Calls Generated by an MQGET Query
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Blog/MultipleQSGAndViews/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Multiple QSG And Views
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Blog/SMF%20data%20gathering%20suggestions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SMF Data Gathering Suggestions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Blog/Symptoms%20that%20led%20to%20PD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Symptoms that led to problem determination
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Blog/Task%20record%20information/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Task Record Information
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#part-1-finding-your-bearings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 1 — Finding Your Bearings
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 1 — Finding Your Bearings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clue-1-whos-in-charge-here" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clue 1 — Who's in charge here? 🟢
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clue-2-what-queues-live-here" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clue 2 — What queues live here? 🟢
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-2-digging-into-queues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 2 — Digging into Queues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 2 — Digging into Queues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clue-3-define-your-own-queue" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clue 3 — Define your own queue 🟡
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clue-4-the-dead-letter-queue-what-goes-there" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clue 4 — The dead-letter queue — what goes there? 🟡
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-3-channels-connectivity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 3 — Channels &amp; Connectivity
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 3 — Channels &amp; Connectivity">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clue-5-channels-who-can-connect" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clue 5 — Channels: who can connect? 🟡
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clue-6-start-a-listener-check-the-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clue 6 — Start a listener, check the status 🟡
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-4-storage-page-sets-buffer-pools" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 4 — Storage: Page Sets &amp; Buffer Pools
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 4 — Storage: Page Sets &amp; Buffer Pools">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clue-7-under-the-hood-page-sets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clue 7 — Under the hood: page sets 🟡
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-5-running-commands-in-batch-with-csqutil" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 5 — Running Commands in Batch with CSQUTIL
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 5 — Running Commands in Batch with CSQUTIL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clue-8-batch-mqsc-with-csqutil" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clue 8 — Batch MQSC with CSQUTIL 🔴
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-6-the-final-challenge" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 6 — The Final Challenge
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 6 — The Final Challenge">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clue-9-the-log-your-safety-net" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clue 9 — The log — your safety net 🔴
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clue-10-tidy-up-the-responsible-explorer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clue 10 — Tidy up — the responsible explorer 🟡
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hunt-complete" class="md-nav__link">
+    <span class="md-ellipsis">
+      🏆 Hunt Complete!
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-reference-key-commands-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick Reference — Key Commands Used
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="ibm-mq-for-zos-treasure-hunt">IBM MQ for z/OS — Treasure Hunt</h1>
+<p>A hands-on exploration of your sandbox queue manager environment.</p>
+<p><strong>Welcome, explorer.</strong> Each clue below sends you somewhere real in your z/OS sandbox. You'll use the <strong>ISPF Operations &amp; Control Panels</strong>, the <strong>z/OS console</strong>, the <strong>CSQUTIL</strong> batch utility, and raw <strong>MQSC commands</strong> to find answers. Work through the clues in order — each one builds on the previous. Good luck.</p>
+<p><strong>Difficulty key:</strong> 🟢 Easy (observation only) · 🟡 Medium (requires a command) · 🔴 Hard (requires problem-solving)</p>
+<hr />
+<h2 id="part-1-finding-your-bearings">Part 1 — Finding Your Bearings</h2>
+<h3 id="clue-1-whos-in-charge-here">Clue 1 — Who's in charge here? 🟢</h3>
+<blockquote>
+<p>Tags: <code>ISPF Panels</code> · <code>DISPLAY QMGR</code></p>
+</blockquote>
+<p>Every z/OS MQ environment starts with a queue manager. Before you can do anything, you need to know what you're working with.</p>
+<p><strong>Your task:</strong> Open the IBM MQ Operations &amp; Control Panels from ISPF (exec <code>CSQOREXX</code>) and navigate to the queue manager. Then, from the CSQUTIL COMMAND function or the z/OS console, run:</p>
+<div class="highlight"><pre><span></span><code>DISPLAY QMGR DESCR CCSID DEADQ MAXMSGL PLATFORM VERSION
+</code></pre></div>
+<p>Write down the queue manager name, its <strong>dead-letter queue</strong> name (<code>DEADQ</code>), and the MQ version number.</p>
+<blockquote>
+<p><strong>Hint:</strong> On the z/OS console, prefix MQSC commands with your queue manager's command prefix, e.g. <code>/+CSQ1 DISPLAY QMGR ALL</code>. In CSQUTIL JCL, you put the MQSC text in a DD statement and run the COMMAND function.
+📖 <a href="https://www.ibm.com/docs/en/ibm-mq/10.0.x?topic=administering-mq-zos">Administering IBM MQ for z/OS</a></p>
+</blockquote>
+<p><strong>Record:</strong> queue manager name · DEADQ name · VERSION reported</p>
+<hr />
+<h3 id="clue-2-what-queues-live-here">Clue 2 — What queues live here? 🟢</h3>
+<blockquote>
+<p>Tags: <code>DISPLAY QUEUE</code> · <code>SYSTEM queues</code></p>
+</blockquote>
+<p>A newly started queue manager comes with a full set of predefined <code>SYSTEM.*</code> queues. Let's see what's there — and count them.</p>
+<p><strong>Your task:</strong> Run the following command and count how many queues are returned:</p>
+<div class="highlight"><pre><span></span><code>DISPLAY QUEUE(SYSTEM.*) TYPE(QLOCAL)
+</code></pre></div>
+<p>Then find the queue used for inbound MQSC commands and the queue used for command responses. What are their names?</p>
+<blockquote>
+<p><strong>Hint:</strong> Look for queues with names like <code>SYSTEM.COMMAND.*</code>. The <em>system-command input queue</em> is where authorized applications send commands as messages.
+📖 <a href="https://www.ibm.com/docs/en/ibm-mq/10.0.x?topic=reference-mqsc-commands">MQSC Commands Reference</a></p>
+</blockquote>
+<p><strong>Record:</strong> total <code>SYSTEM.*</code> local queue count · <code>COMMAND.INPUT</code> name · <code>COMMAND.REPLY</code> name</p>
+<hr />
+<h2 id="part-2-digging-into-queues">Part 2 — Digging into Queues</h2>
+<h3 id="clue-3-define-your-own-queue">Clue 3 — Define your own queue 🟡</h3>
+<blockquote>
+<p>Tags: <code>DEFINE QLOCAL</code> · <code>DISPLAY QSTATUS</code></p>
+</blockquote>
+<p>Time to make your mark. Define a local queue that you'll use as a personal scratchpad for the rest of this hunt.</p>
+<p><strong>Your task:</strong></p>
+<div class="highlight"><pre><span></span><code>-- Replace HUNT with your initials, e.g. HUNT.DQ.TEST
+DEFINE QLOCAL(HUNT.&lt;INITIALS&gt;.TEST) +
+  DESCR(&#39;Treasure hunt scratch queue&#39;) +
+  MAXDEPTH(100) +
+  MAXMSGL(4096) +
+  DEFPSIST(YES)
+</code></pre></div>
+<p>After defining it, confirm it exists:</p>
+<div class="highlight"><pre><span></span><code>DISPLAY QLOCAL(HUNT.*) DESCR MAXDEPTH CURDEPTH DEFPSIST
+</code></pre></div>
+<p>What is the default persistence setting you used, and what does it mean for messages on this queue?</p>
+<blockquote>
+<p><strong>Hint:</strong> <code>DEFPSIST(YES)</code> means messages default to persistent storage — they survive a restart.
+📖 <a href="https://www.ibm.com/docs/en/ibm-mq/10.0.x?topic=overview-mq-objects">IBM MQ Objects</a></p>
+</blockquote>
+<p><strong>Record:</strong> exact queue name created · DEFPSIST value · what MAXDEPTH controls</p>
+<hr />
+<h3 id="clue-4-the-dead-letter-queue-what-goes-there">Clue 4 — The dead-letter queue — what goes there? 🟡</h3>
+<blockquote>
+<p>Tags: <code>Dead-letter queue</code> · <code>DISPLAY USAGE</code> · <code>CSQUDLQH</code></p>
+</blockquote>
+<p>You found the dead-letter queue name in Clue 1. Now investigate it properly.</p>
+<p><strong>Your task:</strong> Run these two commands against the dead-letter queue name you found:</p>
+<div class="highlight"><pre><span></span><code>DISPLAY QLOCAL(&lt;DLQ-NAME&gt;) ALL
+DISPLAY QSTATUS(&lt;DLQ-NAME&gt;) CURDEPTH IPPROCS OPPROCS
+</code></pre></div>
+<p>Answer these questions:</p>
+<ol>
+<li>What is the current depth (<code>CURDEPTH</code>) of the dead-letter queue?</li>
+<li>What is the maximum message length (<code>MAXMSGL</code>) it accepts?</li>
+<li>What z/OS utility is provided to drain and process the dead-letter queue automatically?</li>
+</ol>
+<blockquote>
+<p><strong>Hint:</strong> The utility that processes the dead-letter queue is <code>CSQUDLQH</code>.
+📖 <a href="https://www.ibm.com/docs/en/ibm-mq/10.0.x?topic=reference-mq-utilities-zos">IBM MQ Utilities on z/OS Reference</a></p>
+</blockquote>
+<p><strong>Record:</strong> CURDEPTH · MAXMSGL · name of the DLQ handler utility</p>
+<hr />
+<h2 id="part-3-channels-connectivity">Part 3 — Channels &amp; Connectivity</h2>
+<h3 id="clue-5-channels-who-can-connect">Clue 5 — Channels: who can connect? 🟡</h3>
+<blockquote>
+<p>Tags: <code>DISPLAY CHANNEL</code> · <code>DISPLAY CHINIT</code></p>
+</blockquote>
+<p>Channels are how queue managers talk to the outside world. Let's see what's defined.</p>
+<p><strong>Your task:</strong></p>
+<div class="highlight"><pre><span></span><code>-- List all channels of all types
+DISPLAY CHANNEL(*) TYPE(ALL) CHLTYPE CONNAME TRPTYPE
+
+-- Check whether the channel initiator is running
+DISPLAY CHINIT
+</code></pre></div>
+<p>Answer these questions:</p>
+<ol>
+<li>How many channels are defined?</li>
+<li>Is there a <strong>SVRCONN</strong> (server-connection) channel? What is it named?</li>
+<li>Is the channel initiator active? How many dispatchers are running?</li>
+</ol>
+<blockquote>
+<p><strong>Hint:</strong> <code>DIS CHL(*)</code> is the short form of <code>DISPLAY CHANNEL(*)</code>. <code>DISPLAY CHINIT</code> (synonym: <code>DIS CHI</code>) shows channel initiator status including listeners and active connections.
+📖 <a href="https://www.ibm.com/docs/en/ibm-mq/10.0.x?topic=zos-monitoring-controlling-channels">Monitoring and controlling channels on z/OS</a></p>
+</blockquote>
+<p><strong>Record:</strong> channel count · SVRCONN channel name (if any) · channel initiator dispatcher count</p>
+<hr />
+<h3 id="clue-6-start-a-listener-check-the-status">Clue 6 — Start a listener, check the status 🟡</h3>
+<blockquote>
+<p>Tags: <code>DEFINE LISTENER</code> · <code>START LISTENER</code> · <code>DISPLAY CHSTATUS</code></p>
+</blockquote>
+<p>A listener sits on a TCP port and accepts incoming channel connections. Let's define one and observe it.</p>
+<p><strong>Your task:</strong></p>
+<div class="highlight"><pre><span></span><code>-- Define a listener on port 1415
+DEFINE LISTENER(HUNT.LISTENER) +
+  TRPTYPE(TCP) +
+  PORT(1415) +
+  CONTROL(QMGR)
+
+-- Start it
+START LISTENER(HUNT.LISTENER)
+
+-- Check it appeared in CHINIT output
+DISPLAY CHINIT
+</code></pre></div>
+<p>What does <code>CONTROL(QMGR)</code> mean for the listener's lifecycle?</p>
+<blockquote>
+<p><strong>Hint:</strong> <code>CONTROL(QMGR)</code> means the listener starts and stops automatically with the queue manager.
+📖 <a href="https://www.ibm.com/docs/en/ibm-mq/10.0.x?topic=zos-monitoring-controlling-channels">Monitoring and controlling channels on z/OS</a></p>
+</blockquote>
+<p><strong>Record:</strong> port used · what <code>CONTROL(QMGR)</code> does · listener status shown in <code>DISPLAY CHINIT</code></p>
+<hr />
+<h2 id="part-4-storage-page-sets-buffer-pools">Part 4 — Storage: Page Sets &amp; Buffer Pools</h2>
+<h3 id="clue-7-under-the-hood-page-sets">Clue 7 — Under the hood: page sets 🟡</h3>
+<blockquote>
+<p>Tags: <code>DISPLAY USAGE</code> · <code>Buffer pools</code> · <code>Page sets</code></p>
+</blockquote>
+<p>Unlike multiplatform MQ, IBM MQ for z/OS stores messages in <strong>page sets</strong>, managed through <strong>buffer pools</strong> in virtual storage. Understanding this is fundamental.</p>
+<p><strong>Your task:</strong></p>
+<div class="highlight"><pre><span></span><code>-- Display page set usage and their associated buffer pools
+DISPLAY USAGE TYPE(PAGESET)
+</code></pre></div>
+<p>Answer these questions:</p>
+<ol>
+<li>How many page sets are defined?</li>
+<li>Page set 0 (PSID 0) has a special purpose — what is it used exclusively for?</li>
+<li>What MQSC command would you use to dynamically resize a buffer pool without restarting?</li>
+</ol>
+<blockquote>
+<p><strong>Hint:</strong> PSID 0 holds object definitions (queues, channels, etc.), not messages. Best practice is to keep it in its own buffer pool. The command to resize dynamically is <code>ALTER BUFFPOOL</code>.
+📖 <a href="https://www.ibm.com/docs/en/ibm-mq/10.0.x?topic=zos-buffers-buffer-pools-mq">Buffers and buffer pools for IBM MQ for z/OS</a></p>
+</blockquote>
+<p><strong>Record:</strong> page set count · purpose of PSID 0 · command to resize a buffer pool dynamically</p>
+<hr />
+<h2 id="part-5-running-commands-in-batch-with-csqutil">Part 5 — Running Commands in Batch with CSQUTIL</h2>
+<h3 id="clue-8-batch-mqsc-with-csqutil">Clue 8 — Batch MQSC with CSQUTIL 🔴</h3>
+<blockquote>
+<p>Tags: <code>CSQUTIL</code> · <code>JCL</code> · <code>COMMAND function</code></p>
+</blockquote>
+<p>The CSQUTIL batch utility is the workhorse of z/OS MQ administration. It lets you run MQSC commands from a JCL job and capture output to SYSPRINT. Write a JCL job that uses the COMMAND function.</p>
+<p><strong>Your task:</strong> Allocate a new sequential data set (or a PDS member) containing these MQSC commands:</p>
+<div class="highlight"><pre><span></span><code>DISPLAY QMGR VERSION DEADQ CCSID
+DISPLAY QLOCAL(HUNT.*) CURDEPTH MAXDEPTH
+DISPLAY CHANNEL(*) CHLTYPE
+</code></pre></div>
+<p>Then submit JCL that calls CSQUTIL with the COMMAND function pointing to that data set:</p>
+<div class="highlight"><pre><span></span><code><span class="kp">//</span><span class="nl">MQHUNT</span><span class="w">  </span><span class="kr">JOB</span><span class="w"> </span><span class="p">...</span>
+<span class="kp">//</span><span class="nl">STEP1</span><span class="w">   </span><span class="kr">EXEC</span><span class="w"> </span><span class="n">PGM</span><span class="o">=</span><span class="n">CSQUTIL</span><span class="p">,</span><span class="n">PARM</span><span class="o">=</span><span class="s">&#39;&lt;QMGRNAME&gt;&#39;</span>
+<span class="kp">//</span><span class="nv">SYSPRINT</span><span class="kr"> DD </span><span class="n">SYSOUT</span><span class="o">=</span><span class="nb">*</span>
+<span class="kp">//</span><span class="nv">SYSIN</span><span class="kr">    DD </span><span class="nb">*</span>
+<span class="x">  COMMAND DDNAME(MQCMDS)</span>
+<span class="kp">/*</span>
+<span class="kp">//</span><span class="nv">MQCMDS</span><span class="kr">  DD </span><span class="n">DSN</span><span class="o">=</span><span class="p">&lt;</span><span class="n">your</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">set</span><span class="p">&gt;,</span><span class="n">DISP</span><span class="o">=</span><span class="n">SHR</span>
+</code></pre></div>
+<p>Check SYSPRINT for the output. What return code did the job end with?</p>
+<blockquote>
+<p><strong>Hint:</strong> RC=0 means success. The COMMAND function sends each MQSC statement to the <code>SYSTEM.COMMAND.INPUT</code> queue and prints the response.
+📖 <a href="https://www.ibm.com/docs/en/ibm-mq/10.0.x?topic=utilities-using-csqutil-utility-mq-zos">Using the CSQUTIL Utility for IBM MQ for z/OS</a> · <a href="https://www.ibm.com/docs/en/ibm-mq/10.0.x?topic=zos-invoking-mq-utility-program">Invoking the IBM MQ Utility Program on z/OS</a></p>
+</blockquote>
+<p><strong>Record:</strong> job return code · SYSPRINT output snippet confirming commands ran · any warnings</p>
+<hr />
+<h2 id="part-6-the-final-challenge">Part 6 — The Final Challenge</h2>
+<h3 id="clue-9-the-log-your-safety-net">Clue 9 — The log — your safety net 🔴</h3>
+<blockquote>
+<p>Tags: <code>DISPLAY LOG</code> · <code>BSDS</code> · <code>Recovery</code></p>
+</blockquote>
+<p>The MQ for z/OS active log is your guarantee that nothing is lost. Let's inspect it.</p>
+<p><strong>Your task:</strong></p>
+<div class="highlight"><pre><span></span><code>DISPLAY LOG
+</code></pre></div>
+<p>From the output, answer:</p>
+<ol>
+<li>What is the name of the <strong>Bootstrap Data Set (BSDS)</strong>? (Look for it in the console output or initialization messages.)</li>
+<li>Is log compression active?</li>
+<li>What utility would you use to print the log map and see all active/archive log data sets?</li>
+</ol>
+<blockquote>
+<p><strong>Hint:</strong> The BSDS is a VSAM data set that acts as an index of all MQ log data sets. The utility for printing the log map is <code>CSQJU004</code>.
+📖 <a href="https://www.ibm.com/docs/en/ibm-mq/10.0.x?topic=reference-display-log-display-log-information-zos">DISPLAY LOG on z/OS</a> · <a href="https://www.ibm.com/docs/en/ibm-mq/10.0.x?topic=zos-managing-mq-resources">Managing IBM MQ Resources on z/OS</a></p>
+</blockquote>
+<p><strong>Record:</strong> BSDS data set name · log compression status · name of the log map utility</p>
+<hr />
+<h3 id="clue-10-tidy-up-the-responsible-explorer">Clue 10 — Tidy up — the responsible explorer 🟡</h3>
+<blockquote>
+<p>Tags: <code>DELETE QLOCAL</code> · <code>STOP LISTENER</code> · <code>DELETE LISTENER</code></p>
+</blockquote>
+<p>A good administrator always cleans up after themselves. Remove the objects you created during this hunt.</p>
+<p><strong>Your task:</strong></p>
+<div class="highlight"><pre><span></span><code>-- Stop and delete your listener
+STOP LISTENER(HUNT.LISTENER)
+DELETE LISTENER(HUNT.LISTENER)
+
+-- Delete your test queue
+DELETE QLOCAL(HUNT.&lt;INITIALS&gt;.TEST)
+
+-- Verify they are gone
+DISPLAY LISTENER(HUNT.*) IGNSTATE(YES)
+DISPLAY QLOCAL(HUNT.*)
+</code></pre></div>
+<p>What error message do you get when trying to DISPLAY a queue that no longer exists? What does that message number start with?</p>
+<blockquote>
+<p><strong>Hint:</strong> IBM MQ for z/OS messages start with the prefix <code>CSQ</code>. A "not found" condition will produce a message in the <code>CSQM...</code> range. Check your console output or SYSPRINT carefully.
+📖 <a href="https://www.ibm.com/docs/en/ibm-mq/10.0.x?topic=administering-mq-zos">Administering IBM MQ for z/OS</a></p>
+</blockquote>
+<p><strong>Record:</strong> the <code>CSQ</code>-prefixed message ID you received · confirmation that cleanup was successful</p>
+<hr />
+<h2 id="hunt-complete">🏆 Hunt Complete!</h2>
+<p>If you've answered all 10 clues, you've touched the key pillars of IBM MQ for z/OS administration: the queue manager, queues, channels, the channel initiator, page sets, buffer pools, the log, the BSDS, CSQUTIL batch administration, and the ISPF Operations &amp; Control Panels. You're ready to go deeper.</p>
+<hr />
+<h2 id="quick-reference-key-commands-used">Quick Reference — Key Commands Used</h2>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Short Form</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DISPLAY QMGR</code></td>
+<td><code>DIS QMGR</code></td>
+<td>Show queue manager attributes</td>
+</tr>
+<tr>
+<td><code>DISPLAY QLOCAL</code></td>
+<td><code>DIS QL</code></td>
+<td>Show local queue definitions</td>
+</tr>
+<tr>
+<td><code>DISPLAY QSTATUS</code></td>
+<td><code>DIS QS</code></td>
+<td>Show live queue status (depth, open handles)</td>
+</tr>
+<tr>
+<td><code>DISPLAY CHANNEL</code></td>
+<td><code>DIS CHL</code></td>
+<td>Show channel definitions</td>
+</tr>
+<tr>
+<td><code>DISPLAY CHINIT</code></td>
+<td><code>DIS CHI</code></td>
+<td>Show channel initiator status</td>
+</tr>
+<tr>
+<td><code>DISPLAY USAGE TYPE(PAGESET)</code></td>
+<td><code>DIS USAGE</code></td>
+<td>Show page set and buffer pool usage</td>
+</tr>
+<tr>
+<td><code>DISPLAY LOG</code></td>
+<td><code>DIS LOG</code></td>
+<td>Show active log parameters (z/OS only)</td>
+</tr>
+<tr>
+<td><code>ALTER BUFFPOOL</code></td>
+<td>—</td>
+<td>Dynamically resize a buffer pool</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; 2026 IBM
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["content.tabs.link"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

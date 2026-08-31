@@ -2,102 +2,106 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://ibm-wsc.github.io/mq-zos/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-08-31</lastmod>
     </url>
     <url>
          <loc>https://ibm-wsc.github.io/mq-zos/archive/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-08-31</lastmod>
     </url>
     <url>
          <loc>https://ibm-wsc.github.io/mq-zos/certificates/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-08-31</lastmod>
     </url>
     <url>
          <loc>https://ibm-wsc.github.io/mq-zos/comparing-offloading/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-08-31</lastmod>
     </url>
     <url>
          <loc>https://ibm-wsc.github.io/mq-zos/connectivity/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-08-31</lastmod>
     </url>
     <url>
          <loc>https://ibm-wsc.github.io/mq-zos/kafka-bindings/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-08-31</lastmod>
     </url>
     <url>
          <loc>https://ibm-wsc.github.io/mq-zos/kafka-client/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-08-31</lastmod>
     </url>
     <url>
          <loc>https://ibm-wsc.github.io/mq-zos/logging/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-08-31</lastmod>
     </url>
     <url>
          <loc>https://ibm-wsc.github.io/mq-zos/mp1b/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-08-31</lastmod>
     </url>
     <url>
          <loc>https://ibm-wsc.github.io/mq-zos/mq-smpe/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-08-31</lastmod>
     </url>
     <url>
          <loc>https://ibm-wsc.github.io/mq-zos/new-queue-manager/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-08-31</lastmod>
     </url>
     <url>
          <loc>https://ibm-wsc.github.io/mq-zos/newqmdev/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-08-31</lastmod>
     </url>
     <url>
          <loc>https://ibm-wsc.github.io/mq-zos/qm_upgrade/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-08-31</lastmod>
     </url>
     <url>
          <loc>https://ibm-wsc.github.io/mq-zos/qsg_bp/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-08-31</lastmod>
     </url>
     <url>
          <loc>https://ibm-wsc.github.io/mq-zos/queue-statistics/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-08-31</lastmod>
     </url>
     <url>
          <loc>https://ibm-wsc.github.io/mq-zos/saf-console/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-08-31</lastmod>
     </url>
     <url>
          <loc>https://ibm-wsc.github.io/mq-zos/saf-keyrings/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-08-31</lastmod>
     </url>
     <url>
          <loc>https://ibm-wsc.github.io/mq-zos/securitylab/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-08-31</lastmod>
     </url>
     <url>
          <loc>https://ibm-wsc.github.io/mq-zos/streaming-queues/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-08-31</lastmod>
+    </url>
+    <url>
+         <loc>https://ibm-wsc.github.io/mq-zos/treasurehunt/</loc>
+         <lastmod>2026-08-31</lastmod>
     </url>
     <url>
          <loc>https://ibm-wsc.github.io/mq-zos/triggering/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-08-31</lastmod>
     </url>
     <url>
          <loc>https://ibm-wsc.github.io/mq-zos/Blog/CF%20calls%20Generated%20by%20an%20MQGET%20Query/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-08-31</lastmod>
     </url>
     <url>
          <loc>https://ibm-wsc.github.io/mq-zos/Blog/MultipleQSGAndViews/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-08-31</lastmod>
     </url>
     <url>
          <loc>https://ibm-wsc.github.io/mq-zos/Blog/SMF%20data%20gathering%20suggestions/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-08-31</lastmod>
     </url>
     <url>
          <loc>https://ibm-wsc.github.io/mq-zos/Blog/Symptoms%20that%20led%20to%20PD/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-08-31</lastmod>
     </url>
     <url>
          <loc>https://ibm-wsc.github.io/mq-zos/Blog/Task%20record%20information/</loc>
-         <lastmod>2026-04-30</lastmod>
+         <lastmod>2026-08-31</lastmod>
     </url>
 </urlset>
